@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
+import { formatTimestamp } from './RunCard';
 
 /**
- * AllHistoryMatrix - Renders a pivot table of all components' reference counts
- * across all report runs for the selected category.
+ * AllHistoryMatrix - Renders a transposed pivot table of components (rows)
+ * across all report runs (columns) for the selected category.
  *
  * @param {object}   props
  * @param {object[]} props.reportRuns - List of runs from index.json
@@ -45,8 +46,8 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
     loadAllDetails();
   }, [reportRuns, categoryDir]);
 
-  // Aggregate components and calculate spans
-  const { uniqueComponents, filesHeader } = useMemo(() => {
+  // Aggregate unique components and sort them by file, then by component name (ascending)
+  const uniqueComponents = useMemo(() => {
     const compMap = {};
     matrixData.forEach((run) => {
       run.components.forEach((c) => {
@@ -57,32 +58,32 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
       });
     });
 
-    const uniqueList = Object.values(compMap).sort((a, b) => {
+    return Object.values(compMap).sort((a, b) => {
       if (a.file !== b.file) return a.file.localeCompare(b.file);
       return a.name.localeCompare(b.name);
     });
+  }, [matrixData]);
 
-    const headers = [];
+  // Calculate rowSpan offsets for the file column
+  const rowSpans = useMemo(() => {
+    const spans = new Array(uniqueComponents.length).fill(0);
     let currentFile = null;
-    let currentSpan = 0;
+    let startIndex = 0;
 
-    uniqueList.forEach((c) => {
+    uniqueComponents.forEach((c, idx) => {
       if (c.file !== currentFile) {
         if (currentFile !== null) {
-          headers.push({ file: currentFile, colSpan: currentSpan });
+          spans[startIndex] = idx - startIndex;
         }
         currentFile = c.file;
-        currentSpan = 1;
-      } else {
-        currentSpan++;
+        startIndex = idx;
       }
     });
     if (currentFile !== null) {
-      headers.push({ file: currentFile, colSpan: currentSpan });
+      spans[startIndex] = uniqueComponents.length - startIndex;
     }
-
-    return { uniqueComponents: uniqueList, filesHeader: headers };
-  }, [matrixData]);
+    return spans;
+  }, [uniqueComponents]);
 
   if (loading) {
     return (
@@ -114,70 +115,62 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
       <div>
         <h2 className="text-xl font-bold text-white mb-2">전체 이력 매트릭스</h2>
         <p className="text-xs text-text-secondary">
-          모든 리포트 주기의 컴포넌트별 참조 횟수 변화를 한눈에 볼 수 있습니다.
+          모든 리포트 주기의 컴포넌트별 참조 횟수 변화를 가로 흐름(과거 → 현재)으로 추적합니다.
         </p>
       </div>
 
       <div className="flex-1 border border-border bg-panel rounded-lg overflow-auto max-h-[calc(100vh-230px)]">
         <table className="border-collapse text-left text-[11px] font-mono whitespace-nowrap min-w-full">
           <thead>
-            {/* Header Row 1: File Names */}
+            {/* Header Row: Components Meta Columns + Run Dates */}
             <tr className="bg-[rgba(17,22,34,0.95)] backdrop-blur-panel border-b border-border">
-              <th className="sticky top-0 left-0 z-40 bg-[rgba(17,22,34,0.95)] px-4 py-3 font-semibold text-text-secondary border-r border-border min-w-[160px]">
-                분석 시간
+              <th className="sticky top-0 left-0 z-40 bg-[rgba(17,22,34,0.95)] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[150px] min-w-[150px] max-w-[150px]">
+                파일명
               </th>
-              {filesHeader.map((h, i) => (
-                <th
-                  key={`${h.file}-${i}`}
-                  colSpan={h.colSpan}
-                  className="sticky top-0 z-30 px-4 py-3 font-semibold text-accent border-r border-border text-center text-xs"
-                >
-                  {h.file}
-                </th>
-              ))}
-            </tr>
-            {/* Header Row 2: Component Names */}
-            <tr className="bg-[rgba(17,22,34,0.95)] border-b border-border">
-              <th className="sticky top-0 left-0 z-40 bg-[rgba(17,22,34,0.95)] px-4 py-2 border-r border-border">
-                {/* Blank under Date */}
+              <th className="sticky top-0 left-[150px] z-40 bg-[rgba(17,22,34,0.95)] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[200px] min-w-[200px] max-w-[200px]">
+                컴포넌트명
               </th>
-              {uniqueComponents.map((c, i) => (
+              {matrixData.map((run, i) => (
                 <th
-                  key={`${c.file}-${c.name}-${i}`}
-                  className="sticky top-0 z-30 px-3 py-2 font-bold text-white border-r border-border text-center"
+                  key={`${run.timestamp}-${i}`}
+                  className="sticky top-0 z-30 px-5 py-3 font-semibold text-accent border-r border-border text-center text-xs"
                 >
-                  {c.name}
+                  {formatTimestamp(run.timestamp)}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {matrixData.map((run, runIdx) => {
-              // Create map for fast lookup of this run's components
-              const countMap = {};
-              run.components.forEach((c) => {
-                countMap[`${c.file}::${c.name}`] = c.count;
-              });
-
-              // Create map for the next (older) run once
-              const nextRun = matrixData[runIdx + 1];
-              const prevCountMap = {};
-              if (nextRun) {
-                nextRun.components.forEach((c) => {
-                  prevCountMap[`${c.file}::${c.name}`] = c.count;
-                });
-              }
-
+            {uniqueComponents.map((c, compIdx) => {
+              const fileSpan = rowSpans[compIdx];
               return (
                 <tr
-                  key={run.timestamp}
+                  key={`${c.file}-${c.name}-${compIdx}`}
                   className="hover:bg-white/[0.015] border-b border-border last:border-0"
                 >
-                  {/* Sticky Date/Time Column */}
-                  <td className="sticky left-0 z-20 bg-bg/95 font-sans font-semibold text-text-primary px-4 py-2.5 border-r border-border shadow-[4px_0_10px_rgba(0,0,0,0.3)]">
-                    {run.date}
+                  {/* File Name Column (sticky left-0) */}
+                  {fileSpan > 0 && (
+                    <td
+                      rowSpan={fileSpan}
+                      className="sticky left-0 z-20 bg-bg font-sans font-semibold text-text-secondary px-4 py-2.5 border-r border-border w-[150px] min-w-[150px] max-w-[150px] align-middle overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)]"
+                    >
+                      {c.file}
+                    </td>
+                  )}
+
+                  {/* Component Name Column (sticky left-150px) */}
+                  <td className="sticky left-[150px] z-20 bg-bg font-sans font-bold text-white px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+                    {c.name}
                   </td>
-                  {uniqueComponents.map((c, compIdx) => {
+
+                  {/* Date Cells */}
+                  {matrixData.map((run, runIdx) => {
+                    // Create lookup maps for current run and the next (older) run
+                    const countMap = {};
+                    run.components.forEach((rc) => {
+                      countMap[`${rc.file}::${rc.name}`] = rc.count;
+                    });
+
                     const count = countMap[`${c.file}::${c.name}`];
                     const hasValue = count !== undefined;
                     const isUnused = count === 0;
@@ -189,14 +182,22 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                       if (isUnused) {
                         trendClass = 'text-text-muted/60';
                       } else {
-                        const prevCount = prevCountMap[`${c.file}::${c.name}`];
-                        if (prevCount !== undefined) {
-                          if (count > prevCount) {
-                            trendClass = 'text-success';
-                            diffText = ` (+${count - prevCount})`;
-                          } else if (count < prevCount) {
-                            trendClass = 'text-danger';
-                            diffText = ` (-${prevCount - count})`;
+                        // Compare current run with next run (older run, so runIdx + 1)
+                        const nextRun = matrixData[runIdx + 1];
+                        if (nextRun) {
+                          const prevCountMap = {};
+                          nextRun.components.forEach((nc) => {
+                            prevCountMap[`${nc.file}::${nc.name}`] = nc.count;
+                          });
+                          const prevCount = prevCountMap[`${c.file}::${c.name}`];
+                          if (prevCount !== undefined) {
+                            if (count > prevCount) {
+                              trendClass = 'text-success';
+                              diffText = ` (+${count - prevCount})`;
+                            } else if (count < prevCount) {
+                              trendClass = 'text-danger';
+                              diffText = ` (-${prevCount - count})`;
+                            }
                           }
                         }
                       }
@@ -206,7 +207,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
 
                     return (
                       <td
-                        key={`${c.file}-${c.name}-${compIdx}`}
+                        key={`${run.timestamp}-${compIdx}`}
                         className={`px-3 py-2.5 border-r border-border text-center font-bold ${trendClass}`}
                       >
                         {hasValue ? `${count}회${diffText}` : '-'}

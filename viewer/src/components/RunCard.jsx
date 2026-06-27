@@ -1,32 +1,53 @@
 /**
- * RunCard - A single report history item in the sidebar.
- *
- * @param {object}   props
- * @param {object}   props.run          - Report run object
- * @param {boolean}  props.isActive     - Whether this run is currently selected
- * @param {Function} props.onSelect     - Callback when card is clicked
- * @param {string}   props.intervalLabel - The label indicating daily, weekly, monthly, yearly
+ * Helper to format a report timestamp based on its folder name structure.
+ * 
+ * @param {string} timestamp - Folder name (e.g., '20260628', '2026_W25', '2026_06', '2026')
+ * @returns {string} Formatted display label
  */
-export default function RunCard({ run, isActive, onSelect, intervalLabel }) {
-  let title = run.date;
+export function formatTimestamp(timestamp) {
+  if (!timestamp) return '';
   
-  if (intervalLabel === '주간별') {
-    const parts = run.timestamp.split('_');
+  // Weekly: e.g., '2026_W25'
+  if (timestamp.includes('_W')) {
+    const parts = timestamp.split('_');
     if (parts.length >= 2) {
       const year = parts[0];
       const week = parts[1].replace('W', '');
-      title = `${year}년 ${parseInt(week, 10)}주차`;
+      return `${year}년 ${parseInt(week, 10)}주차`;
     }
-  } else if (intervalLabel === '월간별') {
-    const parts = run.timestamp.split('_');
+  }
+  
+  // Monthly: e.g., '2026_06'
+  if (timestamp.includes('_')) {
+    const parts = timestamp.split('_');
     if (parts.length >= 2) {
       const year = parts[0];
       const month = parts[1];
-      title = `${year}년 ${parseInt(month, 10)}월`;
+      return `${year}년 ${parseInt(month, 10)}월`;
     }
-  } else if (intervalLabel === '연간별') {
-    title = `${run.timestamp}년`;
   }
+  
+  // Daily: e.g., '20260628'
+  if (timestamp.length === 8 && /^\d+$/.test(timestamp)) {
+    const year = timestamp.substring(0, 4);
+    const month = timestamp.substring(4, 6);
+    const day = timestamp.substring(6, 8);
+    return `${year}-${month}-${day}`;
+  }
+  
+  // Yearly: e.g., '2026'
+  if (timestamp.length === 4 && /^\d+$/.test(timestamp)) {
+    return `${timestamp}년`;
+  }
+  
+  return timestamp;
+}
+
+/**
+ * RunCard - A single report history item in the sidebar.
+ */
+export default function RunCard({ run, isActive, onSelect }) {
+  const title = formatTimestamp(run.timestamp);
 
   return (
     <button
