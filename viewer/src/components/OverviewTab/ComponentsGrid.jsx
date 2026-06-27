@@ -30,6 +30,7 @@ export default function ComponentsGrid({ components, onNavigate }) {
     <div className="flex flex-col gap-8">
       {fileOrder.map((fileName) => {
         const fileComps = grouped[fileName];
+        const totalRefs = fileComps.reduce((sum, c) => sum + c.count, 0);
         return (
           <div key={fileName} className="flex flex-col gap-4">
             {/* File Header */}
@@ -45,6 +46,9 @@ export default function ComponentsGrid({ components, onNavigate }) {
               </button>
               <span className="text-[11px] text-text-secondary bg-white/5 border border-border px-2.5 py-0.5 rounded-full font-sans">
                 컴포넌트 {fileComps.length}개
+              </span>
+              <span className="text-[11px] text-text-secondary bg-white/5 border border-border px-2.5 py-0.5 rounded-full font-sans">
+                총 참조 {totalRefs}회
               </span>
             </div>
 
