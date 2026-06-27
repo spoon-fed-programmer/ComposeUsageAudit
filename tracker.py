@@ -404,14 +404,15 @@ def main():
     
     branch_name = get_git_branch(project_path)
     
-    write_reports(config["OUTPUT_DIR"], project_name, timestamp_report, timestamp_dir, components, branch_name)
+    module_output_dir = os.path.join(config["OUTPUT_DIR"], "compose_common_component")
+    write_reports(module_output_dir, project_name, timestamp_report, timestamp_dir, components, branch_name)
     
     total_components = len(components)
     active_components = sum(1 for c in components if c['ref_count'] > 0)
     unused_components = total_components - active_components
     total_references = sum(c['ref_count'] for c in components)
     
-    print(f"\nReports generated successfully in: {config['OUTPUT_DIR']}")
+    print(f"\nReports generated successfully in: {module_output_dir}")
     print(f"Summary:")
     print(f" - Total Components: {total_components}")
     print(f" - Active Components: {active_components}")

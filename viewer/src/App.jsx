@@ -4,7 +4,7 @@ import AppHeader from './components/AppHeader';
 import Sidebar from './components/Sidebar';
 import MainPanel from './components/MainPanel';
 
-const DEFAULT_SOURCE = 'reports/summary_daily/index.json';
+const DEFAULT_SOURCE = 'reports/compose_common_component/summary_daily/index.json';
 
 /**
  * App - Root component. Manages data source selection and wires

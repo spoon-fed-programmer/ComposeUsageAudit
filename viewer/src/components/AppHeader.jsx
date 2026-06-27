@@ -42,10 +42,10 @@ export default function AppHeader({ onHome, sourcePath, onSourceChange, onLoadSo
           onChange={(e) => onSourceChange(e.target.value)}
           className="bg-bg/80 text-text-primary border border-border px-3 py-1.5 rounded-sm text-sm font-sans cursor-pointer outline-none transition-colors hover:border-accent"
         >
-          <option value="reports/summary_daily/index.json">일별 리포트</option>
-          <option value="reports/summary_weekly/index.json">주간별 리포트</option>
-          <option value="reports/summary_monthly/index.json">월간별 리포트</option>
-          <option value="reports/summary_yearly/index.json">연간별 리포트</option>
+          <option value="reports/compose_common_component/summary_daily/index.json">일별 리포트</option>
+          <option value="reports/compose_common_component/summary_weekly/index.json">주간별 리포트</option>
+          <option value="reports/compose_common_component/summary_monthly/index.json">월간별 리포트</option>
+          <option value="reports/compose_common_component/summary_yearly/index.json">연간별 리포트</option>
           <option value="custom">직접 입력...</option>
         </select>
 
