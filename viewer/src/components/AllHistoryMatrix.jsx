@@ -121,7 +121,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
       </div>
 
       <div className="flex-1 border border-border bg-panel rounded-lg overflow-auto max-h-[calc(100vh-230px)]">
-        <table className="border-collapse text-left text-[11px] font-mono whitespace-nowrap min-w-full">
+        <table className="border-collapse text-left text-[11px] font-mono whitespace-nowrap w-max">
           <thead>
             {/* Header Row: Components Meta Columns + Run Dates */}
             <tr className="bg-[#080b11] border-b border-border">
@@ -137,7 +137,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                   onMouseEnter={() => setHoveredColIdx(i)}
                   onMouseLeave={() => setHoveredColIdx(null)}
                   className={[
-                    'sticky top-0 z-30 px-2 py-3 font-semibold text-accent border-r border-border text-center text-xs w-[110px] min-w-[110px] max-w-[110px] overflow-hidden text-ellipsis transition-colors duration-150',
+                    'sticky top-0 z-30 px-2 py-3 font-semibold text-accent border-r border-border text-center text-xs w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150',
                     hoveredColIdx === i ? 'bg-white/[0.04]' : 'bg-[#080b11]'
                   ].join(' ')}
                 >
@@ -180,7 +180,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                     onMouseEnter={() => setHoveredColIdx(runIdx)}
                     onMouseLeave={() => setHoveredColIdx(null)}
                     className={[
-                      `px-2 py-3 border-r border-border text-center font-extrabold w-[110px] min-w-[110px] max-w-[110px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                      `px-2 py-3 border-r border-border text-center font-extrabold w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
                       isHovered ? 'bg-white/[0.02]' : ''
                     ].join(' ')}
                   >
@@ -261,7 +261,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                         onMouseEnter={() => setHoveredColIdx(runIdx)}
                         onMouseLeave={() => setHoveredColIdx(null)}
                         className={[
-                          `px-2 py-2 border-r border-border text-center font-bold w-[110px] min-w-[110px] max-w-[110px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                          `px-2 py-2 border-r border-border text-center font-bold w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
                           isHovered ? 'bg-white/[0.02]' : ''
                         ].join(' ')}
                       >

@@ -7,37 +7,37 @@
 export function formatTimestamp(timestamp) {
   if (!timestamp) return '';
   
-  // Weekly: e.g., '2026_W25'
+  // Weekly: e.g., '2026_W25' -> '26년 25주'
   if (timestamp.includes('_W')) {
     const parts = timestamp.split('_');
     if (parts.length >= 2) {
-      const year = parts[0];
+      const year = parts[0].substring(2);
       const week = parts[1].replace('W', '');
-      return `${year}년 ${parseInt(week, 10)}주차`;
+      return `${year}년 ${parseInt(week, 10)}주`;
     }
   }
   
-  // Monthly: e.g., '2026_06'
+  // Monthly: e.g., '2026_06' -> '26년 6월'
   if (timestamp.includes('_')) {
     const parts = timestamp.split('_');
     if (parts.length >= 2) {
-      const year = parts[0];
+      const year = parts[0].substring(2);
       const month = parts[1];
       return `${year}년 ${parseInt(month, 10)}월`;
     }
   }
   
-  // Daily: e.g., '20260628'
+  // Daily: e.g., '20260628' -> '26-06-28'
   if (timestamp.length === 8 && /^\d+$/.test(timestamp)) {
-    const year = timestamp.substring(0, 4);
+    const year = timestamp.substring(2, 4);
     const month = timestamp.substring(4, 6);
     const day = timestamp.substring(6, 8);
     return `${year}-${month}-${day}`;
   }
   
-  // Yearly: e.g., '2026'
+  // Yearly: e.g., '2026' -> '26년'
   if (timestamp.length === 4 && /^\d+$/.test(timestamp)) {
-    return `${timestamp}년`;
+    return `${timestamp.substring(2)}년`;
   }
   
   return timestamp;
