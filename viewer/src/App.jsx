@@ -43,6 +43,14 @@ export default function App() {
     loadSourceIndex(customPath);
   };
 
+  const getIntervalLabel = () => {
+    if (sourcePath.includes('summary_daily')) return '일별';
+    if (sourcePath.includes('summary_weekly')) return '주간별';
+    if (sourcePath.includes('summary_monthly')) return '월간별';
+    if (sourcePath.includes('summary_yearly')) return '연간별';
+    return '';
+  };
+
   const handleHome = () => {
     clearSelectedRun();
   };
@@ -63,6 +71,7 @@ export default function App() {
           loading={loading && reportRuns.length === 0}
           error={!selectedRun && error ? error : null}
           onSelectRun={selectRun}
+          intervalLabel={getIntervalLabel()}
         />
         <MainPanel
           selectedRun={selectedRun}
