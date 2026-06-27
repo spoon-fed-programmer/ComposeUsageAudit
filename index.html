@@ -64,6 +64,28 @@
             z-index: 100;
         }
 
+        .header-report-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            text-align: center;
+        }
+
+        .header-report-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-report-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
         .logo-section h1 {
             font-size: 24px;
             font-weight: 700;
@@ -297,20 +319,25 @@
         /* Metrics Cards */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 200px);
             gap: 20px;
+            justify-content: center;
+            margin: 0 auto;
+            width: fit-content;
         }
 
         .metric-card {
             background: var(--panel-bg);
             border: 1px solid var(--panel-border);
-            border-radius: var(--radius-lg);
-            padding: 24px;
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
             backdrop-filter: blur(16px);
             position: relative;
+            text-align: center;
+            align-items: center;
         }
 
         .metric-card .metric-label {
@@ -799,6 +826,7 @@
         <div class="logo-section" onclick="goHome()" style="cursor: pointer; user-select: none;">
             <h1>Compose Component Audit <span>Viewer</span></h1>
         </div>
+        <div id="header-report-info" class="header-report-info"></div>
         <div class="source-selector">
             <label for="json-source-select">데이터 소스:</label>
             <select id="json-source-select" onchange="handleSourceChange()">
@@ -850,6 +878,10 @@
         function goHome() {
             selectedRun = null;
             renderSidebarRuns();
+            const headerInfoEl = document.getElementById('header-report-info');
+            if (headerInfoEl) {
+                headerInfoEl.innerHTML = '';
+            }
             const mainPanel = document.getElementById('main-panel');
             mainPanel.innerHTML = `
                 <div class="empty-state">
@@ -1071,45 +1103,27 @@
         function renderDashboard() {
             const mainPanel = document.getElementById('main-panel');
             
-            // Build metrics values
-            const total = selectedRun.summary.total_components;
-            const active = selectedRun.summary.active_components;
-            const unused = selectedRun.summary.unused_components;
-            const refs = selectedRun.summary.total_references;
-            const activeRatio = total > 0 ? Math.round((active / total) * 100) : 0;
-            const unusedRatio = total > 0 ? Math.round((unused / total) * 100) : 0;
+                    const branchTag = selectedRun.branch ? `<span class="branch-tag">${selectedRun.branch}</span>` : '';
 
-            const branchTag = selectedRun.branch ? `<span class="branch-tag">${selectedRun.branch}</span>` : '';
+            // Update header report info
+            const headerInfoEl = document.getElementById('header-report-info');
+            if (headerInfoEl) {
+                headerInfoEl.innerHTML = `
+                    <div class="header-report-title">${selectedRun.project_name} 리포트 ${branchTag}</div>
+                    <div class="header-report-time">분석 시간: ${selectedRun.date} KST</div>
+                `;
+            }
 
             mainPanel.innerHTML = `
-                <div class="dashboard-header">
-                    <div class="dashboard-title-row">
-                        <h2>${selectedRun.project_name} 리포트 ${branchTag}</h2>
-                    </div>
-                    <div class="dashboard-subtitle">분석 시간: ${selectedRun.date} KST</div>
-                </div>
-
                 <!-- Metrics -->
                 <div class="metrics-grid">
                     <div class="metric-card highlighted">
                         <span class="metric-label">전체 컴포넌트</span>
                         <span class="metric-value">${total}</span>
-                        <div class="progress-container"><div class="progress-bar" style="background-color: var(--accent); width: 100%;"></div></div>
-                    </div>
-                    <div class="metric-card subtle">
-                        <span class="metric-label">활성 컴포넌트</span>
-                        <span class="metric-value" style="color: var(--success);">${active} <span style="font-size: 16px; font-weight: 500;">(${activeRatio}%)</span></span>
-                        <div class="progress-container"><div class="progress-bar" style="background-color: var(--success); width: ${activeRatio}%;"></div></div>
-                    </div>
-                    <div class="metric-card subtle">
-                        <span class="metric-label">미사용 컴포넌트</span>
-                        <span class="metric-value" style="color: var(--text-secondary);">${unused} <span style="font-size: 16px; font-weight: 500;">(${unusedRatio}%)</span></span>
-                        <div class="progress-container"><div class="progress-bar" style="background-color: var(--text-muted); width: ${unusedRatio}%;"></div></div>
                     </div>
                     <div class="metric-card highlighted references">
                         <span class="metric-label">총 사용 참조 횟수</span>
-                        <span class="metric-value" style="color: var(--warning);">${refs}</span>
-                        <div class="progress-container"><div class="progress-bar" style="background-color: var(--warning); width: 100%;"></div></div>
+                        <span class="metric-value">${refs}</span>
                     </div>
                 </div>
 
