@@ -4,6 +4,11 @@ import json
 import csv
 import datetime
 import subprocess
+import sys
+
+# Force Windows console to UTF-8 code page (65001) to prevent corrupted Korean console output
+if sys.platform.startswith('win'):
+    os.system('chcp 65001 > nul')
 
 def strip_comments(code: str) -> str:
     """
