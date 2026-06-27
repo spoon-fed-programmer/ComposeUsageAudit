@@ -1,0 +1,33 @@
+Package,com.common.compose.layout
+File,Layouts.kt
+
+Component,ScrollableColumn
+Reference Count,2
+Referenced Class
+com.domain.cart.CartFragment
+com.domain.notification.NotificationActivity
+
+Component,FooterLayout
+Reference Count,1
+Referenced Class
+com.domain.home.HomeActivity
+
+Component,GridList
+Reference Count,1
+Referenced Class
+com.domain.product.ProductListFragment
+
+Component,HeaderLayout
+Reference Count,1
+Referenced Class
+com.domain.home.HomeActivity
+
+Component,ResponsiveRow
+Reference Count,1
+Referenced Class
+com.domain.product.ProductDetailActivity
+
+Component,SidebarLayout
+Reference Count,0
+Referenced Class
+

@@ -1,0 +1,41 @@
+Package,com.common.compose.button
+File,Buttons.kt
+
+Component,PrimaryButton
+Reference Count,8
+Referenced Class
+com.domain.auth.LoginActivity
+com.domain.auth.RegisterActivity
+com.domain.cart.CartFragment
+com.domain.home.HomeActivity
+com.domain.product.ProductDetailActivity
+com.domain.settings.SettingsActivity
+com.domain.settings.SettingsFragment
+
+Component,IconButton
+Reference Count,2
+Referenced Class
+com.domain.product.ProductDetailActivity
+com.domain.product.ProductListFragment
+
+Component,SecondaryButton
+Reference Count,1
+Referenced Class
+com.domain.profile.ProfileActivity
+
+Component,FloatingActionButton
+Reference Count,0
+Referenced Class
+
+Component,LoadingButton
+Reference Count,0
+Referenced Class
+
+Component,OutlinedButton
+Reference Count,0
+Referenced Class
+
+Component,TextButton
+Reference Count,0
+Referenced Class
+

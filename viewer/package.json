@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "deploy": "vite build && robocopy ..\\reports ..\\docs\\reports /E /NJH /NJS & exit 0",
     "lint": "oxlint",
     "preview": "vite preview"
   },
