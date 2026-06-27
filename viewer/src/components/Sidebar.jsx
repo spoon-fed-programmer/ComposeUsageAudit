@@ -1,7 +1,7 @@
 import RunCard from './RunCard';
 
 /**
- * Sidebar - Report history list.
+ * Sidebar - Report history list with View All History button.
  *
  * @param {object}   props
  * @param {object[]} props.reportRuns      - All loaded report run objects
@@ -10,13 +10,37 @@ import RunCard from './RunCard';
  * @param {string|null} props.error        - Error message if load failed
  * @param {Function} props.onSelectRun     - Called with a timestamp when a card is clicked
  * @param {string}   props.intervalLabel   - The active interval type (e.g. '일별', '주간별')
+ * @param {boolean}  props.isMatrixActive  - Whether the matrix view is currently active
+ * @param {Function} props.onViewAllHistory - Called when clicking "전체 이력 보기"
  */
-export default function Sidebar({ reportRuns, selectedRun, loading, error, onSelectRun, intervalLabel }) {
+export default function Sidebar({
+  reportRuns,
+  selectedRun,
+  loading,
+  error,
+  onSelectRun,
+  intervalLabel,
+  isMatrixActive,
+  onViewAllHistory,
+}) {
   return (
     <aside className="w-80 border-r border-border px-6 py-6 flex flex-col gap-5 bg-[rgba(17,22,34,0.3)] overflow-y-auto shrink-0">
-      <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
-        리포트 이력 {intervalLabel ? `(${intervalLabel})` : ''}
-      </h2>
+      <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
+        <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
+          리포트 이력 {intervalLabel ? `(${intervalLabel})` : ''}
+        </h2>
+        {!loading && !error && reportRuns.length > 0 && (
+          <button
+            onClick={onViewAllHistory}
+            className={[
+              'text-xs font-semibold hover:underline cursor-pointer bg-transparent border-0 p-0 transition-colors',
+              isMatrixActive ? 'text-accent hover:text-accent' : 'text-text-secondary hover:text-accent',
+            ].join(' ')}
+          >
+            전체 이력 보기
+          </button>
+        )}
+      </div>
 
       <div className="flex flex-col gap-3">
         {loading && <div className="spinner" />}
@@ -34,7 +58,7 @@ export default function Sidebar({ reportRuns, selectedRun, loading, error, onSel
             <RunCard
               key={run.timestamp}
               run={run}
-              isActive={selectedRun?.timestamp === run.timestamp}
+              isActive={!isMatrixActive && selectedRun?.timestamp === run.timestamp}
               onSelect={onSelectRun}
               intervalLabel={intervalLabel}
             />

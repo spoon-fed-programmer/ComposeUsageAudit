@@ -1,0 +1,48 @@
+{
+  "package": "com.common.compose.card",
+  "file": "Cards.kt",
+  "components": [
+    {
+      "name": "ProductCard",
+      "count": 4,
+      "classes": [
+        "com.domain.product.ProductListFragment",
+        "com.domain.mock.MockActivity1",
+        "com.domain.mock.MockActivity2",
+        "com.domain.mock.MockActivity3"
+      ]
+    },
+    {
+      "name": "NotificationCard",
+      "count": 1,
+      "classes": [
+        "com.domain.notification.NotificationActivity"
+      ]
+    },
+    {
+      "name": "StandardCard",
+      "count": 1,
+      "classes": [
+        "com.domain.cart.CartFragment"
+      ]
+    },
+    {
+      "name": "ImageCard",
+      "count": 2,
+      "classes": [
+        "com.domain.product.ProductDetailActivity",
+        "com.domain.mock.MockActivity1"
+      ]
+    },
+    {
+      "name": "SettingsCard",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "UserCard",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

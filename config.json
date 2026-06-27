@@ -7,5 +7,5 @@
     "kts"
   ],
   "MAIN_BRANCH": "main",
-  "OUTPUT_DIR": "./reports"
+  "OUTPUT_DIR": "./docs/reports"
 }

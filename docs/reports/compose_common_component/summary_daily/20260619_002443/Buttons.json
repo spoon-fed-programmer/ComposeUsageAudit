@@ -1,0 +1,47 @@
+{
+  "package": "com.common.compose.button",
+  "file": "Buttons.kt",
+  "components": [
+    {
+      "name": "PrimaryButton",
+      "count": 5,
+      "classes": [
+        "com.domain.auth.LoginActivity",
+        "com.domain.auth.RegisterActivity",
+        "com.domain.cart.CartFragment",
+        "com.domain.home.HomeActivity",
+        "com.domain.product.ProductDetailActivity"
+      ]
+    },
+    {
+      "name": "IconButton",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SecondaryButton",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "FloatingActionButton",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "LoadingButton",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "OutlinedButton",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "TextButton",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

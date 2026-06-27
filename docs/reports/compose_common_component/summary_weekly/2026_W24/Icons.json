@@ -1,0 +1,48 @@
+{
+  "package": "com.common.compose.icon",
+  "file": "Icons.kt",
+  "components": [
+    {
+      "name": "ArrowBackIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "CloseIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SearchIcon",
+      "count": 2,
+      "classes": [
+        "com.domain.home.HomeActivity",
+        "com.domain.product.ProductListFragment"
+      ]
+    },
+    {
+      "name": "MenuIcon",
+      "count": 1,
+      "classes": [
+        "com.domain.home.HomeActivity"
+      ]
+    },
+    {
+      "name": "ProfileIcon",
+      "count": 1,
+      "classes": [
+        "com.domain.profile.ProfileActivity"
+      ]
+    },
+    {
+      "name": "CheckIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SettingsIcon",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

@@ -3,15 +3,18 @@ import { useReportData } from './hooks/useReportData';
 import AppHeader from './components/AppHeader';
 import Sidebar from './components/Sidebar';
 import MainPanel from './components/MainPanel';
+import AllHistoryMatrix from './components/AllHistoryMatrix';
 
 const DEFAULT_SOURCE = 'reports/compose_common_component/summary_daily/index.json';
 
 /**
- * App - Root component. Manages data source selection and wires
- * the header, sidebar, and main panel together.
+ * App - Root component. Manages data source selection, sidebar run lists,
+ * Single Run dashboard, and the full category History Matrix view.
  */
 export default function App() {
   const [sourcePath, setSourcePath] = useState(DEFAULT_SOURCE);
+  const [viewAllHistory, setViewAllHistory] = useState(false);
+  
   const {
     reportRuns,
     selectedRun,
@@ -29,6 +32,7 @@ export default function App() {
 
   const handleSourceChange = (value) => {
     setSourcePath(value);
+    setViewAllHistory(false);
     // Immediately load if not custom
     if (value !== 'custom') {
       loadSourceIndex(value);
@@ -40,6 +44,7 @@ export default function App() {
       alert('불러올 JSON 파일 경로를 입력해주세요.');
       return;
     }
+    setViewAllHistory(false);
     loadSourceIndex(customPath);
   };
 
@@ -51,8 +56,20 @@ export default function App() {
     return '';
   };
 
+  const getCategoryDir = () => {
+    const parts = sourcePath.split('/');
+    parts.pop(); // Remove "index.json"
+    return parts.join('/') || 'reports';
+  };
+
   const handleHome = () => {
+    setViewAllHistory(false);
     clearSelectedRun();
+  };
+
+  const handleSelectRun = (timestamp) => {
+    setViewAllHistory(false);
+    selectRun(timestamp);
   };
 
   return (
@@ -70,14 +87,24 @@ export default function App() {
           selectedRun={selectedRun}
           loading={loading && reportRuns.length === 0}
           error={!selectedRun && error ? error : null}
-          onSelectRun={selectRun}
+          onSelectRun={handleSelectRun}
           intervalLabel={getIntervalLabel()}
+          isMatrixActive={viewAllHistory}
+          onViewAllHistory={() => setViewAllHistory(true)}
         />
-        <MainPanel
-          selectedRun={selectedRun}
-          loading={loading && reportRuns.length > 0 && !selectedRun}
-          error={selectedRun ? null : null}
-        />
+        
+        {viewAllHistory ? (
+          <AllHistoryMatrix
+            reportRuns={reportRuns}
+            categoryDir={getCategoryDir()}
+          />
+        ) : (
+          <MainPanel
+            selectedRun={selectedRun}
+            loading={loading && reportRuns.length > 0 && !selectedRun}
+            error={selectedRun ? null : null}
+          />
+        )}
       </div>
     </div>
   );

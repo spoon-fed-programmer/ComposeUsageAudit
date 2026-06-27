@@ -1,0 +1,192 @@
+[
+  {
+    "file": "Buttons.kt",
+    "name": "FloatingActionButton",
+    "count": 1
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "IconButton",
+    "count": 2
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "LoadingButton",
+    "count": 0
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "OutlinedButton",
+    "count": 0
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "PrimaryButton",
+    "count": 9
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "SecondaryButton",
+    "count": 0
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "TextButton",
+    "count": 0
+  },
+  {
+    "file": "Cards.kt",
+    "name": "ImageCard",
+    "count": 0
+  },
+  {
+    "file": "Cards.kt",
+    "name": "NotificationCard",
+    "count": 2
+  },
+  {
+    "file": "Cards.kt",
+    "name": "ProductCard",
+    "count": 4
+  },
+  {
+    "file": "Cards.kt",
+    "name": "SettingsCard",
+    "count": 2
+  },
+  {
+    "file": "Cards.kt",
+    "name": "StandardCard",
+    "count": 2
+  },
+  {
+    "file": "Cards.kt",
+    "name": "UserCard",
+    "count": 2
+  },
+  {
+    "file": "Dialogs.kt",
+    "name": "AlertDialog",
+    "count": 0
+  },
+  {
+    "file": "Dialogs.kt",
+    "name": "BottomSheetDialog",
+    "count": 1
+  },
+  {
+    "file": "Dialogs.kt",
+    "name": "ConfirmDialog",
+    "count": 1
+  },
+  {
+    "file": "Dialogs.kt",
+    "name": "CustomDialog",
+    "count": 0
+  },
+  {
+    "file": "Dialogs.kt",
+    "name": "ProgressDialog",
+    "count": 0
+  },
+  {
+    "file": "Icons.kt",
+    "name": "ArrowBackIcon",
+    "count": 2
+  },
+  {
+    "file": "Icons.kt",
+    "name": "CheckIcon",
+    "count": 0
+  },
+  {
+    "file": "Icons.kt",
+    "name": "CloseIcon",
+    "count": 3
+  },
+  {
+    "file": "Icons.kt",
+    "name": "MenuIcon",
+    "count": 2
+  },
+  {
+    "file": "Icons.kt",
+    "name": "ProfileIcon",
+    "count": 0
+  },
+  {
+    "file": "Icons.kt",
+    "name": "SearchIcon",
+    "count": 0
+  },
+  {
+    "file": "Icons.kt",
+    "name": "SettingsIcon",
+    "count": 0
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "CheckboxInput",
+    "count": 0
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "NumberInput",
+    "count": 0
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "PasswordInput",
+    "count": 4
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "RadioButtonInput",
+    "count": 0
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "SearchInput",
+    "count": 0
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "SwitchInput",
+    "count": 2
+  },
+  {
+    "file": "Inputs.kt",
+    "name": "TextInput",
+    "count": 5
+  },
+  {
+    "file": "Layouts.kt",
+    "name": "FooterLayout",
+    "count": 1
+  },
+  {
+    "file": "Layouts.kt",
+    "name": "GridList",
+    "count": 1
+  },
+  {
+    "file": "Layouts.kt",
+    "name": "HeaderLayout",
+    "count": 1
+  },
+  {
+    "file": "Layouts.kt",
+    "name": "ResponsiveRow",
+    "count": 2
+  },
+  {
+    "file": "Layouts.kt",
+    "name": "ScrollableColumn",
+    "count": 0
+  },
+  {
+    "file": "Layouts.kt",
+    "name": "SidebarLayout",
+    "count": 0
+  }
+]

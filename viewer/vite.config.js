@@ -18,6 +18,6 @@ export default defineConfig({
   // For GitHub Pages: build output goes to ../docs so it's deployable
   build: {
     outDir: '../docs',
-    emptyOutDir: true,
+    emptyOutDir: false,
   },
 });

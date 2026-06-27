@@ -1,0 +1,33 @@
+{
+  "package": "com.common.compose.dialog",
+  "file": "Dialogs.kt",
+  "components": [
+    {
+      "name": "ConfirmDialog",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "ProgressDialog",
+      "count": 1,
+      "classes": [
+        "com.domain.auth.LoginActivity"
+      ]
+    },
+    {
+      "name": "AlertDialog",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "BottomSheetDialog",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "CustomDialog",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

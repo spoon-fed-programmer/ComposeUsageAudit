@@ -1,0 +1,55 @@
+{
+  "package": "com.common.compose.input",
+  "file": "Inputs.kt",
+  "components": [
+    {
+      "name": "TextInput",
+      "count": 5,
+      "classes": [
+        "com.domain.auth.LoginActivity",
+        "com.domain.auth.RegisterActivity",
+        "com.domain.profile.ProfileActivity",
+        "com.domain.mock.MockActivity3",
+        "com.domain.mock.MockActivity4"
+      ]
+    },
+    {
+      "name": "PasswordInput",
+      "count": 4,
+      "classes": [
+        "com.domain.auth.LoginActivity",
+        "com.domain.auth.RegisterActivity",
+        "com.domain.mock.MockActivity2",
+        "com.domain.mock.MockActivity3"
+      ]
+    },
+    {
+      "name": "SwitchInput",
+      "count": 2,
+      "classes": [
+        "com.domain.settings.SettingsActivity",
+        "com.domain.mock.MockActivity1"
+      ]
+    },
+    {
+      "name": "CheckboxInput",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "NumberInput",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "RadioButtonInput",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SearchInput",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

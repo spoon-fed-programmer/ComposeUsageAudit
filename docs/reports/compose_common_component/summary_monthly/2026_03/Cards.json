@@ -1,0 +1,36 @@
+{
+  "package": "com.common.compose.card",
+  "file": "Cards.kt",
+  "components": [
+    {
+      "name": "ProductCard",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "NotificationCard",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "StandardCard",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "ImageCard",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SettingsCard",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "UserCard",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "deploy": "vite build && robocopy ..\\reports ..\\docs\\reports /E /NJH /NJS > nul & exit 0",
+    "build": "node -e \"const fs = require('fs'); if (fs.existsSync('../docs/assets')) fs.rmSync('../docs/assets', {recursive:true, force:true}); if (fs.existsSync('../docs/index.html')) fs.unlinkSync('../docs/index.html');\" && vite build",
+    "deploy": "npm run build",
     "lint": "oxlint",
     "preview": "vite preview"
   },

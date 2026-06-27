@@ -1,0 +1,12 @@
+{
+  "timestamp": "2024",
+  "date": "2024-06-15 12:00:00",
+  "project_name": "DummyAndroidProject",
+  "branch": null,
+  "summary": {
+    "total_components": 38,
+    "active_components": 0,
+    "unused_components": 38,
+    "total_references": 0
+  }
+}

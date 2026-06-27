@@ -1,0 +1,41 @@
+{
+  "package": "com.common.compose.icon",
+  "file": "Icons.kt",
+  "components": [
+    {
+      "name": "ArrowBackIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "CloseIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SearchIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "MenuIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "ProfileIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "CheckIcon",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SettingsIcon",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}
