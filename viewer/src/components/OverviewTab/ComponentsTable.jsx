@@ -15,7 +15,6 @@ export default function ComponentsTable({ components, sortCol, sortDir, onSort, 
     { id: 'file',   label: '공통 파일',  align: 'left' },
     { id: 'name',   label: '컴포넌트명', align: 'left' },
     { id: 'count',  label: '참조 수',    align: 'right' },
-    { id: 'status', label: '상태',       align: 'center', width: 120 },
   ];
 
   return (
@@ -63,16 +62,6 @@ export default function ComponentsTable({ components, sortCol, sortDir, onSort, 
                   <td className="px-6 py-4 text-sm text-right">
                     <span className={`font-mono font-bold text-sm ${isUnused ? 'text-text-muted' : 'text-success'}`}>
                       {c.count}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-center">
-                    <span className={[
-                      'text-[11px] font-semibold px-2 py-1 rounded-full uppercase inline-block border',
-                      isUnused
-                        ? 'bg-[rgba(100,116,139,0.1)] text-text-secondary border-[rgba(100,116,139,0.2)]'
-                        : 'bg-success-glow text-success border-[rgba(16,185,129,0.2)]',
-                    ].join(' ')}>
-                      {isUnused ? 'unused' : 'active'}
                     </span>
                   </td>
                 </tr>

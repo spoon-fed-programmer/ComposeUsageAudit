@@ -51,19 +51,11 @@ export default function FileDetailPanel({ fileData, loading, error }) {
               className="bg-card border border-border rounded-md p-5 flex flex-col gap-4 transition-colors hover:border-white/12"
             >
               {/* Card header */}
-              <div className="flex justify-between items-center">
+              <div className="flex items-center">
                 <div className="text-lg font-semibold text-white flex items-center gap-3">
                   <span className="text-text-secondary font-normal">@Composable fun</span>
                   <strong>{comp.name}</strong>
                 </div>
-                <span className={[
-                  'text-[11px] font-semibold px-2 py-1 rounded-full uppercase border',
-                  isUnused
-                    ? 'bg-[rgba(100,116,139,0.1)] text-text-secondary border-[rgba(100,116,139,0.2)]'
-                    : 'bg-success-glow text-success border-[rgba(16,185,129,0.2)]',
-                ].join(' ')}>
-                  {isUnused ? 'unused' : 'active'}
-                </span>
               </div>
 
               {/* Metrics row */}
