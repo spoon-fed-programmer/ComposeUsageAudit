@@ -3,7 +3,7 @@ import FilterPanel from './FilterPanel';
 import ComponentsTable from './ComponentsTable';
 
 /**
- * OverviewTab - Flat component list with search, filter and sort.
+ * OverviewTab - Flat component list with search and sort.
  *
  * @param {object}   props
  * @param {object[]} props.components     - Array of { file, name, count }
@@ -11,7 +11,6 @@ import ComponentsTable from './ComponentsTable';
  */
 export default function OverviewTab({ components, onNavigateFile }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
   const [sortCol, setSortCol] = useState('file');
   const [sortDir, setSortDir] = useState('asc');
 
@@ -34,10 +33,6 @@ export default function OverviewTab({ components, onNavigateFile }) {
         (c) => c.name.toLowerCase().includes(q) || c.file.toLowerCase().includes(q)
       );
     }
-
-    // Status filter
-    if (filterStatus === 'active') result = result.filter((c) => c.count > 0);
-    else if (filterStatus === 'unused') result = result.filter((c) => c.count === 0);
 
     // Sort
     result = [...result].sort((a, b) => {
@@ -66,9 +61,7 @@ export default function OverviewTab({ components, onNavigateFile }) {
     <div className="flex flex-col gap-6">
       <FilterPanel
         searchQuery={searchQuery}
-        filterStatus={filterStatus}
         onSearchChange={setSearchQuery}
-        onFilterChange={setFilterStatus}
       />
       <ComponentsTable
         components={filtered}
