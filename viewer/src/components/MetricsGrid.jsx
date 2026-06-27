@@ -17,9 +17,9 @@ export default function MetricsGrid({ total, refs }) {
       </div>
 
       {/* Total references */}
-      <div className="flex flex-col items-center gap-0.5 text-center rounded-md border border-warning/25 bg-warning/[0.02] backdrop-blur-panel px-5 py-2 shadow-warning">
+      <div className="flex flex-col items-center gap-0.5 text-center rounded-md border border-success/25 bg-success/[0.02] backdrop-blur-panel px-5 py-2 shadow-[0_4px_20px_rgba(16,185,129,0.15)]">
         <span className="text-xs font-medium text-text-secondary">총 사용 참조 횟수</span>
-        <span className="text-[22px] font-bold font-mono text-warning" style={{ textShadow: '0 0 10px rgba(245,158,11,0.2)' }}>
+        <span className="text-[22px] font-bold font-mono text-success" style={{ textShadow: '0 0 10px rgba(16,185,129,0.2)' }}>
           {refs}
         </span>
       </div>
