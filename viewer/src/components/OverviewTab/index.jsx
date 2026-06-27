@@ -55,7 +55,7 @@ export default function OverviewTab({ components, onNavigateFile }) {
     });
 
     return result;
-  }, [components, searchQuery, filterStatus, sortCol, sortDir]);
+  }, [components, searchQuery, sortCol, sortDir]);
 
   return (
     <div className="flex flex-col gap-6">
