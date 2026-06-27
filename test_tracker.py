@@ -101,54 +101,50 @@ class TestTracker(unittest.TestCase):
                 }
             ]
 
-            report_dir = os.path.join(temp_dir, "20260627_194400")
-            tracker.write_reports(report_dir, "TestProj", "2026-06-27 19:44:00", components, "main-branch")
+            tracker.write_reports(temp_dir, "TestProj", "2026-06-27 19:44:00", "20260627_194400", components, "main-branch")
 
-            # Check summary.csv
-            summary_path = os.path.join(report_dir, "summary.csv")
-            self.assertTrue(os.path.exists(summary_path))
-            with open(summary_path, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                rows = list(reader)
-                self.assertEqual(rows[0], ["Metric", "Value"])
-                self.assertEqual(rows[1], ["Project Name", "TestProj"])
-                self.assertEqual(rows[2], ["Git Branch", "main-branch"])
-                self.assertEqual(rows[4], ["Total Components", "2"])
-                self.assertEqual(rows[5], ["Active Components", "1"])
-                self.assertEqual(rows[6], ["Unused Components", "1"])
-                self.assertEqual(rows[7], ["Total References", "3"])
-                self.assertEqual(rows[8], [])
-                self.assertEqual(rows[9], ["File", "Component", "Reference Count"])
-                self.assertEqual(rows[10], ["Buttons.kt", "PrimaryButton", "3"])
-                self.assertEqual(rows[11], ["Buttons.kt", "SecondaryButton", "0"])
-
-            # Check Buttons.csv
-            buttons_path = os.path.join(report_dir, "Buttons.csv")
-            self.assertTrue(os.path.exists(buttons_path))
-            with open(buttons_path, 'r', encoding='utf-8') as f:
-                reader = csv.reader(f)
-                rows = list(reader)
-                self.assertEqual(rows[0], ["Package", "com.common.compose.button"])
-                self.assertEqual(rows[1], ["File", "Buttons.kt"])
-                self.assertEqual(rows[3], ["Component", "PrimaryButton"])
-                self.assertEqual(rows[4], ["Reference Count", "3"])
-                self.assertEqual(rows[5], ["Referenced Class"])
-                self.assertEqual(rows[6], ["com.domain.home.HomeActivity"])
-                self.assertEqual(rows[7], ["com.domain.settings.SettingsActivity"])
-
-            # Check latest_reports.json in the parent (temp_dir)
-            index_path = os.path.join(temp_dir, "latest_reports.json")
-            self.assertTrue(os.path.exists(index_path))
-            with open(index_path, 'r', encoding='utf-8') as f:
+            # Check JSON report in summary_daily
+            report_path = os.path.join(temp_dir, "summary_daily", "20260627_194400_report.json")
+            self.assertTrue(os.path.exists(report_path))
+            with open(report_path, 'r', encoding='utf-8') as f:
                 import json
+                report = json.load(f)
+                self.assertEqual(report["timestamp"], "20260627_194400")
+                self.assertEqual(report["date"], "2026-06-27 19:44:00")
+                self.assertEqual(report["project_name"], "TestProj")
+                self.assertEqual(report["branch"], "main-branch")
+                self.assertEqual(report["summary"]["total_components"], 2)
+                self.assertEqual(report["summary"]["active_components"], 1)
+                self.assertEqual(report["summary"]["unused_components"], 1)
+                self.assertEqual(report["summary"]["total_references"], 3)
+                
+                # Check components
+                self.assertEqual(len(report["components"]), 2)
+                self.assertEqual(report["components"][0]["name"], "PrimaryButton")
+                self.assertEqual(report["components"][0]["defining_file"], "Buttons.kt")
+                self.assertEqual(report["components"][0]["ref_count"], 3)
+                self.assertEqual(report["components"][0]["ref_classes"], ["com.domain.home.HomeActivity", "com.domain.settings.SettingsActivity"])
+
+            # Check index.json in summary_daily
+            daily_index = os.path.join(temp_dir, "summary_daily", "index.json")
+            self.assertTrue(os.path.exists(daily_index))
+            with open(daily_index, 'r', encoding='utf-8') as f:
                 entries = json.load(f)
-                self.assertIsInstance(entries, list)
                 self.assertEqual(len(entries), 1)
                 self.assertEqual(entries[0]["timestamp"], "20260627_194400")
-                self.assertEqual(entries[0]["project_name"], "TestProj")
-                self.assertEqual(entries[0]["branch"], "main-branch")
                 self.assertEqual(entries[0]["summary"]["total_components"], 2)
-                self.assertEqual(entries[0]["files"], ["Buttons.csv"])
+
+            # Check weekly index
+            weekly_index = os.path.join(temp_dir, "summary_weekly", "index.json")
+            self.assertTrue(os.path.exists(weekly_index))
+            
+            # Check monthly index
+            monthly_index = os.path.join(temp_dir, "summary_monthly", "index.json")
+            self.assertTrue(os.path.exists(monthly_index))
+            
+            # Check yearly index
+            yearly_index = os.path.join(temp_dir, "summary_yearly", "index.json")
+            self.assertTrue(os.path.exists(yearly_index))
 
         finally:
             shutil.rmtree(temp_dir)

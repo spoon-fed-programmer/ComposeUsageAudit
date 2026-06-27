@@ -1,25 +1,47 @@
 import { useState, useCallback } from 'react';
-import { parseCSV } from '../utils/csvParser';
 
 /**
  * Custom hook that manages loading the report index JSON and
- * fetching + parsing the summary CSV for the selected run.
- *
- * @returns {{
- *   reportRuns: object[],
- *   selectedRun: object|null,
- *   loading: boolean,
- *   error: string|null,
- *   loadSourceIndex: (path: string) => Promise<void>,
- *   selectRun: (timestamp: string) => Promise<void>,
- *   clearSelectedRun: () => void,
- * }}
+ * fetching the report details JSON for the selected run.
  */
 export function useReportData() {
   const [reportRuns, setReportRuns] = useState([]);
   const [selectedRun, setSelectedRun] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeJsonPath, setActiveJsonPath] = useState('');
+
+  const _fetchRunDetail = useCallback(async (run, jsonPath) => {
+    const parts = jsonPath.split('/');
+    parts.pop(); // Remove "index.json"
+    const categoryDir = parts.join('/') || 'reports';
+
+    const reportUrl = `${categoryDir}/${run.timestamp}_report.json`;
+    const res = await fetch(reportUrl);
+    if (!res.ok) {
+      throw new Error(`${run.timestamp}_report.json 로드에 실패했습니다.`);
+    }
+
+    const reportData = await res.json();
+    
+    // Map components for backward compatibility in components
+    const components = (reportData.components || []).map((c) => ({
+      file: c.defining_file,
+      name: c.name,
+      count: c.ref_count,
+      package: c.package,
+      ref_classes: c.ref_classes || [],
+    }));
+
+    // Construct unique files list
+    const files = [...new Set(components.map((c) => c.file))].sort();
+
+    setSelectedRun({
+      ...reportData,
+      components,
+      files,
+    });
+  }, []);
 
   /** Fetch and parse the index JSON file. */
   const loadSourceIndex = useCallback(async (jsonPath) => {
@@ -27,6 +49,7 @@ export function useReportData() {
     setError(null);
     setReportRuns([]);
     setSelectedRun(null);
+    setActiveJsonPath(jsonPath);
 
     try {
       const res = await fetch(jsonPath);
@@ -40,15 +63,15 @@ export function useReportData() {
       setReportRuns(data);
 
       // Auto-select the first run
-      await _fetchRunDetail(data[0], data, setSelectedRun);
+      await _fetchRunDetail(data[0], jsonPath);
     } catch (err) {
       setError(_friendlyError(err));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [_fetchRunDetail]);
 
-  /** Select a run by timestamp, fetching its summary.csv detail. */
+  /** Select a run by timestamp */
   const selectRun = useCallback(
     async (timestamp) => {
       const run = reportRuns.find((r) => r.timestamp === timestamp);
@@ -56,55 +79,19 @@ export function useReportData() {
       setLoading(true);
       setError(null);
       try {
-        await _fetchRunDetail(run, reportRuns, setSelectedRun);
+        await _fetchRunDetail(run, activeJsonPath);
       } catch (err) {
         setError(_friendlyError(err));
       } finally {
         setLoading(false);
       }
     },
-    [reportRuns]
+    [reportRuns, activeJsonPath, _fetchRunDetail]
   );
 
   const clearSelectedRun = useCallback(() => setSelectedRun(null), []);
 
   return { reportRuns, selectedRun, loading, error, loadSourceIndex, selectRun, clearSelectedRun };
-}
-
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
-async function _fetchRunDetail(run, _allRuns, setSelectedRun) {
-  const summaryUrl = `reports/${run.timestamp}/summary.csv`;
-  const res = await fetch(summaryUrl);
-  if (!res.ok) throw new Error('summary.csv 로드에 실패했습니다.');
-
-  const csvText = await res.text();
-  const parsed = parseCSV(csvText);
-
-  // Find the component table start (row with ["File","Component","Reference Count"])
-  let componentStartIdx = -1;
-  for (let i = 0; i < parsed.length; i++) {
-    if (parsed[i][0] === 'File' && parsed[i][1] === 'Component') {
-      componentStartIdx = i + 1;
-      break;
-    }
-  }
-
-  const components = [];
-  if (componentStartIdx !== -1) {
-    for (let i = componentStartIdx; i < parsed.length; i++) {
-      const row = parsed[i];
-      if (row.length >= 3) {
-        components.push({
-          file: row[0],
-          name: row[1],
-          count: parseInt(row[2], 10) || 0,
-        });
-      }
-    }
-  }
-
-  setSelectedRun({ ...run, components });
 }
 
 function _friendlyError(err) {

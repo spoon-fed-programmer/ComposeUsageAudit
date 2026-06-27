@@ -156,76 +156,26 @@ def get_git_branch(project_path: str) -> str:
     except Exception:
         return None
 
-def write_reports(report_dir: str, project_name: str, timestamp_report: str, components: list, branch_name: str = None):
+def write_reports(output_dir: str, project_name: str, timestamp_report: str, timestamp_dir: str, components: list, branch_name: str = None):
     import collections
-    os.makedirs(report_dir, exist_ok=True)
     
     total_components = len(components)
     active_components = sum(1 for c in components if c['ref_count'] > 0)
     unused_components = total_components - active_components
     total_references = sum(c['ref_count'] for c in components)
     
-    # Write summary.csv
-    summary_path = os.path.join(report_dir, "summary.csv")
-    with open(summary_path, 'w', encoding='utf-8', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(["Metric", "Value"])
-        writer.writerow(["Project Name", project_name])
-        if branch_name:
-            writer.writerow(["Git Branch", branch_name])
-        writer.writerow(["Generated Date", timestamp_report])
-        writer.writerow(["Total Components", total_components])
-        writer.writerow(["Active Components", active_components])
-        writer.writerow(["Unused Components", unused_components])
-        writer.writerow(["Total References", total_references])
-        
-        # Add a blank line and then list all components: File, Component, Reference Count
-        writer.writerow([])
-        writer.writerow(["File", "Component", "Reference Count"])
-        sorted_all_comps = sorted(components, key=lambda x: (os.path.basename(x['defining_file']), x['name']))
-        for comp in sorted_all_comps:
-            file_basename = os.path.basename(comp['defining_file'])
-            writer.writerow([file_basename, comp['name'], comp['ref_count']])
-        
-    # Group components by their source filename and write <ComponentFileName>.csv
-    components_by_file = collections. defaultdict(list)
+    # Convert components to simplified structure for JSON
+    json_comps = []
     for comp in components:
-        defining_file_base = os.path.basename(comp['defining_file'])
-        components_by_file[defining_file_base].append(comp)
+        json_comps.append({
+            "name": comp["name"],
+            "package": comp["package"],
+            "defining_file": os.path.basename(comp["defining_file"]),
+            "ref_count": comp["ref_count"],
+            "ref_classes": sorted(list(set(comp["ref_classes"])))
+        })
         
-    for defining_file_base, comps in components_by_file.items():
-        file_name_without_ext, _ = os.path.splitext(defining_file_base)
-        csv_filename = f"{file_name_without_ext}.csv"
-        csv_path = os.path.join(report_dir, csv_filename)
-        
-        sorted_comps = sorted(comps, key=lambda x: (-x['ref_count'], x['name']))
-        pkg_name = comps[0]['package'] if comps else ""
-        
-        with open(csv_path, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(["Package", pkg_name])
-            writer.writerow(["File", defining_file_base])
-            writer.writerow([])
-            
-            for comp in sorted_comps:
-                writer.writerow(["Component", comp['name']])
-                writer.writerow(["Reference Count", comp['ref_count']])
-                writer.writerow(["Referenced Class"])
-                
-                sorted_ref_classes = sorted(list(set(comp['ref_classes'])))
-                for ref_class in sorted_ref_classes:
-                    writer.writerow([ref_class])
-                writer.writerow([])
-
-    # 4.3 Update latest_reports.json in reports root (output_dir)
-    output_dir = os.path.dirname(report_dir)
-    index_path = os.path.join(output_dir, "latest_reports.json")
-    timestamp_dir = os.path.basename(report_dir)
-    
-    # List generated CSV files without package directory walking (just base name change)
-    files_list = sorted([f"{os.path.splitext(name)[0]}.csv" for name in components_by_file.keys()])
-    
-    new_entry = {
+    report_data = {
         "timestamp": timestamp_dir,
         "date": timestamp_report,
         "project_name": project_name,
@@ -236,35 +186,94 @@ def write_reports(report_dir: str, project_name: str, timestamp_report: str, com
             "unused_components": unused_components,
             "total_references": total_references
         },
-        "files": files_list
+        "components": sorted(json_comps, key=lambda x: (x["defining_file"], x["name"]))
     }
     
-    # Load existing entries
-    entries = []
-    if os.path.exists(index_path):
-        try:
-            with open(index_path, 'r', encoding='utf-8') as f:
-                entries = json.load(f)
-                if not isinstance(entries, list):
-                    entries = []
-        except Exception as e:
-            print(f"Warning: Failed to parse existing index file: {e}. Starting fresh.")
-            entries = []
+    # Determine output directories
+    summary_daily_dir = os.path.join(output_dir, "summary_daily")
+    summary_weekly_dir = os.path.join(output_dir, "summary_weekly")
+    summary_monthly_dir = os.path.join(output_dir, "summary_monthly")
+    summary_yearly_dir = os.path.join(output_dir, "summary_yearly")
+    
+    # Helper to save report and update index
+    def save_to_category(category_dir: str, period_key_func=None):
+        os.makedirs(category_dir, exist_ok=True)
+        index_path = os.path.join(category_dir, "index.json")
+        
+        entries = []
+        if os.path.exists(index_path):
+            try:
+                with open(index_path, 'r', encoding='utf-8') as f:
+                    entries = json.load(f)
+            except Exception:
+                entries = []
+                
+        report_filename = f"{timestamp_dir}_report.json"
+        report_path = os.path.join(category_dir, report_filename)
+        with open(report_path, 'w', encoding='utf-8') as f:
+            json.dump(report_data, f, indent=2, ensure_ascii=False)
             
-    # Remove existing entry with the same timestamp if any
-    entries = [e for e in entries if e.get("timestamp") != timestamp_dir]
-    
-    # Insert new entry and sort
-    entries.insert(0, new_entry)
-    entries.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
-    
-    # Write index
-    try:
+        new_entry = {
+            "timestamp": timestamp_dir,
+            "date": timestamp_report,
+            "project_name": project_name,
+            "branch": branch_name,
+            "summary": report_data["summary"]
+        }
+        
+        if period_key_func is None:
+            # Daily: always append/prepend
+            entries.insert(0, new_entry)
+        else:
+            # Find if there is an entry with the same period key
+            now_dt = datetime.datetime.strptime(timestamp_dir, "%Y%m%d_%H%M%S")
+            period_key = period_key_func(now_dt)
+            
+            existing_idx = -1
+            for idx, entry in enumerate(entries):
+                entry_dt = datetime.datetime.strptime(entry["timestamp"], "%Y%m%d_%H%M%S")
+                if period_key_func(entry_dt) == period_key:
+                    existing_idx = idx
+                    break
+                    
+            if existing_idx != -1:
+                # Delete old file
+                old_timestamp = entries[existing_idx]["timestamp"]
+                if old_timestamp != timestamp_dir:
+                    old_file = os.path.join(category_dir, f"{old_timestamp}_report.json")
+                    if os.path.exists(old_file):
+                        try:
+                            os.remove(old_file)
+                        except Exception:
+                            pass
+                entries[existing_idx] = new_entry
+            else:
+                entries.insert(0, new_entry)
+                
+        # Deduplicate indices on same timestamp
+        seen = set()
+        dedup_entries = []
+        for e in entries:
+            if e["timestamp"] not in seen:
+                seen.add(e["timestamp"])
+                dedup_entries.append(e)
+        entries = dedup_entries
+
+        entries.sort(key=lambda x: x["timestamp"], reverse=True)
         with open(index_path, 'w', encoding='utf-8') as f:
             json.dump(entries, f, indent=2, ensure_ascii=False)
-        print(f"Index file updated: {index_path}")
-    except Exception as e:
-        print(f"Error updating index file: {e}")
+            
+    # Save to daily (always append)
+    save_to_category(summary_daily_dir, None)
+    
+    # Save to weekly
+    save_to_category(summary_weekly_dir, lambda dt: dt.strftime("%Y-W%W"))
+    
+    # Save to monthly
+    save_to_category(summary_monthly_dir, lambda dt: dt.strftime("%Y-%m"))
+    
+    # Save to yearly
+    save_to_category(summary_yearly_dir, lambda dt: dt.strftime("%Y"))
 
 def main():
     print("=== Compose Component Usage Tracker ===")
@@ -376,15 +385,14 @@ def main():
     
     branch_name = get_git_branch(project_path)
     
-    report_dir = os.path.join(config["OUTPUT_DIR"], timestamp_dir)
-    write_reports(report_dir, project_name, timestamp_report, components, branch_name)
+    write_reports(config["OUTPUT_DIR"], project_name, timestamp_report, timestamp_dir, components, branch_name)
     
     total_components = len(components)
     active_components = sum(1 for c in components if c['ref_count'] > 0)
     unused_components = total_components - active_components
     total_references = sum(c['ref_count'] for c in components)
     
-    print(f"\nReports generated successfully in: {report_dir}")
+    print(f"\nReports generated successfully in: {config['OUTPUT_DIR']}")
     print(f"Summary:")
     print(f" - Total Components: {total_components}")
     print(f" - Active Components: {active_components}")

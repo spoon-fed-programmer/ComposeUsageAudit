@@ -1,0 +1,343 @@
+{
+  "timestamp": "20260627_234143",
+  "date": "2026-06-27 23:41:43",
+  "project_name": "DummyAndroidProject",
+  "branch": null,
+  "summary": {
+    "total_components": 38,
+    "active_components": 25,
+    "unused_components": 13,
+    "total_references": 50
+  },
+  "components": [
+    {
+      "name": "FloatingActionButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "IconButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.product.ProductDetailActivity",
+        "com.domain.product.ProductListFragment"
+      ]
+    },
+    {
+      "name": "LoadingButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "OutlinedButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "PrimaryButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 8,
+      "ref_classes": [
+        "com.domain.auth.LoginActivity",
+        "com.domain.auth.RegisterActivity",
+        "com.domain.cart.CartFragment",
+        "com.domain.home.HomeActivity",
+        "com.domain.product.ProductDetailActivity",
+        "com.domain.settings.SettingsActivity",
+        "com.domain.settings.SettingsFragment"
+      ]
+    },
+    {
+      "name": "SecondaryButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.profile.ProfileActivity"
+      ]
+    },
+    {
+      "name": "TextButton",
+      "package": "com.common.compose.button",
+      "defining_file": "Buttons.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "ImageCard",
+      "package": "com.common.compose.card",
+      "defining_file": "Cards.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.product.ProductDetailActivity"
+      ]
+    },
+    {
+      "name": "NotificationCard",
+      "package": "com.common.compose.card",
+      "defining_file": "Cards.kt",
+      "ref_count": 3,
+      "ref_classes": [
+        "com.domain.notification.NotificationActivity"
+      ]
+    },
+    {
+      "name": "ProductCard",
+      "package": "com.common.compose.card",
+      "defining_file": "Cards.kt",
+      "ref_count": 4,
+      "ref_classes": [
+        "com.domain.product.ProductListFragment"
+      ]
+    },
+    {
+      "name": "SettingsCard",
+      "package": "com.common.compose.card",
+      "defining_file": "Cards.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.settings.SettingsActivity"
+      ]
+    },
+    {
+      "name": "StandardCard",
+      "package": "com.common.compose.card",
+      "defining_file": "Cards.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.cart.CartFragment"
+      ]
+    },
+    {
+      "name": "UserCard",
+      "package": "com.common.compose.card",
+      "defining_file": "Cards.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.profile.ProfileActivity"
+      ]
+    },
+    {
+      "name": "AlertDialog",
+      "package": "com.common.compose.dialog",
+      "defining_file": "Dialogs.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "BottomSheetDialog",
+      "package": "com.common.compose.dialog",
+      "defining_file": "Dialogs.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "ConfirmDialog",
+      "package": "com.common.compose.dialog",
+      "defining_file": "Dialogs.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.auth.RegisterActivity"
+      ]
+    },
+    {
+      "name": "CustomDialog",
+      "package": "com.common.compose.dialog",
+      "defining_file": "Dialogs.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "ProgressDialog",
+      "package": "com.common.compose.dialog",
+      "defining_file": "Dialogs.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.auth.LoginActivity"
+      ]
+    },
+    {
+      "name": "ArrowBackIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.notification.NotificationActivity",
+        "com.domain.product.ProductDetailActivity"
+      ]
+    },
+    {
+      "name": "CheckIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "CloseIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.cart.CartFragment"
+      ]
+    },
+    {
+      "name": "MenuIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.home.HomeActivity"
+      ]
+    },
+    {
+      "name": "ProfileIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.profile.ProfileActivity"
+      ]
+    },
+    {
+      "name": "SearchIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.home.HomeActivity",
+        "com.domain.product.ProductListFragment"
+      ]
+    },
+    {
+      "name": "SettingsIcon",
+      "package": "com.common.compose.icon",
+      "defining_file": "Icons.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "CheckboxInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.auth.RegisterActivity"
+      ]
+    },
+    {
+      "name": "NumberInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "PasswordInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 3,
+      "ref_classes": [
+        "com.domain.auth.LoginActivity",
+        "com.domain.auth.RegisterActivity"
+      ]
+    },
+    {
+      "name": "RadioButtonInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "SearchInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    },
+    {
+      "name": "SwitchInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.settings.SettingsActivity"
+      ]
+    },
+    {
+      "name": "TextInput",
+      "package": "com.common.compose.input",
+      "defining_file": "Inputs.kt",
+      "ref_count": 5,
+      "ref_classes": [
+        "com.domain.auth.LoginActivity",
+        "com.domain.auth.RegisterActivity",
+        "com.domain.profile.ProfileActivity"
+      ]
+    },
+    {
+      "name": "FooterLayout",
+      "package": "com.common.compose.layout",
+      "defining_file": "Layouts.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.home.HomeActivity"
+      ]
+    },
+    {
+      "name": "GridList",
+      "package": "com.common.compose.layout",
+      "defining_file": "Layouts.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.product.ProductListFragment"
+      ]
+    },
+    {
+      "name": "HeaderLayout",
+      "package": "com.common.compose.layout",
+      "defining_file": "Layouts.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.home.HomeActivity"
+      ]
+    },
+    {
+      "name": "ResponsiveRow",
+      "package": "com.common.compose.layout",
+      "defining_file": "Layouts.kt",
+      "ref_count": 1,
+      "ref_classes": [
+        "com.domain.product.ProductDetailActivity"
+      ]
+    },
+    {
+      "name": "ScrollableColumn",
+      "package": "com.common.compose.layout",
+      "defining_file": "Layouts.kt",
+      "ref_count": 2,
+      "ref_classes": [
+        "com.domain.cart.CartFragment",
+        "com.domain.notification.NotificationActivity"
+      ]
+    },
+    {
+      "name": "SidebarLayout",
+      "package": "com.common.compose.layout",
+      "defining_file": "Layouts.kt",
+      "ref_count": 0,
+      "ref_classes": []
+    }
+  ]
+}
