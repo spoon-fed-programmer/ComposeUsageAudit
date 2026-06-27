@@ -1,0 +1,25 @@
+Package,com.common.compose.dialog
+File,Dialogs.kt
+
+Component,ConfirmDialog
+Reference Count,1
+Referenced Class
+com.domain.auth.RegisterActivity
+
+Component,ProgressDialog
+Reference Count,1
+Referenced Class
+com.domain.auth.LoginActivity
+
+Component,AlertDialog
+Reference Count,0
+Referenced Class
+
+Component,BottomSheetDialog
+Reference Count,0
+Referenced Class
+
+Component,CustomDialog
+Reference Count,0
+Referenced Class
+

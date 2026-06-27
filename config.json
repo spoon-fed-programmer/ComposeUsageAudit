@@ -1,0 +1,11 @@
+{
+  "PROJECT_NAME": "DummyAndroidProject",
+  "PROJECT_PATH": "c:/Worksapce-Python/ComposeComponentAudit/dummy_project",
+  "TARGET_PACKAGE_PATH": "c:/Worksapce-Python/ComposeComponentAudit/dummy_project/common/compose",
+  "TARGET_EXTENSIONS": [
+    "kt",
+    "kts"
+  ],
+  "MAIN_BRANCH": "main",
+  "OUTPUT_DIR": "./reports"
+}

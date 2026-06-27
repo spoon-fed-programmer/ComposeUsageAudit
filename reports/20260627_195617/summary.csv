@@ -1,0 +1,47 @@
+Metric,Value
+Project Name,DummyAndroidProject
+Generated Date,2026-06-27 19:56:17
+Total Components,38
+Active Components,25
+Unused Components,13
+Total References,50
+
+File,Component,Reference Count
+Buttons.kt,FloatingActionButton,0
+Buttons.kt,IconButton,2
+Buttons.kt,LoadingButton,0
+Buttons.kt,OutlinedButton,0
+Buttons.kt,PrimaryButton,8
+Buttons.kt,SecondaryButton,1
+Buttons.kt,TextButton,0
+Cards.kt,ImageCard,1
+Cards.kt,NotificationCard,3
+Cards.kt,ProductCard,4
+Cards.kt,SettingsCard,1
+Cards.kt,StandardCard,2
+Cards.kt,UserCard,1
+Dialogs.kt,AlertDialog,0
+Dialogs.kt,BottomSheetDialog,0
+Dialogs.kt,ConfirmDialog,1
+Dialogs.kt,CustomDialog,0
+Dialogs.kt,ProgressDialog,1
+Icons.kt,ArrowBackIcon,2
+Icons.kt,CheckIcon,0
+Icons.kt,CloseIcon,2
+Icons.kt,MenuIcon,1
+Icons.kt,ProfileIcon,1
+Icons.kt,SearchIcon,2
+Icons.kt,SettingsIcon,0
+Inputs.kt,CheckboxInput,1
+Inputs.kt,NumberInput,0
+Inputs.kt,PasswordInput,3
+Inputs.kt,RadioButtonInput,0
+Inputs.kt,SearchInput,0
+Inputs.kt,SwitchInput,2
+Inputs.kt,TextInput,5
+Layouts.kt,FooterLayout,1
+Layouts.kt,GridList,1
+Layouts.kt,HeaderLayout,1
+Layouts.kt,ResponsiveRow,1
+Layouts.kt,ScrollableColumn,2
+Layouts.kt,SidebarLayout,0
