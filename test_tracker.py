@@ -102,7 +102,7 @@ class TestTracker(unittest.TestCase):
             ]
 
             report_dir = os.path.join(temp_dir, "20260627_194400")
-            tracker.write_reports(report_dir, "TestProj", "2026-06-27 19:44:00", components)
+            tracker.write_reports(report_dir, "TestProj", "2026-06-27 19:44:00", components, "main-branch")
 
             # Check summary.csv
             summary_path = os.path.join(report_dir, "summary.csv")
@@ -112,14 +112,15 @@ class TestTracker(unittest.TestCase):
                 rows = list(reader)
                 self.assertEqual(rows[0], ["Metric", "Value"])
                 self.assertEqual(rows[1], ["Project Name", "TestProj"])
-                self.assertEqual(rows[3], ["Total Components", "2"])
-                self.assertEqual(rows[4], ["Active Components", "1"])
-                self.assertEqual(rows[5], ["Unused Components", "1"])
-                self.assertEqual(rows[6], ["Total References", "3"])
-                self.assertEqual(rows[7], [])
-                self.assertEqual(rows[8], ["File", "Component", "Reference Count"])
-                self.assertEqual(rows[9], ["Buttons.kt", "PrimaryButton", "3"])
-                self.assertEqual(rows[10], ["Buttons.kt", "SecondaryButton", "0"])
+                self.assertEqual(rows[2], ["Git Branch", "main-branch"])
+                self.assertEqual(rows[4], ["Total Components", "2"])
+                self.assertEqual(rows[5], ["Active Components", "1"])
+                self.assertEqual(rows[6], ["Unused Components", "1"])
+                self.assertEqual(rows[7], ["Total References", "3"])
+                self.assertEqual(rows[8], [])
+                self.assertEqual(rows[9], ["File", "Component", "Reference Count"])
+                self.assertEqual(rows[10], ["Buttons.kt", "PrimaryButton", "3"])
+                self.assertEqual(rows[11], ["Buttons.kt", "SecondaryButton", "0"])
 
             # Check Buttons.csv
             buttons_path = os.path.join(report_dir, "Buttons.csv")
@@ -145,6 +146,7 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(len(entries), 1)
                 self.assertEqual(entries[0]["timestamp"], "20260627_194400")
                 self.assertEqual(entries[0]["project_name"], "TestProj")
+                self.assertEqual(entries[0]["branch"], "main-branch")
                 self.assertEqual(entries[0]["summary"]["total_components"], 2)
                 self.assertEqual(entries[0]["files"], ["Buttons.csv"])
 

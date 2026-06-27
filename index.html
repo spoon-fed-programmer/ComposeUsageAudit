@@ -376,6 +376,20 @@
             font-size: 24px;
         }
 
+        .branch-tag {
+            background-color: rgba(99, 102, 241, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            vertical-align: middle;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
         /* Tab Switcher */
         .tabs-header {
             display: flex;
@@ -1065,10 +1079,12 @@
             const activeRatio = total > 0 ? Math.round((active / total) * 100) : 0;
             const unusedRatio = total > 0 ? Math.round((unused / total) * 100) : 0;
 
+            const branchTag = selectedRun.branch ? `<span class="branch-tag">${selectedRun.branch}</span>` : '';
+
             mainPanel.innerHTML = `
                 <div class="dashboard-header">
                     <div class="dashboard-title-row">
-                        <h2>${selectedRun.project_name} 리포트</h2>
+                        <h2>${selectedRun.project_name} 리포트 ${branchTag}</h2>
                     </div>
                     <div class="dashboard-subtitle">분석 시간: ${selectedRun.date} KST</div>
                 </div>

@@ -139,7 +139,24 @@ def load_config(config_path: str = "config.json") -> dict:
     
     return config
 
-def write_reports(report_dir: str, project_name: str, timestamp_report: str, components: list):
+def get_git_branch(project_path: str) -> str:
+    if not os.path.exists(os.path.join(project_path, ".git")):
+        return None
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["git", "branch", "--show-current"],
+            cwd=project_path,
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        branch = result.stdout.strip()
+        return branch if branch else None
+    except Exception:
+        return None
+
+def write_reports(report_dir: str, project_name: str, timestamp_report: str, components: list, branch_name: str = None):
     import collections
     os.makedirs(report_dir, exist_ok=True)
     
@@ -154,6 +171,8 @@ def write_reports(report_dir: str, project_name: str, timestamp_report: str, com
         writer = csv.writer(f)
         writer.writerow(["Metric", "Value"])
         writer.writerow(["Project Name", project_name])
+        if branch_name:
+            writer.writerow(["Git Branch", branch_name])
         writer.writerow(["Generated Date", timestamp_report])
         writer.writerow(["Total Components", total_components])
         writer.writerow(["Active Components", active_components])
@@ -210,6 +229,7 @@ def write_reports(report_dir: str, project_name: str, timestamp_report: str, com
         "timestamp": timestamp_dir,
         "date": timestamp_report,
         "project_name": project_name,
+        "branch": branch_name,
         "summary": {
             "total_components": total_components,
             "active_components": active_components,
@@ -354,8 +374,10 @@ def main():
     timestamp_dir = now.strftime("%Y%m%d_%H%M%S")
     timestamp_report = now.strftime("%Y-%m-%d %H:%M:%S")
     
+    branch_name = get_git_branch(project_path)
+    
     report_dir = os.path.join(config["OUTPUT_DIR"], timestamp_dir)
-    write_reports(report_dir, project_name, timestamp_report, components)
+    write_reports(report_dir, project_name, timestamp_report, components, branch_name)
     
     total_components = len(components)
     active_components = sum(1 for c in components if c['ref_count'] > 0)
