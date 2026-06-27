@@ -2,13 +2,12 @@
  * AppHeader - Sticky top navigation bar.
  *
  * @param {object}   props
- * @param {object|null} props.selectedRun   - Current run object (has .project_name, .date, .branch)
  * @param {Function} props.onHome           - Called when logo is clicked
  * @param {string}   props.sourcePath       - Currently selected JSON source path
  * @param {Function} props.onSourceChange   - Called when the dropdown changes
  * @param {Function} props.onLoadSource     - Called when user submits a custom path
  */
-export default function AppHeader({ selectedRun, onHome, sourcePath, onSourceChange, onLoadSource }) {
+export default function AppHeader({ onHome, sourcePath, onSourceChange, onLoadSource }) {
   const isCustom = sourcePath === 'custom';
 
   const handleKeyPress = (e) => {
@@ -31,22 +30,6 @@ export default function AppHeader({ selectedRun, onHome, sourcePath, onSourceCha
         </h1>
       </button>
 
-      {/* Center: report info injected when a run is selected */}
-      {selectedRun && (
-        <div className="flex flex-col items-center gap-0.5 text-center">
-          <div className="text-base font-bold text-white flex items-center gap-1.5">
-            {selectedRun.project_name} 리포트
-            {selectedRun.branch && (
-              <span className="text-xs font-medium text-accent bg-accent/12 border border-accent/25 px-2 py-0.5 rounded-sm font-mono align-middle ml-1">
-                {selectedRun.branch}
-              </span>
-            )}
-          </div>
-          <div className="text-xs text-text-secondary">
-            분석 시간: {selectedRun.date} KST
-          </div>
-        </div>
-      )}
 
       {/* Source selector */}
       <div className="flex items-center gap-3 bg-panel border border-border px-3 py-1.5 rounded-md">

@@ -50,7 +50,6 @@ export default function App() {
   return (
     <div className="flex flex-col h-full">
       <AppHeader
-        selectedRun={selectedRun}
         onHome={handleHome}
         sourcePath={sourcePath}
         onSourceChange={handleSourceChange}
