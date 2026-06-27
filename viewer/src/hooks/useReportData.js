@@ -16,30 +16,28 @@ export function useReportData() {
     parts.pop(); // Remove "index.json"
     const categoryDir = parts.join('/') || 'reports';
 
-    const reportUrl = `${categoryDir}/${run.timestamp}_report.json`;
-    const res = await fetch(reportUrl);
-    if (!res.ok) {
-      throw new Error(`${run.timestamp}_report.json 로드에 실패했습니다.`);
+    // 1. Fetch report.json (for metadata/summary)
+    const reportRes = await fetch(`${categoryDir}/${run.timestamp}/report.json`);
+    if (!reportRes.ok) {
+      throw new Error(`report.json 로드에 실패했습니다.`);
     }
+    const reportData = await reportRes.json();
 
-    const reportData = await res.json();
-    
-    // Map components for backward compatibility in components
-    const components = (reportData.components || []).map((c) => ({
-      file: c.defining_file,
-      name: c.name,
-      count: c.ref_count,
-      package: c.package,
-      ref_classes: c.ref_classes || [],
-    }));
+    // 2. Fetch index.json (for flat component list)
+    const indexRes = await fetch(`${categoryDir}/${run.timestamp}/index.json`);
+    if (!indexRes.ok) {
+      throw new Error(`index.json 로드에 실패했습니다.`);
+    }
+    const components = await indexRes.json();
 
-    // Construct unique files list
+    // Construct unique files list from components list
     const files = [...new Set(components.map((c) => c.file))].sort();
 
     setSelectedRun({
       ...reportData,
       components,
       files,
+      categoryDir,
     });
   }, []);
 

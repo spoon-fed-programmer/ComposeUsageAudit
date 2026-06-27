@@ -158,24 +158,15 @@ def get_git_branch(project_path: str) -> str:
 
 def write_reports(output_dir: str, project_name: str, timestamp_report: str, timestamp_dir: str, components: list, branch_name: str = None):
     import collections
+    import shutil
     
     total_components = len(components)
     active_components = sum(1 for c in components if c['ref_count'] > 0)
     unused_components = total_components - active_components
     total_references = sum(c['ref_count'] for c in components)
     
-    # Convert components to simplified structure for JSON
-    json_comps = []
-    for comp in components:
-        json_comps.append({
-            "name": comp["name"],
-            "package": comp["package"],
-            "defining_file": os.path.basename(comp["defining_file"]),
-            "ref_count": comp["ref_count"],
-            "ref_classes": sorted(list(set(comp["ref_classes"])))
-        })
-        
-    report_data = {
+    # 1. Prepare report.json content
+    report_content = {
         "timestamp": timestamp_dir,
         "date": timestamp_report,
         "project_name": project_name,
@@ -185,95 +176,119 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
             "active_components": active_components,
             "unused_components": unused_components,
             "total_references": total_references
-        },
-        "components": sorted(json_comps, key=lambda x: (x["defining_file"], x["name"]))
+        }
     }
     
-    # Determine output directories
-    summary_daily_dir = os.path.join(output_dir, "summary_daily")
-    summary_weekly_dir = os.path.join(output_dir, "summary_weekly")
-    summary_monthly_dir = os.path.join(output_dir, "summary_monthly")
-    summary_yearly_dir = os.path.join(output_dir, "summary_yearly")
-    
-    # Helper to save report and update index
-    def save_to_category(category_dir: str, period_key_func=None):
-        os.makedirs(category_dir, exist_ok=True)
-        index_path = os.path.join(category_dir, "index.json")
+    # 2. Prepare index.json content (flat list of all components)
+    index_content = []
+    sorted_all_comps = sorted(components, key=lambda x: (os.path.basename(x['defining_file']), x['name']))
+    for comp in sorted_all_comps:
+        file_basename = os.path.basename(comp['defining_file'])
+        index_content.append({
+            "file": file_basename,
+            "name": comp['name'],
+            "count": comp['ref_count']
+        })
         
-        entries = []
-        if os.path.exists(index_path):
+    # 3. Prepare component-specific JSON contents (grouped by file name)
+    components_by_file = collections.defaultdict(list)
+    for comp in components:
+        defining_file_base = os.path.basename(comp['defining_file'])
+        components_by_file[defining_file_base].append(comp)
+        
+    component_files_content = {}
+    for defining_file_base, comps in components_by_file.items():
+        file_name_without_ext, _ = os.path.splitext(defining_file_base)
+        json_filename = f"{file_name_without_ext}.json"
+        
+        sorted_comps = sorted(comps, key=lambda x: (-x['ref_count'], x['name']))
+        pkg_name = comps[0]['package'] if comps else ""
+        
+        comps_data = []
+        for comp in sorted_comps:
+            comps_data.append({
+                "name": comp['name'],
+                "count": comp['ref_count'],
+                "classes": sorted(list(set(comp['ref_classes'])))
+            })
+            
+        component_files_content[json_filename] = {
+            "package": pkg_name,
+            "file": defining_file_base,
+            "components": comps_data
+        }
+        
+    # 4. Helper to save files to a folder and update index.json of the category
+    def save_run_to_folder(category_dir: str, folder_name: str):
+        run_dir = os.path.join(category_dir, folder_name)
+        
+        # Clean run directory to avoid stale files
+        if os.path.exists(run_dir):
             try:
-                with open(index_path, 'r', encoding='utf-8') as f:
+                shutil.rmtree(run_dir)
+            except Exception:
+                pass
+        os.makedirs(run_dir, exist_ok=True)
+        
+        # Save report.json
+        with open(os.path.join(run_dir, "report.json"), 'w', encoding='utf-8') as f:
+            json.dump(report_content, f, indent=2, ensure_ascii=False)
+            
+        # Save index.json (component list)
+        with open(os.path.join(run_dir, "index.json"), 'w', encoding='utf-8') as f:
+            json.dump(index_content, f, indent=2, ensure_ascii=False)
+            
+        # Save component files
+        for filename, content in component_files_content.items():
+            with open(os.path.join(run_dir, filename), 'w', encoding='utf-8') as f:
+                json.dump(content, f, indent=2, ensure_ascii=False)
+                
+        # Update category index.json
+        cat_index_path = os.path.join(category_dir, "index.json")
+        entries = []
+        if os.path.exists(cat_index_path):
+            try:
+                with open(cat_index_path, 'r', encoding='utf-8') as f:
                     entries = json.load(f)
             except Exception:
                 entries = []
                 
-        report_filename = f"{timestamp_dir}_report.json"
-        report_path = os.path.join(category_dir, report_filename)
-        with open(report_path, 'w', encoding='utf-8') as f:
-            json.dump(report_data, f, indent=2, ensure_ascii=False)
-            
         new_entry = {
-            "timestamp": timestamp_dir,
+            "timestamp": folder_name,
             "date": timestamp_report,
             "project_name": project_name,
             "branch": branch_name,
-            "summary": report_data["summary"]
+            "summary": report_content["summary"]
         }
         
-        if period_key_func is None:
-            # Daily: always append/prepend
-            entries.insert(0, new_entry)
-        else:
-            # Find if there is an entry with the same period key
-            now_dt = datetime.datetime.strptime(timestamp_dir, "%Y%m%d_%H%M%S")
-            period_key = period_key_func(now_dt)
-            
-            existing_idx = -1
-            for idx, entry in enumerate(entries):
-                entry_dt = datetime.datetime.strptime(entry["timestamp"], "%Y%m%d_%H%M%S")
-                if period_key_func(entry_dt) == period_key:
-                    existing_idx = idx
-                    break
-                    
-            if existing_idx != -1:
-                # Delete old file
-                old_timestamp = entries[existing_idx]["timestamp"]
-                if old_timestamp != timestamp_dir:
-                    old_file = os.path.join(category_dir, f"{old_timestamp}_report.json")
-                    if os.path.exists(old_file):
-                        try:
-                            os.remove(old_file)
-                        except Exception:
-                            pass
-                entries[existing_idx] = new_entry
-            else:
-                entries.insert(0, new_entry)
-                
-        # Deduplicate indices on same timestamp
-        seen = set()
-        dedup_entries = []
-        for e in entries:
-            if e["timestamp"] not in seen:
-                seen.add(e["timestamp"])
-                dedup_entries.append(e)
-        entries = dedup_entries
-
+        # Remove existing entry with same folder_name (overwrite)
+        entries = [e for e in entries if e["timestamp"] != folder_name]
+        entries.insert(0, new_entry)
         entries.sort(key=lambda x: x["timestamp"], reverse=True)
-        with open(index_path, 'w', encoding='utf-8') as f:
+        
+        with open(cat_index_path, 'w', encoding='utf-8') as f:
             json.dump(entries, f, indent=2, ensure_ascii=False)
-            
-    # Save to daily (always append)
-    save_to_category(summary_daily_dir, None)
+
+    now_dt = datetime.datetime.strptime(timestamp_dir, "%Y%m%d_%H%M%S")
     
-    # Save to weekly
-    save_to_category(summary_weekly_dir, lambda dt: dt.strftime("%Y-W%W"))
+    # Save to daily (timestamp-based folder)
+    summary_daily_dir = os.path.join(output_dir, "summary_daily")
+    save_run_to_folder(summary_daily_dir, timestamp_dir)
     
-    # Save to monthly
-    save_to_category(summary_monthly_dir, lambda dt: dt.strftime("%Y-%m"))
+    # Save to weekly (YYYY_Www folder)
+    summary_weekly_dir = os.path.join(output_dir, "summary_weekly")
+    week_folder = now_dt.strftime("%Y_W%W")
+    save_run_to_folder(summary_weekly_dir, week_folder)
     
-    # Save to yearly
-    save_to_category(summary_yearly_dir, lambda dt: dt.strftime("%Y"))
+    # Save to monthly (YYYY_MM folder)
+    summary_monthly_dir = os.path.join(output_dir, "summary_monthly")
+    month_folder = now_dt.strftime("%Y_%m")
+    save_run_to_folder(summary_monthly_dir, month_folder)
+    
+    # Save to yearly (YYYY folder)
+    summary_yearly_dir = os.path.join(output_dir, "summary_yearly")
+    year_folder = now_dt.strftime("%Y")
+    save_run_to_folder(summary_yearly_dir, year_folder)
 
 def main():
     print("=== Compose Component Usage Tracker ===")

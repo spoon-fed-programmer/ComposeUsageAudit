@@ -103,8 +103,8 @@ class TestTracker(unittest.TestCase):
 
             tracker.write_reports(temp_dir, "TestProj", "2026-06-27 19:44:00", "20260627_194400", components, "main-branch")
 
-            # Check JSON report in summary_daily
-            report_path = os.path.join(temp_dir, "summary_daily", "20260627_194400_report.json")
+            # Check JSON report in summary_daily/20260627_194400/
+            report_path = os.path.join(temp_dir, "summary_daily", "20260627_194400", "report.json")
             self.assertTrue(os.path.exists(report_path))
             with open(report_path, 'r', encoding='utf-8') as f:
                 import json
@@ -118,14 +118,29 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(report["summary"]["unused_components"], 1)
                 self.assertEqual(report["summary"]["total_references"], 3)
                 
-                # Check components
-                self.assertEqual(len(report["components"]), 2)
-                self.assertEqual(report["components"][0]["name"], "PrimaryButton")
-                self.assertEqual(report["components"][0]["defining_file"], "Buttons.kt")
-                self.assertEqual(report["components"][0]["ref_count"], 3)
-                self.assertEqual(report["components"][0]["ref_classes"], ["com.domain.home.HomeActivity", "com.domain.settings.SettingsActivity"])
+            # Check index.json in summary_daily/20260627_194400/
+            index_path = os.path.join(temp_dir, "summary_daily", "20260627_194400", "index.json")
+            self.assertTrue(os.path.exists(index_path))
+            with open(index_path, 'r', encoding='utf-8') as f:
+                components_list = json.load(f)
+                self.assertEqual(len(components_list), 2)
+                self.assertEqual(components_list[0]["name"], "PrimaryButton")
+                self.assertEqual(components_list[0]["file"], "Buttons.kt")
+                self.assertEqual(components_list[0]["count"], 3)
 
-            # Check index.json in summary_daily
+            # Check Buttons.json in summary_daily/20260627_194400/
+            buttons_path = os.path.join(temp_dir, "summary_daily", "20260627_194400", "Buttons.json")
+            self.assertTrue(os.path.exists(buttons_path))
+            with open(buttons_path, 'r', encoding='utf-8') as f:
+                buttons = json.load(f)
+                self.assertEqual(buttons["package"], "com.common.compose.button")
+                self.assertEqual(buttons["file"], "Buttons.kt")
+                self.assertEqual(len(buttons["components"]), 2)
+                self.assertEqual(buttons["components"][0]["name"], "PrimaryButton")
+                self.assertEqual(buttons["components"][0]["count"], 3)
+                self.assertEqual(buttons["components"][0]["classes"], ["com.domain.home.HomeActivity", "com.domain.settings.SettingsActivity"])
+
+            # Check root index.json in summary_daily
             daily_index = os.path.join(temp_dir, "summary_daily", "index.json")
             self.assertTrue(os.path.exists(daily_index))
             with open(daily_index, 'r', encoding='utf-8') as f:
@@ -134,9 +149,14 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(entries[0]["timestamp"], "20260627_194400")
                 self.assertEqual(entries[0]["summary"]["total_components"], 2)
 
-            # Check weekly index
+            # Check weekly index and folder
             weekly_index = os.path.join(temp_dir, "summary_weekly", "index.json")
             self.assertTrue(os.path.exists(weekly_index))
+            with open(weekly_index, 'r', encoding='utf-8') as f:
+                entries = json.load(f)
+                self.assertEqual(len(entries), 1)
+                self.assertEqual(entries[0]["timestamp"], "2026_W25")
+            self.assertTrue(os.path.exists(os.path.join(temp_dir, "summary_weekly", "2026_W25", "report.json")))
             
             # Check monthly index
             monthly_index = os.path.join(temp_dir, "summary_monthly", "index.json")
