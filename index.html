@@ -756,7 +756,7 @@
                 <option value="custom">직접 입력...</option>
             </select>
             <input type="text" id="json-source-input" placeholder="파일명 입력 (예: reports/custom.json)" onkeypress="handleCustomSourceKey(event)">
-            <button id="load-btn" onclick="loadSourceIndex()">로드</button>
+            <button id="load-btn" onclick="loadSourceIndex()" style="display: none;">로드</button>
         </div>
     </header>
 
@@ -855,11 +855,14 @@
         function handleSourceChange() {
             const select = document.getElementById('json-source-select');
             const input = document.getElementById('json-source-input');
+            const btn = document.getElementById('load-btn');
             if (select.value === 'custom') {
                 input.style.display = 'block';
+                btn.style.display = 'block';
                 input.focus();
             } else {
                 input.style.display = 'none';
+                btn.style.display = 'none';
                 loadSourceIndex();
             }
         }
