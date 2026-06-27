@@ -35,6 +35,7 @@ export function useReportData() {
 
     setSelectedRun({
       ...reportData,
+      timestamp: run.timestamp,
       components,
       files,
       categoryDir,
