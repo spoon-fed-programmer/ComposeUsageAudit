@@ -1,0 +1,47 @@
+{
+  "package": "com.common.compose.layout",
+  "file": "Layouts.kt",
+  "components": [
+    {
+      "name": "ScrollableColumn",
+      "count": 2,
+      "classes": [
+        "com.domain.cart.CartFragment",
+        "com.domain.notification.NotificationActivity"
+      ]
+    },
+    {
+      "name": "FooterLayout",
+      "count": 1,
+      "classes": [
+        "com.domain.home.HomeActivity"
+      ]
+    },
+    {
+      "name": "GridList",
+      "count": 1,
+      "classes": [
+        "com.domain.product.ProductListFragment"
+      ]
+    },
+    {
+      "name": "HeaderLayout",
+      "count": 1,
+      "classes": [
+        "com.domain.home.HomeActivity"
+      ]
+    },
+    {
+      "name": "ResponsiveRow",
+      "count": 1,
+      "classes": [
+        "com.domain.product.ProductDetailActivity"
+      ]
+    },
+    {
+      "name": "SidebarLayout",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

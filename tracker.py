@@ -264,6 +264,10 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         # Remove existing entry with same folder_name (overwrite)
         entries = [e for e in entries if e["timestamp"] != folder_name]
         entries.insert(0, new_entry)
+        
+        # Verify folder existence to filter out legacy or deleted entries
+        entries = [e for e in entries if os.path.isdir(os.path.join(category_dir, e["timestamp"]))]
+        
         entries.sort(key=lambda x: x["timestamp"], reverse=True)
         
         with open(cat_index_path, 'w', encoding='utf-8') as f:
