@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import FilterPanel from './FilterPanel';
-import ComponentsTable from './ComponentsTable';
+import ComponentsGrid from './ComponentsGrid';
 
 /**
- * OverviewTab - Flat component list with search and sort.
+ * OverviewTab - Flat component list with search, sort, and card view grid layout.
  *
  * @param {object}   props
  * @param {object[]} props.components     - Array of { file, name, count }
@@ -11,17 +11,7 @@ import ComponentsTable from './ComponentsTable';
  */
 export default function OverviewTab({ components, onNavigateFile }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortCol, setSortCol] = useState('file');
-  const [sortDir, setSortDir] = useState('asc');
-
-  const handleSort = (col) => {
-    if (sortCol === col) {
-      setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
-    } else {
-      setSortCol(col);
-      setSortDir('asc');
-    }
-  };
+  const [sortValue, setSortValue] = useState('file_asc');
 
   const filtered = useMemo(() => {
     let result = components ?? [];
@@ -34,17 +24,20 @@ export default function OverviewTab({ components, onNavigateFile }) {
       );
     }
 
+    // Split sort values
+    const [sortCol, sortDir] = sortValue.split('_');
+
     // Sort
     result = [...result].sort((a, b) => {
       let valA, valB;
       switch (sortCol) {
         case 'name':   valA = a.name.toLowerCase(); valB = b.name.toLowerCase(); break;
         case 'count':  valA = a.count; valB = b.count; break;
-        case 'status': valA = a.count > 0 ? 1 : 0; valB = b.count > 0 ? 1 : 0; break;
         default:       valA = a.file.toLowerCase(); valB = b.file.toLowerCase(); break;
       }
       if (valA < valB) return sortDir === 'asc' ? -1 : 1;
       if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+      
       // Secondary sort by name
       if (sortCol !== 'name') {
         const na = a.name.toLowerCase(), nb = b.name.toLowerCase();
@@ -55,19 +48,18 @@ export default function OverviewTab({ components, onNavigateFile }) {
     });
 
     return result;
-  }, [components, searchQuery, sortCol, sortDir]);
+  }, [components, searchQuery, sortValue]);
 
   return (
     <div className="flex flex-col gap-6">
       <FilterPanel
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        sortValue={sortValue}
+        onSortChange={setSortValue}
       />
-      <ComponentsTable
+      <ComponentsGrid
         components={filtered}
-        sortCol={sortCol}
-        sortDir={sortDir}
-        onSort={handleSort}
         onNavigate={onNavigateFile}
       />
     </div>
