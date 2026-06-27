@@ -1,19 +1,7 @@
 [
   {
-    "timestamp": "20260628_002543",
-    "date": "2026-06-28 00:25:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 25,
-      "unused_components": 13,
-      "total_references": 50
-    }
-  },
-  {
-    "timestamp": "20260628_000415",
-    "date": "2026-06-28 00:04:15",
+    "timestamp": "20260628",
+    "date": "2026-06-28 00:29:40",
     "project_name": "DummyAndroidProject",
     "branch": null,
     "summary": {

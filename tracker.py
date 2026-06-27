@@ -236,8 +236,10 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         os.makedirs(run_dir, exist_ok=True)
         
         # Save report.json
+        report_copy = dict(report_content)
+        report_copy["timestamp"] = folder_name
         with open(os.path.join(run_dir, "report.json"), 'w', encoding='utf-8') as f:
-            json.dump(report_content, f, indent=2, ensure_ascii=False)
+            json.dump(report_copy, f, indent=2, ensure_ascii=False)
             
         # Save index.json (component list)
         with open(os.path.join(run_dir, "index.json"), 'w', encoding='utf-8') as f:
@@ -280,9 +282,10 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
 
     now_dt = datetime.datetime.strptime(timestamp_dir, "%Y%m%d_%H%M%S")
     
-    # Save to daily (timestamp-based folder)
+    # Save to daily (YYYYMMDD folder)
     summary_daily_dir = os.path.join(output_dir, "summary_daily")
-    save_run_to_folder(summary_daily_dir, timestamp_dir)
+    daily_folder = now_dt.strftime("%Y%m%d")
+    save_run_to_folder(summary_daily_dir, daily_folder)
     
     # Save to weekly (YYYY_Www folder)
     summary_weekly_dir = os.path.join(output_dir, "summary_weekly")

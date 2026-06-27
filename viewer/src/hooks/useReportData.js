@@ -17,14 +17,14 @@ export function useReportData() {
     const categoryDir = parts.join('/') || 'reports';
 
     // 1. Fetch report.json (for metadata/summary)
-    const reportRes = await fetch(`${categoryDir}/${run.timestamp}/report.json`);
+    const reportRes = await fetch(`${categoryDir}/${run.timestamp}/report.json?t=${Date.now()}`);
     if (!reportRes.ok) {
       throw new Error(`report.json 로드에 실패했습니다.`);
     }
     const reportData = await reportRes.json();
 
     // 2. Fetch index.json (for flat component list)
-    const indexRes = await fetch(`${categoryDir}/${run.timestamp}/index.json`);
+    const indexRes = await fetch(`${categoryDir}/${run.timestamp}/index.json?t=${Date.now()}`);
     if (!indexRes.ok) {
       throw new Error(`index.json 로드에 실패했습니다.`);
     }
@@ -51,7 +51,7 @@ export function useReportData() {
     setActiveJsonPath(jsonPath);
 
     try {
-      const res = await fetch(jsonPath);
+      const res = await fetch(`${jsonPath}?t=${Date.now()}`);
       if (!res.ok) {
         throw new Error(`파일을 불러오는데 실패했습니다 (HTTP ${res.status})`);
       }

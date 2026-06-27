@@ -103,13 +103,13 @@ class TestTracker(unittest.TestCase):
 
             tracker.write_reports(temp_dir, "TestProj", "2026-06-27 19:44:00", "20260627_194400", components, "main-branch")
 
-            # Check JSON report in summary_daily/20260627_194400/
-            report_path = os.path.join(temp_dir, "summary_daily", "20260627_194400", "report.json")
+            # Check JSON report in summary_daily/20260627/
+            report_path = os.path.join(temp_dir, "summary_daily", "20260627", "report.json")
             self.assertTrue(os.path.exists(report_path))
             with open(report_path, 'r', encoding='utf-8') as f:
                 import json
                 report = json.load(f)
-                self.assertEqual(report["timestamp"], "20260627_194400")
+                self.assertEqual(report["timestamp"], "20260627")
                 self.assertEqual(report["date"], "2026-06-27 19:44:00")
                 self.assertEqual(report["project_name"], "TestProj")
                 self.assertEqual(report["branch"], "main-branch")
@@ -118,8 +118,8 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(report["summary"]["unused_components"], 1)
                 self.assertEqual(report["summary"]["total_references"], 3)
                 
-            # Check index.json in summary_daily/20260627_194400/
-            index_path = os.path.join(temp_dir, "summary_daily", "20260627_194400", "index.json")
+            # Check index.json in summary_daily/20260627/
+            index_path = os.path.join(temp_dir, "summary_daily", "20260627", "index.json")
             self.assertTrue(os.path.exists(index_path))
             with open(index_path, 'r', encoding='utf-8') as f:
                 components_list = json.load(f)
@@ -128,8 +128,8 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(components_list[0]["file"], "Buttons.kt")
                 self.assertEqual(components_list[0]["count"], 3)
 
-            # Check Buttons.json in summary_daily/20260627_194400/
-            buttons_path = os.path.join(temp_dir, "summary_daily", "20260627_194400", "Buttons.json")
+            # Check Buttons.json in summary_daily/20260627/
+            buttons_path = os.path.join(temp_dir, "summary_daily", "20260627", "Buttons.json")
             self.assertTrue(os.path.exists(buttons_path))
             with open(buttons_path, 'r', encoding='utf-8') as f:
                 buttons = json.load(f)
@@ -146,7 +146,7 @@ class TestTracker(unittest.TestCase):
             with open(daily_index, 'r', encoding='utf-8') as f:
                 entries = json.load(f)
                 self.assertEqual(len(entries), 1)
-                self.assertEqual(entries[0]["timestamp"], "20260627_194400")
+                self.assertEqual(entries[0]["timestamp"], "20260627")
                 self.assertEqual(entries[0]["summary"]["total_components"], 2)
 
             # Check weekly index and folder

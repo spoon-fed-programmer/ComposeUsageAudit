@@ -22,7 +22,7 @@ export function useFileCsv(selectedRun) {
       const fileBase = fileName.replace(/\.[^/.]+$/, "");
       const jsonFileName = `${fileBase}.json`;
 
-      const url = `${selectedRun.categoryDir}/${timestamp}/${jsonFileName}`;
+      const url = `${selectedRun.categoryDir}/${timestamp}/${jsonFileName}?t=${Date.now()}`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(`${jsonFileName} 데이터를 가져오지 못했습니다.`);
 
