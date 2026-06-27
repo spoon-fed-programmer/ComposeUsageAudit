@@ -340,6 +340,42 @@
             transition: width 1s ease-out;
         }
 
+        .metric-card.highlighted {
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            background: rgba(99, 102, 241, 0.04);
+        }
+
+        .metric-card.highlighted .metric-value {
+            font-size: 38px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .metric-card.highlighted.references {
+            border-color: rgba(245, 158, 11, 0.25);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+            background: rgba(245, 158, 11, 0.02);
+        }
+
+        .metric-card.highlighted.references .metric-value {
+            color: var(--warning);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+        }
+
+        .metric-card.subtle {
+            opacity: 0.75;
+        }
+
+        .metric-card.subtle .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .metric-card.subtle .metric-value {
+            font-size: 24px;
+        }
+
         /* Tab Switcher */
         .tabs-header {
             display: flex;
@@ -1039,22 +1075,22 @@
 
                 <!-- Metrics -->
                 <div class="metrics-grid">
-                    <div class="metric-card">
+                    <div class="metric-card highlighted">
                         <span class="metric-label">전체 컴포넌트</span>
                         <span class="metric-value">${total}</span>
                         <div class="progress-container"><div class="progress-bar" style="background-color: var(--accent); width: 100%;"></div></div>
                     </div>
-                    <div class="metric-card">
+                    <div class="metric-card subtle">
                         <span class="metric-label">활성 컴포넌트</span>
                         <span class="metric-value" style="color: var(--success);">${active} <span style="font-size: 16px; font-weight: 500;">(${activeRatio}%)</span></span>
                         <div class="progress-container"><div class="progress-bar" style="background-color: var(--success); width: ${activeRatio}%;"></div></div>
                     </div>
-                    <div class="metric-card">
+                    <div class="metric-card subtle">
                         <span class="metric-label">미사용 컴포넌트</span>
                         <span class="metric-value" style="color: var(--text-secondary);">${unused} <span style="font-size: 16px; font-weight: 500;">(${unusedRatio}%)</span></span>
                         <div class="progress-container"><div class="progress-bar" style="background-color: var(--text-muted); width: ${unusedRatio}%;"></div></div>
                     </div>
-                    <div class="metric-card">
+                    <div class="metric-card highlighted references">
                         <span class="metric-label">총 사용 참조 횟수</span>
                         <span class="metric-value" style="color: var(--warning);">${refs}</span>
                         <div class="progress-container"><div class="progress-bar" style="background-color: var(--warning); width: 100%;"></div></div>
