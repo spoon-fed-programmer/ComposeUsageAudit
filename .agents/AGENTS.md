@@ -33,17 +33,18 @@ This file defines the project-specific coding rules and standard guidelines for 
 
 ---
 
-## 3. Web (HTML, CSS, JS) Coding Rules
-- **HTML**:
-  - Use semantic HTML5 elements (`<header>`, `<main>`, `<section>`, `<article>`, `<footer>`).
-  - Keep IDs unique and descriptive.
-- **CSS**:
-  - Design system tokens must be declared in `:root` variables (colors, borders, fonts, spacing).
-  - Use Flexbox and CSS Grid for layout structuring. Avoid hardcoding positioning values (`top`, `left`) unless absolute overlays are necessary.
-  - Support responsive styling.
-- **JavaScript (ES6+)**:
-  - Always use `const` and `let` instead of `var`.
-  - Use arrow functions (`() => {}`) and async/await for asynchronous operations.
-  - Implement a built-in lightweight CSV parser to avoid external dependencies.
-  - Never use `innerHTML` directly with user input to prevent XSS. Use `textContent` or escape strings dynamically.
-  - Catch network errors during `fetch` operations and display styled informative warnings.
+## 3. Web (React, Tailwind CSS, JS) Coding Rules
+- **React & Modularity**:
+  - Structure the application with small, highly focused, and reusable functional components.
+  - Separate business logic and API fetching into custom hooks (e.g., `useReportData`).
+  - Follow modular file structures (e.g., `components/`, `hooks/`, `utils/`).
+  - Prioritize proper state management (local state, context, or lightweight state managers).
+- **Tailwind CSS**:
+  - Use Tailwind CSS utility classes for all styling requirements to ensure flexibility and consistency.
+  - Avoid inline styles or custom Vanilla CSS classes unless absolutely necessary for complex dynamic calculations.
+  - Declare project-specific design tokens (colors, shadows, custom animations) in `tailwind.config.js` rather than hardcoding arbitrary utility values (e.g., use `bg-primary` instead of `bg-[#0b0f19]`).
+- **JavaScript / TypeScript**:
+  - Use modern ES6+ features (arrow functions, destructured assignments, async/await).
+  - Implement a built-in lightweight CSV parser to avoid bloated third-party dependencies.
+  - Always clean up event listeners, intervals, and subscription state inside hook cleanups (`return () => ...`).
+  - Sanitize user-provided values and handle API/fetch errors with beautiful, styled UI feedback.
