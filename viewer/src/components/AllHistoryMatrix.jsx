@@ -65,6 +65,12 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
     });
   }, [matrixData]);
 
+  // Extract unique files
+  const uniqueFiles = useMemo(() => {
+    const files = uniqueComponents.map((c) => c.file);
+    return [...new Set(files)].sort();
+  }, [uniqueComponents]);
+
   // Calculate rowSpan offsets for the file column
   const rowSpans = useMemo(() => {
     const spans = new Array(uniqueComponents.length).fill(0);
@@ -189,6 +195,58 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                 );
               })}
             </tr>
+
+            {/* File-level subtotals */}
+            {uniqueFiles.map((file) => (
+              <tr 
+                key={`subtotal-${file}`}
+                className="border-b border-border bg-white/[0.005] hover:bg-white/[0.015] font-semibold text-text-secondary"
+              >
+                <td className="sticky left-0 z-20 bg-[#080b11] font-sans font-semibold px-4 py-2.5 border-r border-border w-[150px] min-w-[150px] max-w-[150px] shadow-[4px_0_10px_rgba(0,0,0,0.15)]">
+                  {file}
+                </td>
+                <td className="sticky left-[150px] z-20 bg-[#080b11] font-sans font-semibold px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+                  파일 합계
+                </td>
+                {matrixData.map((run, runIdx) => {
+                  const fileRefs = run.components
+                    .filter((rc) => rc.file === file)
+                    .reduce((sum, rc) => sum + rc.count, 0);
+
+                  let trendClass = 'text-text-primary';
+                  let diffText = '';
+
+                  const nextRun = matrixData[runIdx + 1];
+                  if (nextRun) {
+                    const prevFileRefs = nextRun.components
+                      .filter((rc) => rc.file === file)
+                      .reduce((sum, rc) => sum + rc.count, 0);
+                    if (fileRefs > prevFileRefs) {
+                      trendClass = 'text-success';
+                      diffText = ` (+${fileRefs - prevFileRefs})`;
+                    } else if (fileRefs < prevFileRefs) {
+                      trendClass = 'text-danger';
+                      diffText = ` (-${prevFileRefs - fileRefs})`;
+                    }
+                  }
+
+                  const isHovered = hoveredColIdx === runIdx;
+                  return (
+                    <td
+                      key={`subtotal-${file}-${run.timestamp}`}
+                      onMouseEnter={() => setHoveredColIdx(runIdx)}
+                      onMouseLeave={() => setHoveredColIdx(null)}
+                      className={[
+                        `px-2 py-2.5 border-r border-border text-center w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                        isHovered ? 'bg-white/[0.02]' : ''
+                      ].join(' ')}
+                    >
+                      {fileRefs}회{diffText}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
 
             {uniqueComponents.map((c, compIdx) => {
               const fileSpan = rowSpans[compIdx];
