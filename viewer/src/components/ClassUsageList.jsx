@@ -59,6 +59,14 @@ export default function ClassUsageList({
                 style={{ boxShadow: '0 0 6px #6366f1' }}
               />
               <span className="truncate text-text-secondary flex items-center gap-1.5" title={classNameStr}>
+                {cls.isNew && (
+                  <span
+                    className="text-[8px] font-extrabold text-[#f43f5e] bg-[#f43f5e]/15 border border-[#f43f5e]/30 px-1 py-0.5 rounded-sm shrink-0 select-none font-sans tracking-wide"
+                    style={{ textShadow: '0 0 4px rgba(244,63,94,0.4)', boxShadow: '0 0 6px rgba(244,63,94,0.1)' }}
+                  >
+                    NEW
+                  </span>
+                )}
                 <span className="truncate text-white font-medium">{classNameStr}</span>
                 {moduleInfo && (
                   <span className="text-[10px] text-text-muted opacity-60 font-sans font-normal shrink-0 select-none">

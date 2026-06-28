@@ -4,9 +4,9 @@ import ModuleMenuList from './ModuleMenuList';
 import ModuleDetailPanel from './ModuleDetailPanel';
 import { useI18n } from '../../contexts/I18nContext';
 
-export default function ModulesTab({ selectedRun }) {
+export default function ModulesTab({ selectedRun, prevTimestamp }) {
   const { t } = useI18n();
-  const { modulesData, loading, error } = useModulesData(selectedRun);
+  const { modulesData, loading, error } = useModulesData(selectedRun, prevTimestamp);
   const [selectedModule, setSelectedModule] = useState(null);
 
   // Extract list of modules from data keys, only including those with >= 1 reference count components

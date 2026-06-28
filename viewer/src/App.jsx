@@ -182,6 +182,11 @@ export default function App() {
         ) : (
           <MainPanel
             selectedRun={selectedRun}
+            prevTimestamp={(() => {
+              const currentIdx = reportRuns.findIndex(r => r.timestamp === selectedRun?.timestamp);
+              const prevRun = currentIdx !== -1 && currentIdx + 1 < reportRuns.length ? reportRuns[currentIdx + 1] : null;
+              return prevRun ? prevRun.timestamp : null;
+            })()}
             loading={loading && reportRuns.length > 0 && !selectedRun}
             error={selectedRun ? null : null}
             activeTab={activeTab}

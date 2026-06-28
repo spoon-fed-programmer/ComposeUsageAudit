@@ -15,6 +15,7 @@ import EmptyState from './EmptyState';
  */
 export default function MainPanel({
   selectedRun,
+  prevTimestamp,
   loading,
   error,
   activeTab,
@@ -64,11 +65,13 @@ export default function MainPanel({
         ) : activeTab === 'files' ? (
           <FilesTab
             selectedRun={selectedRun}
+            prevTimestamp={prevTimestamp}
             initialFile={navigatedFile}
           />
         ) : (
           <ModulesTab
             selectedRun={selectedRun}
+            prevTimestamp={prevTimestamp}
           />
         )}
       </div>

@@ -12,7 +12,7 @@ import FileDetailPanel from './FileDetailPanel';
  */
 import { useI18n } from '../../contexts/I18nContext';
 
-export default function FilesTab({ selectedRun, initialFile }) {
+export default function FilesTab({ selectedRun, prevTimestamp, initialFile }) {
   const { t } = useI18n();
   const files = selectedRun?.files ?? [];
   const [selectedFile, setSelectedFile] = useState(initialFile ?? files[0] ?? null);
@@ -21,9 +21,9 @@ export default function FilesTab({ selectedRun, initialFile }) {
   // Load detail whenever selectedFile changes
   useEffect(() => {
     if (selectedFile && selectedRun?.timestamp) {
-      loadFileDetail(selectedFile, selectedRun.timestamp);
+      loadFileDetail(selectedFile, selectedRun.timestamp, prevTimestamp);
     }
-  }, [selectedFile, selectedRun?.timestamp, loadFileDetail]);
+  }, [selectedFile, selectedRun?.timestamp, prevTimestamp, loadFileDetail]);
 
   // If navigated here with a new initialFile, update selection
   useEffect(() => {
