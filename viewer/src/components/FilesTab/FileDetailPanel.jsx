@@ -97,9 +97,9 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                               />
                               <span className="truncate text-text-secondary flex items-center gap-1.5" title={classNameStr}>
                                 <span className="truncate">{classNameStr}</span>
-                                {isObj && cls.source_set && (
+                                {isObj && (cls.module_name || cls.source_set) && (
                                   <span className="text-[11px] text-text-muted opacity-60 font-sans font-normal shrink-0 select-none ml-1">
-                                    ({cls.source_set})
+                                    ({[cls.module_name, cls.source_set].filter(Boolean).join(' / ')})
                                   </span>
                                 )}
                               </span>

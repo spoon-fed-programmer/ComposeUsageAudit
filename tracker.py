@@ -97,6 +97,39 @@ def extract_source_set(file_path: str) -> str:
     match = re.search(r'[\\/]src[\\/]([^\\/]+)[\\/](?:java|kotlin)[\\/]', abs_path, re.IGNORECASE)
     return match.group(1) if match else "main"
 
+def extract_module_name(file_path: str, project_path: str) -> str:
+    """
+    Extracts the module name from the file path relative to the project_path.
+    Identifies the module as the directory structure prior to the 'src' directory.
+    """
+    abs_file_path = os.path.abspath(file_path)
+    abs_project_path = os.path.abspath(project_path)
+    
+    try:
+        rel_path = os.path.relpath(abs_file_path, abs_project_path)
+    except ValueError:
+        return ""
+        
+    parts = []
+    head, tail = os.path.split(rel_path)
+    while tail:
+        parts.insert(0, tail)
+        head, tail = os.path.split(head)
+    if head:
+        parts.insert(0, head)
+        
+    src_idx = -1
+    for idx, part in enumerate(parts):
+        if part.lower() == 'src':
+            src_idx = idx
+            break
+            
+    if src_idx > 0:
+        return "/".join(parts[:src_idx])
+    elif len(parts) > 1:
+        return parts[0]
+    return ""
+
 def run_git_command(args: list, cwd: str) -> str:
     try:
         res = subprocess.run(args, cwd=cwd, capture_output=True, text=True, check=True)
@@ -231,17 +264,20 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
                     rcount = 1
                     rlines = []
                     sourceset = "main"
+                    modulename = ""
                 else:
                     cname = ref.get('class_name', '')
                     rcount = ref.get('count', 0)
                     rlines = ref.get('lines', [])
                     sourceset = ref.get('source_set', 'main')
+                    modulename = ref.get('module_name', '')
                     
-                key = (cname, sourceset)
+                key = (cname, sourceset, modulename)
                 if key not in merged:
                     merged[key] = {
                         'class_name': cname,
                         'source_set': sourceset,
+                        'module_name': modulename,
                         'count': 0,
                         'lines': set()
                     }
@@ -253,6 +289,7 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
                 classes_list.append({
                     'class_name': merged[key]['class_name'],
                     'source_set': merged[key]['source_set'],
+                    'module_name': merged[key]['module_name'],
                     'count': merged[key]['count'],
                     'lines': sorted(list(merged[key]['lines']))
                 })
@@ -472,6 +509,9 @@ def main():
                             # Extract source set name
                             sourceset = extract_source_set(abs_file_path)
                             
+                            # Extract module name
+                            modulename = extract_module_name(abs_file_path, project_path)
+                            
                             # Find all line numbers (1-based) where comp_name is referenced
                             lines_found = []
                             cleaned_lines = cleaned_content.splitlines()
@@ -484,6 +524,7 @@ def main():
                             comp_info['ref_classes'].append({
                                 'class_name': class_ident,
                                 'source_set': sourceset,
+                                'module_name': modulename,
                                 'count': count,
                                 'lines': lines_found
                             })

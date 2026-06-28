@@ -92,8 +92,8 @@ class TestTracker(unittest.TestCase):
                     'defining_file': os.path.abspath('dummy_project/common/compose/Buttons.kt'),
                     'ref_count': 3,
                     'ref_classes': [
-                        {'class_name': 'com.domain.home.HomeActivity', 'count': 2, 'lines': [10, 25]},
-                        {'class_name': 'com.domain.settings.SettingsActivity', 'count': 1, 'lines': [40]}
+                        {'class_name': 'com.domain.home.HomeActivity', 'source_set': 'main', 'module_name': 'app', 'count': 2, 'lines': [10, 25]},
+                        {'class_name': 'com.domain.settings.SettingsActivity', 'source_set': 'main', 'module_name': 'app', 'count': 1, 'lines': [40]}
                     ]
                 },
                 {
@@ -143,8 +143,8 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(buttons["components"][0]["name"], "PrimaryButton")
                 self.assertEqual(buttons["components"][0]["count"], 3)
                 self.assertEqual(buttons["components"][0]["classes"], [
-                    {"class_name": "com.domain.home.HomeActivity", "source_set": "main", "count": 2, "lines": [10, 25]},
-                    {"class_name": "com.domain.settings.SettingsActivity", "source_set": "main", "count": 1, "lines": [40]}
+                    {"class_name": "com.domain.home.HomeActivity", "source_set": "main", "module_name": "app", "count": 2, "lines": [10, 25]},
+                    {"class_name": "com.domain.settings.SettingsActivity", "source_set": "main", "module_name": "app", "count": 1, "lines": [40]}
                 ])
 
             # Check root index.json in summary_daily
@@ -198,6 +198,21 @@ class TestTracker(unittest.TestCase):
         # 4. Standard path with no sourceSet structure
         path_simple = "C:\\Project\\MainActivity.kt"
         self.assertEqual(tracker.extract_source_set(path_simple), "main")
+
+    def test_extract_module_name(self):
+        project_path = "C:\\Projects\\dummy_project"
+        
+        # 1. Single module under app
+        path_app = "C:\\Projects\\dummy_project\\app\\src\\main\\java\\com\\domain\\auth\\LoginActivity.kt"
+        self.assertEqual(tracker.extract_module_name(path_app, project_path), "app")
+
+        # 2. Multi-module nested path (vas/dpaper)
+        path_multi = "C:\\Projects\\dummy_project\\vas\\dpaper\\src\\main\\java\\com\\domain\\auth\\LoginActivity.kt"
+        self.assertEqual(tracker.extract_module_name(path_multi, project_path), "vas/dpaper")
+
+        # 3. Path outside or no src folder (fallback)
+        path_fallback = "C:\\Projects\\dummy_project\\app\\MainActivity.kt"
+        self.assertEqual(tracker.extract_module_name(path_fallback, project_path), "app")
 
 if __name__ == '__main__':
     unittest.main()

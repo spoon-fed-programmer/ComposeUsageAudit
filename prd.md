@@ -107,7 +107,7 @@
 
 **3) `<ComponentFileName>.json` (예: `Buttons.json`)**
 각 공통 소스 파일 단위로 생성되는 상세 분석 리포트입니다. 컴포넌트별 참조 횟수 기준 내림차순(1순위), 컴포넌트명 오름차순(2순위)으로 정렬됩니다.
-이 리포트는 참조한 클래스 경로뿐 아니라 **어떤 소스 세트(main, kr, us 등)**에서 사용되었는지, 그리고 파일 내 **구체적인 라인 번호 리스트(`lines`)**까지 세부적으로 추적하여 나타냅니다.
+이 리포트는 참조한 클래스 경로뿐 아니라 **어떤 모듈(app, common, vas/dpaper 등)과 소스 세트(main, kr, us 등)**에서 사용되었는지, 그리고 파일 내 **구체적인 라인 번호 리스트(`lines`)**까지 세부적으로 추적하여 나타냅니다.
 ```json
 {
   "package": "com.common.compose.button",
@@ -120,12 +120,14 @@
         {
           "class_name": "com.domain.home.HomeActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 2,
           "lines": [10, 25]
         },
         {
           "class_name": "com.domain.settings.SettingsActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [40]
         }
