@@ -69,6 +69,9 @@ export const TRANSLATIONS = {
     file_subtotal: '파일 합계',
     matrix_loading: '이력 매트릭스 데이터 로딩 중...',
     matrix_error: '데이터를 가져오는데 실패했습니다.',
+    mode_component: '컴포넌트별',
+    mode_module: '모듈별',
+    col_module_name: '모듈명',
 
     // Error messages & fallback
     fetch_failed: '파일을 불러오는데 실패했습니다',
@@ -144,6 +147,9 @@ export const TRANSLATIONS = {
     file_subtotal: 'File Total',
     matrix_loading: 'Loading history matrix data...',
     matrix_error: 'Failed to load data.',
+    mode_component: 'By Component',
+    mode_module: 'By Module',
+    col_module_name: 'Module Name',
 
     // Error messages & fallback
     fetch_failed: 'Failed to load file',
