@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, Fragment } from 'react';
 import { formatTimestamp } from './RunCard';
 
 /**
@@ -71,25 +71,16 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
     return [...new Set(files)].sort();
   }, [uniqueComponents]);
 
-  // Calculate rowSpan offsets for the file column
-  const rowSpans = useMemo(() => {
-    const spans = new Array(uniqueComponents.length).fill(0);
-    let currentFile = null;
-    let startIndex = 0;
-
-    uniqueComponents.forEach((c, idx) => {
-      if (c.file !== currentFile) {
-        if (currentFile !== null) {
-          spans[startIndex] = idx - startIndex;
-        }
-        currentFile = c.file;
-        startIndex = idx;
+  // Group components by file
+  const componentsByFile = useMemo(() => {
+    const groups = {};
+    uniqueComponents.forEach((c) => {
+      if (!groups[c.file]) {
+        groups[c.file] = [];
       }
+      groups[c.file].push(c);
     });
-    if (currentFile !== null) {
-      spans[startIndex] = uniqueComponents.length - startIndex;
-    }
-    return spans;
+    return groups;
   }, [uniqueComponents]);
 
   if (loading) {
@@ -196,138 +187,132 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
               })}
             </tr>
 
-            {/* File-level subtotals */}
-            {uniqueFiles.map((file) => (
-              <tr 
-                key={`subtotal-${file}`}
-                className="border-b border-border bg-white/[0.005] hover:bg-white/[0.015] font-semibold text-text-secondary"
-              >
-                <td className="sticky left-0 z-20 bg-[#080b11] font-sans font-semibold px-4 py-2.5 border-r border-border w-[150px] min-w-[150px] max-w-[150px] shadow-[4px_0_10px_rgba(0,0,0,0.15)]">
-                  {file}
-                </td>
-                <td className="sticky left-[150px] z-20 bg-[#080b11] font-sans font-semibold px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
-                  파일 합계
-                </td>
-                {matrixData.map((run, runIdx) => {
-                  const fileRefs = run.components
-                    .filter((rc) => rc.file === file)
-                    .reduce((sum, rc) => sum + rc.count, 0);
+            {/* Grouped by File: Subtotal Row + Component Rows */}
+            {uniqueFiles.map((file) => {
+              const fileComponents = componentsByFile[file] || [];
+              const rowSpanVal = fileComponents.length + 1;
 
-                  let trendClass = 'text-text-primary';
-                  let diffText = '';
-
-                  const nextRun = matrixData[runIdx + 1];
-                  if (nextRun) {
-                    const prevFileRefs = nextRun.components
-                      .filter((rc) => rc.file === file)
-                      .reduce((sum, rc) => sum + rc.count, 0);
-                    if (fileRefs > prevFileRefs) {
-                      trendClass = 'text-success';
-                      diffText = ` (+${fileRefs - prevFileRefs})`;
-                    } else if (fileRefs < prevFileRefs) {
-                      trendClass = 'text-danger';
-                      diffText = ` (-${prevFileRefs - fileRefs})`;
-                    }
-                  }
-
-                  const isHovered = hoveredColIdx === runIdx;
-                  return (
-                    <td
-                      key={`subtotal-${file}-${run.timestamp}`}
-                      onMouseEnter={() => setHoveredColIdx(runIdx)}
-                      onMouseLeave={() => setHoveredColIdx(null)}
-                      className={[
-                        `px-2 py-2.5 border-r border-border text-center w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
-                        isHovered ? 'bg-white/[0.02]' : ''
-                      ].join(' ')}
-                    >
-                      {fileRefs}회{diffText}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-
-            {uniqueComponents.map((c, compIdx) => {
-              const fileSpan = rowSpans[compIdx];
               return (
-                <tr
-                  key={`${c.file}-${c.name}-${compIdx}`}
-                  className="hover:bg-white/[0.015] border-b border-border last:border-0"
-                >
-                  {/* File Name Column (sticky left-0) */}
-                  {fileSpan > 0 && (
+                <Fragment key={file}>
+                  {/* 1. Subtotal Row for the File */}
+                  <tr className="border-b border-border bg-white/[0.02] hover:bg-white/[0.035] font-semibold text-accent/90">
                     <td
-                      rowSpan={fileSpan}
+                      rowSpan={rowSpanVal}
                       className="sticky left-0 z-20 bg-[#080b11] font-sans font-semibold text-text-secondary px-4 py-2.5 border-r border-border w-[150px] min-w-[150px] max-w-[150px] align-middle overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)]"
                     >
-                      {c.file}
+                      {file}
                     </td>
-                  )}
+                    <td className="sticky left-[150px] z-20 bg-[#0d1017] font-sans font-bold text-accent/80 px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+                      파일 합계
+                    </td>
+                    {matrixData.map((run, runIdx) => {
+                      const fileRefs = run.components
+                        .filter((rc) => rc.file === file)
+                        .reduce((sum, rc) => sum + rc.count, 0);
 
-                  {/* Component Name Column (sticky left-150px) */}
-                  <td className="sticky left-[150px] z-20 bg-[#080b11] font-sans font-bold text-white px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
-                    {c.name}
-                  </td>
+                      let trendClass = 'text-accent/90';
+                      let diffText = '';
 
-                  {/* Date Cells */}
-                  {matrixData.map((run, runIdx) => {
-                    // Create lookup maps for current run and the next (older) run
-                    const countMap = {};
-                    run.components.forEach((rc) => {
-                      countMap[`${rc.file}::${rc.name}`] = rc.count;
-                    });
-
-                    const count = countMap[`${c.file}::${c.name}`];
-                    const hasValue = count !== undefined;
-                    const isUnused = count === 0;
-
-                    let trendClass = 'text-white';
-                    let diffText = '';
-
-                    if (hasValue) {
-                      if (isUnused) {
-                        trendClass = 'text-text-muted/60';
-                      } else {
-                        // Compare current run with next run (older run, so runIdx + 1)
-                        const nextRun = matrixData[runIdx + 1];
-                        if (nextRun) {
-                          const prevCountMap = {};
-                          nextRun.components.forEach((nc) => {
-                            prevCountMap[`${nc.file}::${nc.name}`] = nc.count;
-                          });
-                          const prevCount = prevCountMap[`${c.file}::${c.name}`];
-                          if (prevCount !== undefined) {
-                            if (count > prevCount) {
-                              trendClass = 'text-success';
-                              diffText = ` (+${count - prevCount})`;
-                            } else if (count < prevCount) {
-                              trendClass = 'text-danger';
-                              diffText = ` (-${prevCount - count})`;
-                            }
-                          }
+                      const nextRun = matrixData[runIdx + 1];
+                      if (nextRun) {
+                        const prevFileRefs = nextRun.components
+                          .filter((rc) => rc.file === file)
+                          .reduce((sum, rc) => sum + rc.count, 0);
+                        if (fileRefs > prevFileRefs) {
+                          trendClass = 'text-success';
+                          diffText = ` (+${fileRefs - prevFileRefs})`;
+                        } else if (fileRefs < prevFileRefs) {
+                          trendClass = 'text-danger';
+                          diffText = ` (-${prevFileRefs - fileRefs})`;
                         }
                       }
-                    } else {
-                      trendClass = 'text-text-muted/40 font-normal';
-                    }
 
-                    const isHovered = hoveredColIdx === runIdx;
-                    return (
-                      <td
-                        key={`${run.timestamp}-${compIdx}`}
-                        onMouseEnter={() => setHoveredColIdx(runIdx)}
-                        onMouseLeave={() => setHoveredColIdx(null)}
-                        className={[
-                          `px-2 py-2 border-r border-border text-center font-bold w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
-                          isHovered ? 'bg-white/[0.02]' : ''
-                        ].join(' ')}
-                      >
-                        {hasValue ? `${count}회${diffText}` : '-'}
+                      const isHovered = hoveredColIdx === runIdx;
+                      return (
+                        <td
+                          key={`subtotal-${file}-${run.timestamp}`}
+                          onMouseEnter={() => setHoveredColIdx(runIdx)}
+                          onMouseLeave={() => setHoveredColIdx(null)}
+                          className={[
+                            `px-2 py-2.5 border-r border-border text-center w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                            isHovered ? 'bg-white/[0.02]' : ''
+                          ].join(' ')}
+                        >
+                          {fileRefs}회{diffText}
+                        </td>
+                      );
+                    })}
+                  </tr>
+
+                  {/* 2. Component Rows */}
+                  {fileComponents.map((c, compIdx) => (
+                    <tr
+                      key={`${c.file}-${c.name}-${compIdx}`}
+                      className="hover:bg-white/[0.015] border-b border-border last:border-0"
+                    >
+                      {/* Component Name Column */}
+                      <td className="sticky left-[150px] z-20 bg-[#080b11] font-sans font-bold text-white px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+                        {c.name}
                       </td>
-                    );
-                  })}
-                </tr>
+
+                      {/* Date Cells */}
+                      {matrixData.map((run, runIdx) => {
+                        const countMap = {};
+                        run.components.forEach((rc) => {
+                          countMap[`${rc.file}::${rc.name}`] = rc.count;
+                        });
+
+                        const count = countMap[`${c.file}::${c.name}`];
+                        const hasValue = count !== undefined;
+                        const isUnused = count === 0;
+
+                        let trendClass = 'text-white';
+                        let diffText = '';
+
+                        if (hasValue) {
+                          if (isUnused) {
+                            trendClass = 'text-text-muted/60';
+                          } else {
+                            const nextRun = matrixData[runIdx + 1];
+                            if (nextRun) {
+                              const prevCountMap = {};
+                              nextRun.components.forEach((nc) => {
+                                prevCountMap[`${nc.file}::${nc.name}`] = nc.count;
+                              });
+                              const prevCount = prevCountMap[`${c.file}::${c.name}`];
+                              if (prevCount !== undefined) {
+                                if (count > prevCount) {
+                                  trendClass = 'text-success';
+                                  diffText = ` (+${count - prevCount})`;
+                                } else if (count < prevCount) {
+                                  trendClass = 'text-danger';
+                                  diffText = ` (-${prevCount - count})`;
+                                }
+                              }
+                            }
+                          }
+                        } else {
+                          trendClass = 'text-text-muted/40 font-normal';
+                        }
+
+                        const isHovered = hoveredColIdx === runIdx;
+                        return (
+                          <td
+                            key={`${run.timestamp}-${compIdx}`}
+                            onMouseEnter={() => setHoveredColIdx(runIdx)}
+                            onMouseLeave={() => setHoveredColIdx(null)}
+                            className={[
+                              `px-2 py-2 border-r border-border text-center font-bold w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                              isHovered ? 'bg-white/[0.02]' : ''
+                            ].join(' ')}
+                          >
+                            {hasValue ? `${count}회${diffText}` : '-'}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </Fragment>
               );
             })}
           </tbody>
