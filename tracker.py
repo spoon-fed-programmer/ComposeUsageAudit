@@ -14,6 +14,7 @@ def strip_comments(code: str) -> str:
     """
     Strips Kotlin single-line and multi-line comments from the source code,
     while leaving double-quoted and triple-quoted string literals intact.
+    Preserves line numbers by keeping newline characters in place of comments.
     """
     pattern = re.compile(
         r'"{3}.*?"{3}|//.*?$|/\*.*?\*/|"(?:\\.|[^\\"])*"',
@@ -22,20 +23,22 @@ def strip_comments(code: str) -> str:
     def replacer(match):
         s = match.group(0)
         if s.startswith('//') or s.startswith('/*'):
-            return ''
+            return '\n' * s.count('\n')
         return s
     return pattern.sub(replacer, code)
 
 def clean_imports_and_comments(code: str) -> str:
     """
     Strips comments and ignores lines starting with 'import '.
+    Preserves line numbers by placing empty lines in place of import statements.
     """
     code = strip_comments(code)
     lines = []
     for line in code.splitlines():
         if line.strip().startswith('import '):
-            continue
-        lines.append(line)
+            lines.append("")
+        else:
+            lines.append(line)
     return '\n'.join(lines)
 
 def extract_composables(file_content: str) -> list:
@@ -211,10 +214,39 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         
         comps_data = []
         for comp in sorted_comps:
+            # Group and merge references by class name
+            merged = {}
+            for ref in comp['ref_classes']:
+                if isinstance(ref, str):
+                    cname = ref
+                    rcount = 1
+                    rlines = []
+                else:
+                    cname = ref.get('class_name', '')
+                    rcount = ref.get('count', 0)
+                    rlines = ref.get('lines', [])
+                    
+                if cname not in merged:
+                    merged[cname] = {
+                        'class_name': cname,
+                        'count': 0,
+                        'lines': set()
+                    }
+                merged[cname]['count'] += rcount
+                merged[cname]['lines'].update(rlines)
+                
+            classes_list = []
+            for cname in sorted(merged.keys()):
+                classes_list.append({
+                    'class_name': cname,
+                    'count': merged[cname]['count'],
+                    'lines': sorted(list(merged[cname]['lines']))
+                })
+                
             comps_data.append({
                 "name": comp['name'],
                 "count": comp['ref_count'],
-                "classes": sorted(list(set(comp['ref_classes'])))
+                "classes": classes_list
             })
             
         component_files_content[json_filename] = {
@@ -423,8 +455,20 @@ def main():
                             name_without_ext, _ = os.path.splitext(file_basename)
                             class_ident = f"{pkg}.{name_without_ext}" if pkg else name_without_ext
                             
+                            # Find all line numbers (1-based) where comp_name is referenced
+                            lines_found = []
+                            cleaned_lines = cleaned_content.splitlines()
+                            for idx, line in enumerate(cleaned_lines):
+                                line_matches = re.findall(r'\b' + re.escape(comp_name) + r'\b', line)
+                                if line_matches:
+                                    lines_found.append(idx + 1)
+                                    
                             comp_info['ref_count'] += count
-                            comp_info['ref_classes'].append(class_ident)
+                            comp_info['ref_classes'].append({
+                                'class_name': class_ident,
+                                'count': count,
+                                'lines': lines_found
+                            })
                             
                 except Exception as e:
                     print(f"Error processing file {file_path} for references: {e}")

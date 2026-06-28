@@ -15,7 +15,7 @@ class TestTracker(unittest.TestCase):
 
     def test_strip_comments_kdoc_comment(self):
         code = "/**\n * KDoc comment\n */\nfun foo() {}"
-        expected = "\nfun foo() {}"
+        expected = "\n\n\nfun foo() {}"
         self.assertEqual(tracker.strip_comments(code), expected)
 
     def test_strip_comments_in_strings(self):
@@ -32,6 +32,7 @@ class TestTracker(unittest.TestCase):
         )
         expected = (
             "package com.example\n"
+            "\n"
             "\n"
             "fun main() {}"
         )
@@ -90,7 +91,10 @@ class TestTracker(unittest.TestCase):
                     'package': 'com.common.compose.button',
                     'defining_file': os.path.abspath('dummy_project/common/compose/Buttons.kt'),
                     'ref_count': 3,
-                    'ref_classes': ['com.domain.home.HomeActivity', 'com.domain.settings.SettingsActivity']
+                    'ref_classes': [
+                        {'class_name': 'com.domain.home.HomeActivity', 'count': 2, 'lines': [10, 25]},
+                        {'class_name': 'com.domain.settings.SettingsActivity', 'count': 1, 'lines': [40]}
+                    ]
                 },
                 {
                     'name': 'SecondaryButton',
@@ -138,7 +142,10 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(len(buttons["components"]), 2)
                 self.assertEqual(buttons["components"][0]["name"], "PrimaryButton")
                 self.assertEqual(buttons["components"][0]["count"], 3)
-                self.assertEqual(buttons["components"][0]["classes"], ["com.domain.home.HomeActivity", "com.domain.settings.SettingsActivity"])
+                self.assertEqual(buttons["components"][0]["classes"], [
+                    {"class_name": "com.domain.home.HomeActivity", "count": 2, "lines": [10, 25]},
+                    {"class_name": "com.domain.settings.SettingsActivity", "count": 1, "lines": [40]}
+                ])
 
             # Check root index.json in summary_daily
             daily_index = os.path.join(temp_dir, "summary_daily", "index.json")

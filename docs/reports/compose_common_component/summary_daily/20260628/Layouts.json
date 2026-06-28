@@ -6,36 +6,72 @@
       "name": "ScrollableColumn",
       "count": 2,
       "classes": [
-        "com.domain.cart.CartFragment",
-        "com.domain.notification.NotificationActivity"
+        {
+          "class_name": "com.domain.cart.CartFragment",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        },
+        {
+          "class_name": "com.domain.notification.NotificationActivity",
+          "count": 1,
+          "lines": [
+            10
+          ]
+        }
       ]
     },
     {
       "name": "FooterLayout",
       "count": 1,
       "classes": [
-        "com.domain.home.HomeActivity"
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "count": 1,
+          "lines": [
+            19
+          ]
+        }
       ]
     },
     {
       "name": "GridList",
       "count": 1,
       "classes": [
-        "com.domain.product.ProductListFragment"
+        {
+          "class_name": "com.domain.product.ProductListFragment",
+          "count": 1,
+          "lines": [
+            13
+          ]
+        }
       ]
     },
     {
       "name": "HeaderLayout",
       "count": 1,
       "classes": [
-        "com.domain.home.HomeActivity"
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
       ]
     },
     {
       "name": "ResponsiveRow",
       "count": 1,
       "classes": [
-        "com.domain.product.ProductDetailActivity"
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "count": 1,
+          "lines": [
+            13
+          ]
+        }
       ]
     },
     {

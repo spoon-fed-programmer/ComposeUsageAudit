@@ -6,28 +6,89 @@
       "name": "PrimaryButton",
       "count": 8,
       "classes": [
-        "com.domain.auth.LoginActivity",
-        "com.domain.auth.RegisterActivity",
-        "com.domain.cart.CartFragment",
-        "com.domain.home.HomeActivity",
-        "com.domain.product.ProductDetailActivity",
-        "com.domain.settings.SettingsActivity",
-        "com.domain.settings.SettingsFragment"
+        {
+          "class_name": "com.domain.auth.LoginActivity",
+          "count": 1,
+          "lines": [
+            12
+          ]
+        },
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "count": 1,
+          "lines": [
+            18
+          ]
+        },
+        {
+          "class_name": "com.domain.cart.CartFragment",
+          "count": 1,
+          "lines": [
+            19
+          ]
+        },
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "count": 2,
+          "lines": [
+            16,
+            17
+          ]
+        },
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "count": 1,
+          "lines": [
+            14
+          ]
+        },
+        {
+          "class_name": "com.domain.settings.SettingsActivity",
+          "count": 1,
+          "lines": [
+            13
+          ]
+        },
+        {
+          "class_name": "com.domain.settings.SettingsFragment",
+          "count": 1,
+          "lines": [
+            7
+          ]
+        }
       ]
     },
     {
       "name": "IconButton",
       "count": 2,
       "classes": [
-        "com.domain.product.ProductDetailActivity",
-        "com.domain.product.ProductListFragment"
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "count": 1,
+          "lines": [
+            15
+          ]
+        },
+        {
+          "class_name": "com.domain.product.ProductListFragment",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
       ]
     },
     {
       "name": "SecondaryButton",
       "count": 1,
       "classes": [
-        "com.domain.profile.ProfileActivity"
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "count": 1,
+          "lines": [
+            14
+          ]
+        }
       ]
     },
     {

@@ -74,19 +74,48 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                       이 공통 컴포넌트는 프로젝트 내에서 호출된 이력이 없습니다.
                     </div>
                   ) : (
-                    comp.classes.map((cls, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center gap-2 bg-white/[0.03] border border-border px-3 py-2 rounded-sm font-mono text-sm text-text-secondary"
-                      >
-                        {/* Dot indicator */}
-                        <span
-                          className="inline-block w-1.5 h-1.5 rounded-full bg-accent shrink-0"
-                          style={{ boxShadow: '0 0 6px #6366f1' }}
-                        />
-                        {cls}
-                      </div>
-                    ))
+                    comp.classes.map((cls, i) => {
+                      const isObj = cls && typeof cls === 'object';
+                      const classNameStr = isObj ? cls.class_name : cls;
+                      const refCount = isObj ? cls.count : null;
+                      const lineNumbers = isObj && Array.isArray(cls.lines) ? cls.lines : [];
+
+                      return (
+                        <div
+                          key={i}
+                          className="flex flex-col gap-1.5 bg-white/[0.03] border border-border px-3.5 py-2.5 rounded-sm font-mono text-sm text-text-secondary transition-colors"
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-2 truncate">
+                              <span
+                                className="inline-block w-1.5 h-1.5 rounded-full bg-accent shrink-0"
+                                style={{ boxShadow: '0 0 6px #6366f1' }}
+                              />
+                              <span className="truncate text-text-secondary" title={classNameStr}>
+                                {classNameStr}
+                              </span>
+                            </div>
+                            {refCount !== null && (
+                              <span className="text-[10px] font-semibold text-text-muted bg-white/[0.05] border border-border px-1.5 py-0.5 rounded-sm shrink-0">
+                                {refCount}회 참조
+                              </span>
+                            )}
+                          </div>
+                          {lineNumbers.length > 0 && (
+                            <div className="flex items-center gap-1.5 text-xs text-text-muted px-3.5 mt-0.5">
+                              <span>라인:</span>
+                              <div className="flex flex-wrap gap-1">
+                                {lineNumbers.map((ln) => (
+                                  <span key={ln} className="text-accent bg-accent/10 border border-accent/20 px-1 rounded-sm text-[10px] font-bold">
+                                    {ln}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
                   )}
                 </div>
               </div>

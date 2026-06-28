@@ -6,42 +6,84 @@
       "name": "ProductCard",
       "count": 4,
       "classes": [
-        "com.domain.product.ProductListFragment"
+        {
+          "class_name": "com.domain.product.ProductListFragment",
+          "count": 4,
+          "lines": [
+            14,
+            15,
+            16,
+            17
+          ]
+        }
       ]
     },
     {
       "name": "NotificationCard",
       "count": 3,
       "classes": [
-        "com.domain.notification.NotificationActivity"
+        {
+          "class_name": "com.domain.notification.NotificationActivity",
+          "count": 3,
+          "lines": [
+            11,
+            12,
+            13
+          ]
+        }
       ]
     },
     {
       "name": "StandardCard",
       "count": 2,
       "classes": [
-        "com.domain.cart.CartFragment"
+        {
+          "class_name": "com.domain.cart.CartFragment",
+          "count": 2,
+          "lines": [
+            13,
+            16
+          ]
+        }
       ]
     },
     {
       "name": "ImageCard",
       "count": 1,
       "classes": [
-        "com.domain.product.ProductDetailActivity"
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "count": 1,
+          "lines": [
+            12
+          ]
+        }
       ]
     },
     {
       "name": "SettingsCard",
       "count": 1,
       "classes": [
-        "com.domain.settings.SettingsActivity"
+        {
+          "class_name": "com.domain.settings.SettingsActivity",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        }
       ]
     },
     {
       "name": "UserCard",
       "count": 1,
       "classes": [
-        "com.domain.profile.ProfileActivity"
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
       ]
     }
   ]

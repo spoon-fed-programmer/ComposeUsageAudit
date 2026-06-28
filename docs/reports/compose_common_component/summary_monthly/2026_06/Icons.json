@@ -6,37 +6,80 @@
       "name": "ArrowBackIcon",
       "count": 2,
       "classes": [
-        "com.domain.notification.NotificationActivity",
-        "com.domain.product.ProductDetailActivity"
+        {
+          "class_name": "com.domain.notification.NotificationActivity",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        },
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
       ]
     },
     {
       "name": "CloseIcon",
       "count": 2,
       "classes": [
-        "com.domain.cart.CartFragment"
+        {
+          "class_name": "com.domain.cart.CartFragment",
+          "count": 2,
+          "lines": [
+            14,
+            17
+          ]
+        }
       ]
     },
     {
       "name": "SearchIcon",
       "count": 2,
       "classes": [
-        "com.domain.home.HomeActivity",
-        "com.domain.product.ProductListFragment"
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "count": 1,
+          "lines": [
+            13
+          ]
+        },
+        {
+          "class_name": "com.domain.product.ProductListFragment",
+          "count": 1,
+          "lines": [
+            10
+          ]
+        }
       ]
     },
     {
       "name": "MenuIcon",
       "count": 1,
       "classes": [
-        "com.domain.home.HomeActivity"
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "count": 1,
+          "lines": [
+            12
+          ]
+        }
       ]
     },
     {
       "name": "ProfileIcon",
       "count": 1,
       "classes": [
-        "com.domain.profile.ProfileActivity"
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "count": 1,
+          "lines": [
+            10
+          ]
+        }
       ]
     },
     {

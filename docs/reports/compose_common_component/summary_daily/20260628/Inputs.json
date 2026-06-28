@@ -6,31 +6,77 @@
       "name": "TextInput",
       "count": 5,
       "classes": [
-        "com.domain.auth.LoginActivity",
-        "com.domain.auth.RegisterActivity",
-        "com.domain.profile.ProfileActivity"
+        {
+          "class_name": "com.domain.auth.LoginActivity",
+          "count": 1,
+          "lines": [
+            10
+          ]
+        },
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "count": 2,
+          "lines": [
+            11,
+            12
+          ]
+        },
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "count": 2,
+          "lines": [
+            12,
+            13
+          ]
+        }
       ]
     },
     {
       "name": "PasswordInput",
       "count": 3,
       "classes": [
-        "com.domain.auth.LoginActivity",
-        "com.domain.auth.RegisterActivity"
+        {
+          "class_name": "com.domain.auth.LoginActivity",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        },
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "count": 2,
+          "lines": [
+            13,
+            14
+          ]
+        }
       ]
     },
     {
       "name": "SwitchInput",
       "count": 2,
       "classes": [
-        "com.domain.settings.SettingsActivity"
+        {
+          "class_name": "com.domain.settings.SettingsActivity",
+          "count": 2,
+          "lines": [
+            10,
+            11
+          ]
+        }
       ]
     },
     {
       "name": "CheckboxInput",
       "count": 1,
       "classes": [
-        "com.domain.auth.RegisterActivity"
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "count": 1,
+          "lines": [
+            16
+          ]
+        }
       ]
     },
     {
