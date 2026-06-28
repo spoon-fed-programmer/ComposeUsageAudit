@@ -33,19 +33,7 @@ export default function App() {
   const handleSourceChange = (value) => {
     setSourcePath(value);
     setViewAllHistory(false);
-    // Immediately load if not custom
-    if (value !== 'custom') {
-      loadSourceIndex(value);
-    }
-  };
-
-  const handleLoadSource = (customPath) => {
-    if (!customPath) {
-      alert('불러올 JSON 파일 경로를 입력해주세요.');
-      return;
-    }
-    setViewAllHistory(false);
-    loadSourceIndex(customPath);
+    loadSourceIndex(value);
   };
 
   const getIntervalLabel = () => {
@@ -90,7 +78,6 @@ export default function App() {
           onViewAllHistory={() => setViewAllHistory(true)}
           sourcePath={sourcePath}
           onSourceChange={handleSourceChange}
-          onLoadSource={handleLoadSource}
         />
         
         {viewAllHistory ? (
