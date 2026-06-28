@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MetricsGrid from './MetricsGrid';
+
 import TabSwitcher from './TabSwitcher';
 import OverviewTab from './OverviewTab';
 import FilesTab from './FilesTab';
@@ -54,14 +54,8 @@ export default function MainPanel({ selectedRun, loading, error }) {
     );
   }
 
-  const total = selectedRun.summary?.total_components ?? 0;
-  const refs  = selectedRun.summary?.total_references ?? 0;
-
   return (
     <main className="flex-1 overflow-y-auto p-10 flex flex-col gap-8">
-      {/* KPI Cards */}
-      <MetricsGrid total={total} refs={refs} />
-
       {/* Tabs */}
       <div className="flex flex-col gap-6">
         <TabSwitcher activeTab={activeTab} onSwitch={handleTabSwitch} />
