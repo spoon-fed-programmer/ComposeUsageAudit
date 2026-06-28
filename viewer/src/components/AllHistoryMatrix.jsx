@@ -122,10 +122,10 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
           <thead>
             {/* Header Row: Components Meta Columns + Run Dates */}
             <tr className="bg-[#080b11] border-b border-border">
-              <th className="sticky top-0 left-0 z-40 bg-[#080b11] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[150px] min-w-[150px] max-w-[150px]">
+              <th className="sticky top-0 left-0 z-40 bg-[#080b11] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[165px] min-w-[165px] max-w-[165px]">
                 파일명
               </th>
-              <th className="sticky top-0 left-[150px] z-40 bg-[#080b11] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[200px] min-w-[200px] max-w-[200px]">
+              <th className="sticky top-0 left-[165px] z-40 bg-[#080b11] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[220px] min-w-[220px] max-w-[220px]">
                 컴포넌트명
               </th>
               {matrixData.map((run, i) => (
@@ -134,7 +134,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                   onMouseEnter={() => setHoveredColIdx(i)}
                   onMouseLeave={() => setHoveredColIdx(null)}
                   className={[
-                    'sticky top-0 z-30 px-2 py-3 font-semibold text-accent border-r border-border text-center text-xs w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150',
+                    'sticky top-0 z-30 px-2 py-3 font-semibold text-accent border-r border-border text-center text-xs w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150',
                     hoveredColIdx === i ? 'bg-[#12151b]' : 'bg-[#080b11]'
                   ].join(' ')}
                 >
@@ -146,10 +146,10 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
           <tbody>
             {/* Total References Summary Row */}
             <tr className="border-b border-border bg-white/[0.01] hover:bg-white/[0.025] font-bold">
-              <td className="sticky left-0 z-20 bg-[#080b11] font-sans font-bold text-accent px-4 py-3 border-r border-border w-[150px] min-w-[150px] max-w-[150px] shadow-[4px_0_10px_rgba(0,0,0,0.15)]">
+              <td className="sticky left-0 z-20 bg-[#080b11] font-sans font-bold text-accent px-4 py-3 border-r border-border w-[165px] min-w-[165px] max-w-[165px] shadow-[4px_0_10px_rgba(0,0,0,0.15)]">
                 합계
               </td>
-              <td className="sticky left-[150px] z-20 bg-[#080b11] font-sans font-bold text-accent px-4 py-3 border-r border-border w-[200px] min-w-[200px] max-w-[200px] shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+              <td className="sticky left-[165px] z-20 bg-[#080b11] font-sans font-bold text-accent px-4 py-3 border-r border-border w-[220px] min-w-[220px] max-w-[220px] shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
                 총 사용 참조 횟수
               </td>
               {matrixData.map((run, runIdx) => {
@@ -177,11 +177,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                     onMouseEnter={() => setHoveredColIdx(runIdx)}
                     onMouseLeave={() => setHoveredColIdx(null)}
                     className={[
-                      `px-2 py-3 border-r border-border text-center font-extrabold w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                      `px-2 py-3 border-r border-border text-center font-extrabold w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
                       isHovered ? 'bg-white/[0.02]' : ''
                     ].join(' ')}
                   >
-                    {totalRefs}회{diffText}
+                    {totalRefs}{diffText}
                   </td>
                 );
               })}
@@ -198,11 +198,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                   <tr className="border-b border-border bg-white/[0.02] hover:bg-white/[0.035] font-semibold text-accent/90">
                     <td
                       rowSpan={rowSpanVal}
-                      className="sticky left-0 z-20 bg-[#080b11] font-sans font-semibold text-text-secondary px-4 py-2.5 border-r border-border w-[150px] min-w-[150px] max-w-[150px] align-middle overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)]"
+                      className="sticky left-0 z-20 bg-[#080b11] font-sans font-semibold text-text-secondary px-4 py-2.5 border-r border-border w-[165px] min-w-[165px] max-w-[165px] align-middle overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)]"
                     >
                       {file}
                     </td>
-                    <td className="sticky left-[150px] z-20 bg-[#0d1017] font-sans font-bold text-accent/80 px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+                    <td className="sticky left-[165px] z-20 bg-[#0d1017] font-sans font-bold text-accent/80 px-4 py-2.5 border-r border-border w-[220px] min-w-[220px] max-w-[220px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
                       파일 합계
                     </td>
                     {matrixData.map((run, runIdx) => {
@@ -234,11 +234,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                           onMouseEnter={() => setHoveredColIdx(runIdx)}
                           onMouseLeave={() => setHoveredColIdx(null)}
                           className={[
-                            `px-2 py-2.5 border-r border-border text-center w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                            `px-2 py-2.5 border-r border-border text-center w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
                             isHovered ? 'bg-white/[0.02]' : ''
                           ].join(' ')}
                         >
-                          {fileRefs}회{diffText}
+                          {fileRefs}{diffText}
                         </td>
                       );
                     })}
@@ -251,7 +251,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                       className="hover:bg-white/[0.015] border-b border-border last:border-0"
                     >
                       {/* Component Name Column */}
-                      <td className="sticky left-[150px] z-20 bg-[#080b11] font-sans font-bold text-white px-4 py-2.5 border-r border-border w-[200px] min-w-[200px] max-w-[200px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
+                      <td className="sticky left-[165px] z-20 bg-[#080b11] font-sans font-bold text-white px-4 py-2.5 border-r border-border w-[220px] min-w-[220px] max-w-[220px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
                         {c.name}
                       </td>
 
@@ -302,11 +302,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                             onMouseEnter={() => setHoveredColIdx(runIdx)}
                             onMouseLeave={() => setHoveredColIdx(null)}
                             className={[
-                              `px-2 py-2 border-r border-border text-center font-bold w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                              `px-2 py-2 border-r border-border text-center font-bold w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
                               isHovered ? 'bg-white/[0.02]' : ''
                             ].join(' ')}
                           >
-                            {hasValue ? `${count}회${diffText}` : '-'}
+                            {hasValue ? `${count}${diffText}` : '-'}
                           </td>
                         );
                       })}
