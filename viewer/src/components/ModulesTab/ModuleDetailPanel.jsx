@@ -1,4 +1,5 @@
 import { useI18n } from '../../contexts/I18nContext';
+import ClassUsageList from '../ClassUsageList';
 
 /**
  * ModuleDetailPanel - Right-side detail view showing components and usage in a module.
@@ -63,55 +64,11 @@ export default function ModuleDetailPanel({
                   <div className="text-[11px] font-semibold uppercase tracking-wider text-text-muted mb-2">
                     {t('called_classes_label')}
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    {isUnused ? (
-                      <div className="text-sm text-text-muted italic py-1">
-                        {t('unused_component_msg')}
-                      </div>
-                    ) : (
-                      comp.classes.map((cls, i) => {
-                        const clsCount = typeof cls.count === 'number' && !isNaN(cls.count) ? cls.count : 0;
-                        return (
-                          <div
-                            key={i}
-                            className="flex flex-col gap-1.5 bg-white/[0.03] border border-border px-3.5 py-2.5 rounded-sm font-mono text-sm text-text-secondary transition-colors"
-                          >
-                            <div className="flex items-center justify-between gap-3">
-                              <div className="flex items-center gap-2 truncate">
-                                <span
-                                  className="inline-block w-1.5 h-1.5 rounded-full bg-accent shrink-0"
-                                  style={{ boxShadow: '0 0 6px #6366f1' }}
-                                />
-                                <span className="truncate text-text-secondary flex items-center gap-1.5" title={cls.class_name}>
-                                  <span className="truncate">{cls.class_name}</span>
-                                  {cls.source_set && (
-                                    <span className="text-[11px] text-text-muted opacity-60 font-sans font-normal shrink-0 select-none ml-1">
-                                      ({cls.source_set})
-                                    </span>
-                                  )}
-                                </span>
-                              </div>
-                              <span className="text-[10px] font-semibold text-text-muted bg-white/[0.05] border border-border px-1.5 py-0.5 rounded-sm shrink-0">
-                                {clsCount.toLocaleString()}{t('refs_suffix')}
-                              </span>
-                            </div>
-                            {cls.lines && cls.lines.length > 0 && (
-                              <div className="flex items-center gap-1.5 text-xs text-text-muted px-3.5 mt-0.5">
-                                <span>{t('line_label')}:</span>
-                                <div className="flex flex-wrap gap-1">
-                                  {cls.lines.map((ln) => (
-                                    <span key={ln} className="text-accent bg-accent/10 border border-accent/20 px-1 rounded-sm text-[10px] font-bold">
-                                      {ln}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
+                  <ClassUsageList
+                    classes={comp.classes}
+                    refsSuffix={t('refs_suffix')}
+                    unusedMsg={t('unused_component_msg')}
+                  />
                 </div>
               </div>
             );
