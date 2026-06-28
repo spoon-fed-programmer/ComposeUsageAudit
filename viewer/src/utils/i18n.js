@@ -1,7 +1,7 @@
 export const TRANSLATIONS = {
   ko: {
     // AppHeader
-    title: 'SamsungWalletApp 공통 컴포즈 모듈 사용 현황',
+    title: '대시보드',
     viewer: '뷰어',
     total_components: '전체 컴포넌트',
     total_references: '총 참조 횟수',
@@ -13,7 +13,7 @@ export const TRANSLATIONS = {
     monthly: '월간',
     yearly: '연간',
     report_history: '리포트 이력',
-    view_all_history: '대시보드',
+    view_all_history: '전체 이력 보기',
     no_reports_found: '조회된 리포트 내역이 없습니다.',
 
     // RunCard
@@ -82,7 +82,7 @@ export const TRANSLATIONS = {
   },
   en: {
     // AppHeader
-    title: 'SamsungWalletApp Common Compose Components Usage',
+    title: 'Dashboard',
     viewer: 'Viewer',
     total_components: 'Total Components',
     total_references: 'Total References',
@@ -94,7 +94,7 @@ export const TRANSLATIONS = {
     monthly: 'Monthly',
     yearly: 'Yearly',
     report_history: 'Report History',
-    view_all_history: 'Dashboard',
+    view_all_history: 'View All History',
     no_reports_found: 'No reports found.',
 
     // RunCard
