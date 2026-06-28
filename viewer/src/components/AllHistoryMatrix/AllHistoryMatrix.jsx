@@ -135,7 +135,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
       <div className="border border-border bg-panel rounded-lg overflow-x-auto w-full p-6 flex flex-col gap-6 custom-scrollbar">
         {/* Trend Chart */}
         {!loading && matrixData.length > 0 && (
-          <HistoryTrendChart reportRuns={reportRuns} />
+          <HistoryTrendChart reportRuns={reportRuns} viewMode={viewMode} />
         )}
 
         <table className="w-max text-xs border-collapse font-mono relative">

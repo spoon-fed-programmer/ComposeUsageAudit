@@ -11,11 +11,13 @@ import { useI18n } from '../../contexts/I18nContext';
 import { useTrendChartData } from '../../hooks/useTrendChartData';
 import CustomTooltip from './CustomTooltip';
 
-export default function HistoryTrendChart({ reportRuns }) {
+export default function HistoryTrendChart({ reportRuns, viewMode }) {
   const { t } = useI18n();
-  const { data, chartWidth } = useTrendChartData(reportRuns);
+  const { data, chartWidth } = useTrendChartData(reportRuns, viewMode);
 
   if (data.length === 0) return null;
+
+  const marginLeft = (viewMode === 'component' ? 385 : 220) + 45;
 
   return (
     <div className="flex flex-col gap-3 relative select-none">
@@ -30,7 +32,7 @@ export default function HistoryTrendChart({ reportRuns }) {
           width={chartWidth}
           height={220}
           data={data}
-          margin={{ top: 20, right: 45, left: 430, bottom: 5 }}
+          margin={{ top: 20, right: 45, left: marginLeft, bottom: 5 }}
         >
           <defs>
             {/* Glow Filters */}

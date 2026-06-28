@@ -5,7 +5,7 @@ import { useI18n } from '../contexts/I18nContext';
 /**
  * Custom hook to prepare and scale X/Y axis data points for the trend chart.
  */
-export function useTrendChartData(reportRuns) {
+export function useTrendChartData(reportRuns, viewMode) {
   const { t } = useI18n();
 
   const data = useMemo(() => {
@@ -22,9 +22,10 @@ export function useTrendChartData(reportRuns) {
 
   const chartWidth = useMemo(() => {
     if (data.length === 0) return 800;
-    // 385px (table headers) + (runs count * 90px column width)
-    return 385 + data.length * 90;
-  }, [data]);
+    // Dynamic left column width: 385px for components tab, 220px for modules tab
+    const leftHeaderWidth = viewMode === 'component' ? 385 : 220;
+    return leftHeaderWidth + data.length * 90;
+  }, [data, viewMode]);
 
   return { data, chartWidth };
 }
