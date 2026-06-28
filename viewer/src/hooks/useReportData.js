@@ -43,7 +43,7 @@ export function useReportData() {
   }, []);
 
   /** Fetch and parse the index JSON file. */
-  const loadSourceIndex = useCallback(async (jsonPath) => {
+  const loadSourceIndex = useCallback(async (jsonPath, defaultTimestamp = null) => {
     setLoading(true);
     setError(null);
     setReportRuns([]);
@@ -71,8 +71,11 @@ export function useReportData() {
       }
       setReportRuns(runs);
 
-      // Auto-select the first run
-      await _fetchRunDetail(runs[0], jsonPath);
+      // Auto-select the specified run or default to the first one
+      const runToSelect = defaultTimestamp
+        ? (runs.find(r => r.timestamp === defaultTimestamp) || runs[0])
+        : runs[0];
+      await _fetchRunDetail(runToSelect, jsonPath);
     } catch (err) {
       setError(_friendlyError(err));
     } finally {

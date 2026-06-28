@@ -17,21 +17,10 @@ export default function MainPanel({
   loading,
   error,
   activeTab,
-  setActiveTab,
   navigatedFile,
-  setNavigatedFile,
+  onTabSwitch,
+  onNavigateFile,
 }) {
-
-  /** Called from ComponentsTable when a component link is clicked. */
-  const handleNavigateFile = (fileName) => {
-    setNavigatedFile(fileName);
-    setActiveTab('files');
-  };
-
-  const handleTabSwitch = (tab) => {
-    setActiveTab(tab);
-    if (tab === 'overview') setNavigatedFile(null);
-  };
 
   if (loading) {
     return (
@@ -64,12 +53,12 @@ export default function MainPanel({
     <main className="flex-1 overflow-y-auto p-10 flex flex-col gap-8">
       {/* Tabs */}
       <div className="flex flex-col gap-6">
-        <TabSwitcher activeTab={activeTab} onSwitch={handleTabSwitch} />
+        <TabSwitcher activeTab={activeTab} onSwitch={onTabSwitch} />
 
         {activeTab === 'overview' ? (
           <OverviewTab
             components={selectedRun.components ?? []}
-            onNavigateFile={handleNavigateFile}
+            onNavigateFile={onNavigateFile}
           />
         ) : (
           <FilesTab
