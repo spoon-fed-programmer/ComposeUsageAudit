@@ -17,7 +17,8 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
 
   if (data.length === 0) return null;
 
-  const marginLeft = (viewMode === 'component' ? 385 : 220) + 45;
+  // Subtract YAxis width (50px) to align the actual data grid start exactly at column centers
+  const marginLeft = viewMode === 'component' ? 380 : 215;
 
   return (
     <div className="flex flex-col gap-3 relative select-none animate-slide-in-left">
@@ -32,7 +33,7 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
           width={chartWidth}
           height={220}
           data={data}
-          margin={{ top: 20, right: 45, left: marginLeft, bottom: 5 }}
+          margin={{ top: 20, right: 95, left: marginLeft, bottom: 5 }}
         >
           <defs>
             {/* Glow Filters */}
@@ -60,6 +61,7 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
               yAxisId="left"
               stroke="#6366f1"
               orientation="left"
+              width={50}
               tickFormatter={(v) => v.toLocaleString()}
               tick={{ fill: '#6366f1', fontSize: 9, fontFamily: 'monospace', fontWeight: 'bold' }}
               tickLine={false}
@@ -71,6 +73,7 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
               yAxisId="right"
               stroke="#10b981"
               orientation="right"
+              width={50}
               tickFormatter={(v) => v.toLocaleString()}
               tick={{ fill: '#10b981', fontSize: 9, fontFamily: 'monospace', fontWeight: 'bold' }}
               tickLine={false}
