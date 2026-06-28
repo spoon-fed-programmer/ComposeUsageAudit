@@ -30,13 +30,13 @@ export const parseHash = (hash) => {
 
   if (viewType === 'run') {
     const timestamp = parts[2] || null;
-    const tab = parts[3] || 'overview'; // "overview" or "files"
+    const tab = parts[3] || 'overview'; // "overview", "files", or "modules"
     const file = parts[4] ? decodeURIComponent(parts[4]) : null;
     return {
       sourcePath,
       viewAllHistory: false,
       selectedRunTimestamp: timestamp,
-      activeTab: tab === 'files' ? 'files' : 'overview',
+      activeTab: (tab === 'files' || tab === 'modules') ? tab : 'overview',
       navigatedFile: file,
     };
   }
@@ -61,6 +61,8 @@ export const getHashFromState = (sourcePath, viewAllHistory, selectedRunTimestam
     if (navigatedFile) {
       hash += `/${encodeURIComponent(navigatedFile)}`;
     }
+  } else if (activeTab === 'modules') {
+    hash += '/modules';
   } else {
     hash += '/overview';
   }

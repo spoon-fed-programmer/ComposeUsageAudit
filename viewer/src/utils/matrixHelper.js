@@ -52,3 +52,61 @@ export const getUniqueModules = (reportRuns) => {
     return a.localeCompare(b);
   });
 };
+
+export const transformModulesData = (detailFilesData) => {
+  const modulesMap = {};
+
+  detailFilesData.forEach((fileDetail) => {
+    const definingFile = fileDetail.file;
+    const pkg = fileDetail.package;
+
+    if (fileDetail.components) {
+      fileDetail.components.forEach((comp) => {
+        if (comp.classes) {
+          comp.classes.forEach((ref) => {
+            const mod = ref.module_name || '';
+            
+            if (!modulesMap[mod]) {
+              modulesMap[mod] = {};
+            }
+            
+            const compKey = `${definingFile}::${comp.name}`;
+            if (!modulesMap[mod][compKey]) {
+              modulesMap[mod][compKey] = {
+                name: comp.name,
+                defining_file: definingFile,
+                package: pkg,
+                total_count: 0,
+                classes: []
+              };
+            }
+            
+            modulesMap[mod][compKey].total_count += ref.count;
+            modulesMap[mod][compKey].classes.push({
+              class_name: ref.class_name,
+              source_set: ref.source_set,
+              count: ref.count,
+              lines: ref.lines
+            });
+          });
+        }
+      });
+    }
+  });
+
+  const result = {};
+  Object.keys(modulesMap).forEach((mod) => {
+    const compsList = Object.values(modulesMap[mod]).sort((a, b) => {
+      if (b.total_count !== a.total_count) return b.total_count - a.total_count;
+      return a.name.localeCompare(b.name);
+    });
+
+    compsList.forEach((c) => {
+      c.classes.sort((a, b) => a.class_name.localeCompare(b.class_name));
+    });
+
+    result[mod] = compsList;
+  });
+
+  return result;
+};

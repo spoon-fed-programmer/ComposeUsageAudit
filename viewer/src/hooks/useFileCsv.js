@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useI18n } from '../contexts/I18nContext';
+import { getCachedDetail, setCachedDetail } from '../utils/cache';
 
 /**
  * Custom hook that fetches and parses component-specific details JSON.
@@ -24,11 +25,25 @@ export function useFileCsv(selectedRun) {
       const fileBase = fileName.replace(/\.[^/.]+$/, "");
       const jsonFileName = `${fileBase}.json`;
 
+      // Check cache first
+      const cached = getCachedDetail(selectedRun.categoryDir, timestamp, jsonFileName);
+      if (cached) {
+        setFileData({
+          pkgName: cached.package || '',
+          fileName: cached.file || fileName,
+          comps: cached.components || [],
+        });
+        return;
+      }
+
       const url = `${selectedRun.categoryDir}/${timestamp}/${jsonFileName}?t=${Date.now()}`;
       const res = await fetch(url);
       if (!res.ok) throw new Error(t('fetch_failed') + ` (${jsonFileName})`);
 
       const data = await res.json();
+      
+      // Save cache
+      setCachedDetail(selectedRun.categoryDir, timestamp, jsonFileName, data);
 
       setFileData({
         pkgName: data.package || '',

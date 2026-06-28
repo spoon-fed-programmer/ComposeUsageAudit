@@ -12,6 +12,7 @@ export default function TabSwitcher({ activeTab, onSwitch }) {
   const tabs = [
     { id: 'overview', label: t('tab_overview') },
     { id: 'files',    label: t('tab_files') },
+    { id: 'modules',  label: t('tab_modules') },
   ];
 
   return (

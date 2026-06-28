@@ -26,6 +26,7 @@ export const TRANSLATIONS = {
     // TabSwitcher
     tab_overview: '전체 컴포넌트 목록',
     tab_files: '파일별 세부 사용처',
+    tab_modules: '모듈별 세부 사용처',
 
     // OverviewTab / FilterPanel
     search_placeholder: '컴포넌트 또는 파일명 검색...',
@@ -46,6 +47,7 @@ export const TRANSLATIONS = {
 
     // FilesTab / index
     no_file_details: '조회 가능한 세부 파일 정보가 없습니다.',
+    no_module_details: '조회 가능한 세부 모듈 정보가 없습니다.',
 
     // FilesTab / FileMenuList
     component_source_files: '컴포넌트 소스 파일',
@@ -104,6 +106,7 @@ export const TRANSLATIONS = {
     // TabSwitcher
     tab_overview: 'Component List',
     tab_files: 'File Details',
+    tab_modules: 'Module Details',
 
     // OverviewTab / FilterPanel
     search_placeholder: 'Search component or file...',
@@ -124,6 +127,7 @@ export const TRANSLATIONS = {
 
     // FilesTab / index
     no_file_details: 'No file details found.',
+    no_module_details: 'No module details found.',
 
     // FilesTab / FileMenuList
     component_source_files: 'Component Source Files',

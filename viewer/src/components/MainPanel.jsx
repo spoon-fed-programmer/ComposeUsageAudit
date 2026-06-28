@@ -3,6 +3,7 @@ import { useState } from 'react';
 import TabSwitcher from './TabSwitcher';
 import OverviewTab from './OverviewTab';
 import FilesTab from './FilesTab';
+import ModulesTab from './ModulesTab';
 import EmptyState from './EmptyState';
 
 /**
@@ -60,10 +61,14 @@ export default function MainPanel({
             components={selectedRun.components ?? []}
             onNavigateFile={onNavigateFile}
           />
-        ) : (
+        ) : activeTab === 'files' ? (
           <FilesTab
             selectedRun={selectedRun}
             initialFile={navigatedFile}
+          />
+        ) : (
+          <ModulesTab
+            selectedRun={selectedRun}
           />
         )}
       </div>
