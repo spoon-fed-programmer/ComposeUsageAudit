@@ -52,7 +52,8 @@ export default function App() {
 
   const handleHome = () => {
     setViewAllHistory(false);
-    clearSelectedRun();
+    setSourcePath(DEFAULT_SOURCE);
+    loadSourceIndex(DEFAULT_SOURCE);
   };
 
   const handleSelectRun = (timestamp) => {
