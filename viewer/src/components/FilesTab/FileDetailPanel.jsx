@@ -65,7 +65,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
 
               {/* Metrics row */}
               <div className="text-sm text-text-secondary">
-                {t('ref_count_label')}: <strong className="text-text-primary font-mono">{compCount}</strong>{t('ref_count_suffix_times')}
+                {t('ref_count_label')}: <strong className="text-text-primary font-mono">{compCount.toLocaleString()}</strong>{t('ref_count_suffix_times')}
               </div>
 
               {/* Usage list */}
@@ -108,7 +108,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                             </div>
                             {refCount !== null && (
                               <span className="text-[10px] font-semibold text-text-muted bg-white/[0.05] border border-border px-1.5 py-0.5 rounded-sm shrink-0">
-                                {refCount}{t('refs_suffix')}
+                                {refCount.toLocaleString()}{t('refs_suffix')}
                               </span>
                             )}
                           </div>

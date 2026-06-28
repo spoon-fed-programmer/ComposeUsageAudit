@@ -33,7 +33,7 @@ export default function AppHeader({ onHome, total, refs }) {
           <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-[0_0_15px_rgba(99,102,241,0.15)]">
             <span className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">{t('total_components')}</span>
             <span className="text-lg font-bold font-mono text-white leading-none mt-0.5" style={{ textShadow: '0 0 10px rgba(99,102,241,0.45)' }}>
-              {total}
+              {total.toLocaleString()}
             </span>
           </div>
 
@@ -41,7 +41,7 @@ export default function AppHeader({ onHome, total, refs }) {
           <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-success/30 bg-success/5 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
             <span className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">{t('total_references')}</span>
             <span className="text-lg font-bold font-mono text-white leading-none mt-0.5" style={{ textShadow: '0 0 10px rgba(16,185,129,0.45)' }}>
-              {refs}
+              {refs.toLocaleString()}
             </span>
           </div>
         </div>

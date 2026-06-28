@@ -71,11 +71,19 @@ export default function RunCard({ run, isActive, onSelect }) {
       <div className="flex justify-between text-xs text-text-muted">
         <span>
           {t('components_label')}:{' '}
-          <strong className="text-text-primary">{run.summary?.total_components ?? '-'}</strong>
+          <strong className="text-text-primary">
+            {run.summary?.total_components !== undefined && run.summary?.total_components !== null
+              ? run.summary.total_components.toLocaleString()
+              : '-'}
+          </strong>
         </span>
         <span>
           {t('references_label')}:{' '}
-          <strong className="text-text-primary">{run.summary?.total_references ?? '-'}</strong>
+          <strong className="text-text-primary">
+            {run.summary?.total_references !== undefined && run.summary?.total_references !== null
+              ? run.summary.total_references.toLocaleString()
+              : '-'}
+          </strong>
         </span>
       </div>
     </button>

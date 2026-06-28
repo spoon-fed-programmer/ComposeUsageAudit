@@ -43,7 +43,7 @@ export default function ComponentMatrixRows({
                       .reduce((sum, rc) => sum + rc.count, 0)
                   : 0;
 
-                let trendSpan = <span className="text-accent/90">{fileRefs}</span>;
+                let trendSpan = <span className="text-accent/90">{fileRefs.toLocaleString()}</span>;
 
                 const nextRun = reportRuns[runIdx + 1];
                 if (nextRun) {
@@ -57,15 +57,15 @@ export default function ComponentMatrixRows({
                   if (fileRefs > prevFileRefs) {
                     trendSpan = (
                       <span className="text-accent/90">
-                        {fileRefs}{' '}
-                        <span className="text-success">(+{fileRefs - prevFileRefs})</span>
+                        {fileRefs.toLocaleString()}{' '}
+                        <span className="text-success">(+{(fileRefs - prevFileRefs).toLocaleString()})</span>
                       </span>
                     );
                   } else if (fileRefs < prevFileRefs) {
                     trendSpan = (
                       <span className="text-accent/90">
-                        {fileRefs}{' '}
-                        <span className="text-danger">(-{prevFileRefs - fileRefs})</span>
+                        {fileRefs.toLocaleString()}{' '}
+                        <span className="text-danger">(-{(prevFileRefs - fileRefs).toLocaleString()})</span>
                       </span>
                     );
                   }
@@ -119,10 +119,10 @@ export default function ComponentMatrixRows({
 
                   let trendSpan = (
                     <span className={hasValue ? (isUnused ? 'text-text-muted/60' : 'text-white') : 'text-text-muted/40 font-normal'}>
-                      {hasValue ? count : '-'}
+                      {hasValue ? count.toLocaleString() : '-'}
                     </span>
                   );
-
+ 
                   if (hasValue && !isUnused) {
                     const nextRun = reportRuns[runIdx + 1];
                     if (nextRun) {
@@ -138,15 +138,15 @@ export default function ComponentMatrixRows({
                         if (count > prevCount) {
                           trendSpan = (
                             <span className="text-white">
-                              {count}{' '}
-                              <span className="text-success">(+{count - prevCount})</span>
+                              {count.toLocaleString()}{' '}
+                              <span className="text-success">(+{(count - prevCount).toLocaleString()})</span>
                             </span>
                           );
                         } else if (count < prevCount) {
                           trendSpan = (
                             <span className="text-white">
-                              {count}{' '}
-                              <span className="text-danger">(-{prevCount - count})</span>
+                              {count.toLocaleString()}{' '}
+                              <span className="text-danger">(-{(prevCount - count).toLocaleString()})</span>
                             </span>
                           );
                         }

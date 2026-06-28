@@ -40,7 +40,7 @@ export default function ModuleMenuList({
                   isActive ? 'bg-white/20 text-white' : 'bg-white/[0.05] border border-border text-text-muted',
                 ].join(' ')}
               >
-                {totalRefs}
+                {totalRefs.toLocaleString()}
               </span>
             </button>
           );

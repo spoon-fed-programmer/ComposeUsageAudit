@@ -12,7 +12,11 @@ export function I18nProvider({ children }) {
     
     // Replace variables (e.g. {count})
     Object.keys(variables).forEach((vKey) => {
-      text = text.replace(`{${vKey}}`, variables[vKey]);
+      let val = variables[vKey];
+      if (typeof val === 'number') {
+        val = val.toLocaleString();
+      }
+      text = text.replace(`{${vKey}}`, val);
     });
     return text;
   };

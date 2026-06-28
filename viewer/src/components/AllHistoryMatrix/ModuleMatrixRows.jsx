@@ -24,10 +24,10 @@ export default function ModuleMatrixRows({
 
             let trendSpan = (
               <span className={hasValue ? (isUnused ? 'text-text-muted/60' : 'text-white') : 'text-text-muted/40 font-normal'}>
-                {count}
+                {count.toLocaleString()}
               </span>
             );
-
+ 
             if (!isUnused) {
               const nextRun = reportRuns[runIdx + 1];
               if (nextRun) {
@@ -35,15 +35,15 @@ export default function ModuleMatrixRows({
                 if (count > prevCount) {
                   trendSpan = (
                     <span className="text-white">
-                      {count}{' '}
-                      <span className="text-success">(+{count - prevCount})</span>
+                      {count.toLocaleString()}{' '}
+                      <span className="text-success">(+{(count - prevCount).toLocaleString()})</span>
                     </span>
                   );
                 } else if (count < prevCount) {
                   trendSpan = (
                     <span className="text-white">
-                      {count}{' '}
-                      <span className="text-danger">(-{prevCount - count})</span>
+                      {count.toLocaleString()}{' '}
+                      <span className="text-danger">(-{(prevCount - count).toLocaleString()})</span>
                     </span>
                   );
                 }

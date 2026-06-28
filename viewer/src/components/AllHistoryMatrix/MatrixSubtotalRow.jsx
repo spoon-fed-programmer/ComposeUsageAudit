@@ -23,7 +23,7 @@ export default function MatrixSubtotalRow({
       )}
       {reportRuns.map((run, runIdx) => {
         const totalRefs = run.summary ? run.summary.total_references : 0;
-        let trendSpan = <span className="text-white">{totalRefs}</span>;
+        let trendSpan = <span className="text-white">{totalRefs.toLocaleString()}</span>;
         
         const nextRun = reportRuns[runIdx + 1];
         if (nextRun) {
@@ -31,15 +31,15 @@ export default function MatrixSubtotalRow({
           if (totalRefs > prevTotalRefs) {
             trendSpan = (
               <span className="text-white">
-                {totalRefs}{' '}
-                <span className="text-success">(+{totalRefs - prevTotalRefs})</span>
+                {totalRefs.toLocaleString()}{' '}
+                <span className="text-success">(+{(totalRefs - prevTotalRefs).toLocaleString()})</span>
               </span>
             );
           } else if (totalRefs < prevTotalRefs) {
             trendSpan = (
               <span className="text-white">
-                {totalRefs}{' '}
-                <span className="text-danger">(-{prevTotalRefs - totalRefs})</span>
+                {totalRefs.toLocaleString()}{' '}
+                <span className="text-danger">(-{(prevTotalRefs - totalRefs).toLocaleString()})</span>
               </span>
             );
           }
