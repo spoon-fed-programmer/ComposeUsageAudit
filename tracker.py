@@ -253,23 +253,41 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         # Update category index.json
         cat_index_path = os.path.join(category_dir, "index.json")
         entries = []
+        project_name_val = project_name
+        branch_name_val = branch_name
         if os.path.exists(cat_index_path):
             try:
                 with open(cat_index_path, 'r', encoding='utf-8') as f:
-                    entries = json.load(f)
+                    old_data = json.load(f)
+                    if isinstance(old_data, dict):
+                        entries = old_data.get("runs", [])
+                        project_name_val = old_data.get("project_name", project_name)
+                        branch_name_val = old_data.get("branch", branch_name)
+                    elif isinstance(old_data, list):
+                        entries = old_data
+                        # Extract project name and branch from old entries and clean them
+                        for e in entries:
+                            if "project_name" in e:
+                                project_name_val = e["project_name"]
+                                del e["project_name"]
+                            if "branch" in e:
+                                branch_name_val = e["branch"]
+                                del e["branch"]
             except Exception:
                 entries = []
                 
         new_entry = {
             "timestamp": folder_name,
             "date": timestamp_report,
-            "project_name": project_name,
-            "branch": branch_name,
             "summary": report_content["summary"]
         }
         
         # Remove existing entry with same folder_name (overwrite)
         entries = [e for e in entries if e["timestamp"] != folder_name]
+        for e in entries:
+            e.pop("project_name", None)
+            e.pop("branch", None)
+            
         entries.insert(0, new_entry)
         
         # Verify folder existence to filter out legacy or deleted entries
@@ -277,8 +295,14 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         
         entries.sort(key=lambda x: x["timestamp"], reverse=True)
         
+        output_data = {
+            "project_name": project_name_val,
+            "branch": branch_name_val,
+            "runs": entries
+        }
+        
         with open(cat_index_path, 'w', encoding='utf-8') as f:
-            json.dump(entries, f, indent=2, ensure_ascii=False)
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
 
     now_dt = datetime.datetime.strptime(timestamp_dir, "%Y%m%d_%H%M%S")
     

@@ -56,13 +56,23 @@ export function useReportData() {
         throw new Error(`파일을 불러오는데 실패했습니다 (HTTP ${res.status})`);
       }
       const data = await res.json();
-      if (!Array.isArray(data) || data.length === 0) {
+      
+      let runs = [];
+      if (Array.isArray(data)) {
+        runs = data;
+      } else if (data && Array.isArray(data.runs)) {
+        runs = data.runs;
+      } else {
         throw new Error('조회된 리포트 내역이 없습니다.');
       }
-      setReportRuns(data);
+      
+      if (runs.length === 0) {
+        throw new Error('조회된 리포트 내역이 없습니다.');
+      }
+      setReportRuns(runs);
 
       // Auto-select the first run
-      await _fetchRunDetail(data[0], jsonPath);
+      await _fetchRunDetail(runs[0], jsonPath);
     } catch (err) {
       setError(_friendlyError(err));
     } finally {

@@ -144,7 +144,10 @@ class TestTracker(unittest.TestCase):
             daily_index = os.path.join(temp_dir, "summary_daily", "index.json")
             self.assertTrue(os.path.exists(daily_index))
             with open(daily_index, 'r', encoding='utf-8') as f:
-                entries = json.load(f)
+                data = json.load(f)
+                self.assertEqual(data["project_name"], "TestProj")
+                self.assertEqual(data["branch"], "main-branch")
+                entries = data["runs"]
                 self.assertEqual(len(entries), 1)
                 self.assertEqual(entries[0]["timestamp"], "20260627")
                 self.assertEqual(entries[0]["summary"]["total_components"], 2)
@@ -153,7 +156,10 @@ class TestTracker(unittest.TestCase):
             weekly_index = os.path.join(temp_dir, "summary_weekly", "index.json")
             self.assertTrue(os.path.exists(weekly_index))
             with open(weekly_index, 'r', encoding='utf-8') as f:
-                entries = json.load(f)
+                data = json.load(f)
+                self.assertEqual(data["project_name"], "TestProj")
+                self.assertEqual(data["branch"], "main-branch")
+                entries = data["runs"]
                 self.assertEqual(len(entries), 1)
                 self.assertEqual(entries[0]["timestamp"], "2026_W25")
             self.assertTrue(os.path.exists(os.path.join(temp_dir, "summary_weekly", "2026_W25", "report.json")))

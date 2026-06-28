@@ -1,98 +1,86 @@
-[
-  {
-    "timestamp": "2026_W25",
-    "date": "2026-06-28 00:29:40",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 25,
-      "unused_components": 13,
-      "total_references": 50
+{
+  "project_name": "DummyAndroidProject",
+  "branch": null,
+  "runs": [
+    {
+      "timestamp": "2026_W25",
+      "date": "2026-06-28 11:45:55",
+      "summary": {
+        "total_components": 38,
+        "active_components": 25,
+        "unused_components": 13,
+        "total_references": 50
+      }
+    },
+    {
+      "timestamp": "2026_W24",
+      "date": "2026-06-21 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 11,
+        "unused_components": 27,
+        "total_references": 25
+      }
+    },
+    {
+      "timestamp": "2026_W23",
+      "date": "2026-06-14 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 2,
+        "unused_components": 36,
+        "total_references": 7
+      }
+    },
+    {
+      "timestamp": "2026_W22",
+      "date": "2026-06-07 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 1,
+        "unused_components": 37,
+        "total_references": 5
+      }
+    },
+    {
+      "timestamp": "2026_W21",
+      "date": "2026-05-31 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 1,
+        "unused_components": 37,
+        "total_references": 3
+      }
+    },
+    {
+      "timestamp": "2026_W20",
+      "date": "2026-05-24 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 0,
+        "unused_components": 38,
+        "total_references": 0
+      }
+    },
+    {
+      "timestamp": "2026_W19",
+      "date": "2026-05-17 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 0,
+        "unused_components": 38,
+        "total_references": 0
+      }
+    },
+    {
+      "timestamp": "2026_W18",
+      "date": "2026-05-10 00:24:43",
+      "summary": {
+        "total_components": 38,
+        "active_components": 0,
+        "unused_components": 38,
+        "total_references": 0
+      }
     }
-  },
-  {
-    "timestamp": "2026_W24",
-    "date": "2026-06-21 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 11,
-      "unused_components": 27,
-      "total_references": 25
-    }
-  },
-  {
-    "timestamp": "2026_W23",
-    "date": "2026-06-14 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 2,
-      "unused_components": 36,
-      "total_references": 7
-    }
-  },
-  {
-    "timestamp": "2026_W22",
-    "date": "2026-06-07 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 1,
-      "unused_components": 37,
-      "total_references": 5
-    }
-  },
-  {
-    "timestamp": "2026_W21",
-    "date": "2026-05-31 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 1,
-      "unused_components": 37,
-      "total_references": 3
-    }
-  },
-  {
-    "timestamp": "2026_W20",
-    "date": "2026-05-24 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 0,
-      "unused_components": 38,
-      "total_references": 0
-    }
-  },
-  {
-    "timestamp": "2026_W19",
-    "date": "2026-05-17 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 0,
-      "unused_components": 38,
-      "total_references": 0
-    }
-  },
-  {
-    "timestamp": "2026_W18",
-    "date": "2026-05-10 00:24:43",
-    "project_name": "DummyAndroidProject",
-    "branch": null,
-    "summary": {
-      "total_components": 38,
-      "active_components": 0,
-      "unused_components": 38,
-      "total_references": 0
-    }
-  }
-]
+  ]
+}
