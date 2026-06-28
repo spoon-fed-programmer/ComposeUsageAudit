@@ -126,6 +126,8 @@ export default function App() {
     const runTimestamp = selectedRun?.timestamp || 'latest';
     if (tab === 'files') {
       window.location.hash = `#/${interval}/run/${runTimestamp}/files`;
+    } else if (tab === 'modules') {
+      window.location.hash = `#/${interval}/run/${runTimestamp}/modules`;
     } else {
       window.location.hash = `#/${interval}/run/${runTimestamp}/overview`;
     }
