@@ -1,7 +1,7 @@
 export const TRANSLATIONS = {
   ko: {
     // AppHeader
-    title: '공통 Compose 컴포넌트 사용 현황',
+    title: 'SamsungWalletApp 공통 컴포즈 모듈 사용 현황',
     viewer: '뷰어',
     total_components: '전체 컴포넌트',
     total_references: '총 참조 횟수',
@@ -81,7 +81,7 @@ export const TRANSLATIONS = {
   },
   en: {
     // AppHeader
-    title: 'Common Compose Components Usage',
+    title: 'SamsungWalletApp Common Compose Components Usage',
     viewer: 'Viewer',
     total_components: 'Total Components',
     total_references: 'Total References',
