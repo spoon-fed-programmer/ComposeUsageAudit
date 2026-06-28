@@ -9,6 +9,7 @@
         {
           "class_name": "com.domain.auth.RegisterActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             20
@@ -23,6 +24,7 @@
         {
           "class_name": "com.domain.auth.LoginActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             14

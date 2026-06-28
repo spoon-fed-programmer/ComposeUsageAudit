@@ -4,11 +4,12 @@
   "components": [
     {
       "name": "PrimaryButton",
-      "count": 8,
+      "count": 10,
       "classes": [
         {
           "class_name": "com.domain.auth.LoginActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             12
@@ -17,6 +18,7 @@
         {
           "class_name": "com.domain.auth.RegisterActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             18
@@ -25,14 +27,25 @@
         {
           "class_name": "com.domain.cart.CartFragment",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             19
           ]
         },
         {
+          "class_name": "com.domain.features.login.FeatureLoginActivity",
+          "source_set": "main",
+          "module_name": "features/login",
+          "count": 1,
+          "lines": [
+            8
+          ]
+        },
+        {
           "class_name": "com.domain.home.HomeActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 2,
           "lines": [
             16,
@@ -42,6 +55,7 @@
         {
           "class_name": "com.domain.product.ProductDetailActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             14
@@ -50,6 +64,7 @@
         {
           "class_name": "com.domain.settings.SettingsActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             13
@@ -58,20 +73,40 @@
         {
           "class_name": "com.domain.settings.SettingsFragment",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             7
+          ]
+        },
+        {
+          "class_name": "com.domain.vas.dpaper.DpaperActivity",
+          "source_set": "main",
+          "module_name": "vas/dpaper",
+          "count": 1,
+          "lines": [
+            8
           ]
         }
       ]
     },
     {
       "name": "IconButton",
-      "count": 2,
+      "count": 3,
       "classes": [
+        {
+          "class_name": "com.domain.features.search.SearchActivity",
+          "source_set": "main",
+          "module_name": "features/search",
+          "count": 1,
+          "lines": [
+            8
+          ]
+        },
         {
           "class_name": "com.domain.product.ProductDetailActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             15
@@ -80,6 +115,7 @@
         {
           "class_name": "com.domain.product.ProductListFragment",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             11
@@ -89,25 +125,54 @@
     },
     {
       "name": "SecondaryButton",
-      "count": 1,
+      "count": 3,
       "classes": [
+        {
+          "class_name": "com.domain.features.search.SearchActivity",
+          "source_set": "main",
+          "module_name": "features/search",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        },
         {
           "class_name": "com.domain.profile.ProfileActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             14
+          ]
+        },
+        {
+          "class_name": "com.domain.vas.dpaper.DpaperActivity",
+          "source_set": "main",
+          "module_name": "vas/dpaper",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LoadingButton",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.features.login.FeatureLoginActivity",
+          "source_set": "main",
+          "module_name": "features/login",
+          "count": 1,
+          "lines": [
+            9
           ]
         }
       ]
     },
     {
       "name": "FloatingActionButton",
-      "count": 0,
-      "classes": []
-    },
-    {
-      "name": "LoadingButton",
       "count": 0,
       "classes": []
     },

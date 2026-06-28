@@ -7,12 +7,12 @@
   {
     "file": "Buttons.kt",
     "name": "IconButton",
-    "count": 2
+    "count": 3
   },
   {
     "file": "Buttons.kt",
     "name": "LoadingButton",
-    "count": 0
+    "count": 1
   },
   {
     "file": "Buttons.kt",
@@ -22,12 +22,12 @@
   {
     "file": "Buttons.kt",
     "name": "PrimaryButton",
-    "count": 8
+    "count": 10
   },
   {
     "file": "Buttons.kt",
     "name": "SecondaryButton",
-    "count": 1
+    "count": 3
   },
   {
     "file": "Buttons.kt",

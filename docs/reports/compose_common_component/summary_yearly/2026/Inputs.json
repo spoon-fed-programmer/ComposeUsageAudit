@@ -9,6 +9,7 @@
         {
           "class_name": "com.domain.auth.LoginActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             10
@@ -17,6 +18,7 @@
         {
           "class_name": "com.domain.auth.RegisterActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 2,
           "lines": [
             11,
@@ -26,6 +28,7 @@
         {
           "class_name": "com.domain.profile.ProfileActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 2,
           "lines": [
             12,
@@ -41,6 +44,7 @@
         {
           "class_name": "com.domain.auth.LoginActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             11
@@ -49,6 +53,7 @@
         {
           "class_name": "com.domain.auth.RegisterActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 2,
           "lines": [
             13,
@@ -64,6 +69,7 @@
         {
           "class_name": "com.domain.settings.SettingsActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 2,
           "lines": [
             10,
@@ -79,6 +85,7 @@
         {
           "class_name": "com.domain.auth.RegisterActivity",
           "source_set": "main",
+          "module_name": "app",
           "count": 1,
           "lines": [
             16
