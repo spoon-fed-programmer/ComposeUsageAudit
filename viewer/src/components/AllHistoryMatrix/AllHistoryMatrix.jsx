@@ -131,7 +131,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
       </div>
 
       <div className="flex-1 border border-border bg-panel rounded-lg overflow-auto max-h-[calc(100vh-230px)]">
-        <table className="w-full text-xs border-collapse font-mono relative">
+        <table className="w-max text-xs border-collapse font-mono relative">
           <thead>
             <MatrixHeader
               viewMode={viewMode}
