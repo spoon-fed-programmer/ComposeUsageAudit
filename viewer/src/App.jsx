@@ -14,6 +14,8 @@ const DEFAULT_SOURCE = 'reports/compose_common_component/summary_daily/index.jso
 export default function App() {
   const [sourcePath, setSourcePath] = useState(DEFAULT_SOURCE);
   const [viewAllHistory, setViewAllHistory] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [navigatedFile, setNavigatedFile] = useState(null);
   
   const {
     reportRuns,
@@ -54,11 +56,15 @@ export default function App() {
     setViewAllHistory(false);
     setSourcePath(DEFAULT_SOURCE);
     loadSourceIndex(DEFAULT_SOURCE);
+    setActiveTab('overview');
+    setNavigatedFile(null);
   };
 
   const handleSelectRun = (timestamp) => {
     setViewAllHistory(false);
     selectRun(timestamp);
+    setActiveTab('overview');
+    setNavigatedFile(null);
   };
 
   return (
@@ -87,12 +93,24 @@ export default function App() {
           <AllHistoryMatrix
             reportRuns={reportRuns}
             categoryDir={getCategoryDir()}
+            onSelectRun={handleSelectRun}
+            onNavigateFile={(fileName) => {
+              const runTimestamp = selectedRun?.timestamp || reportRuns[0]?.timestamp;
+              setViewAllHistory(false);
+              if (runTimestamp) selectRun(runTimestamp);
+              setNavigatedFile(fileName);
+              setActiveTab('files');
+            }}
           />
         ) : (
           <MainPanel
             selectedRun={selectedRun}
             loading={loading && reportRuns.length > 0 && !selectedRun}
             error={selectedRun ? null : null}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            navigatedFile={navigatedFile}
+            setNavigatedFile={setNavigatedFile}
           />
         )}
       </div>

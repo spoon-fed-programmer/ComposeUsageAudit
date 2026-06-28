@@ -9,7 +9,7 @@ import { formatTimestamp } from './RunCard';
  * @param {object[]} props.reportRuns - List of runs from index.json
  * @param {string}   props.categoryDir - Root path of the current report category
  */
-export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
+export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun, onNavigateFile }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [matrixData, setMatrixData] = useState([]);
@@ -138,7 +138,12 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                     hoveredColIdx === i ? 'bg-[#12151b]' : 'bg-[#080b11]'
                   ].join(' ')}
                 >
-                  {formatTimestamp(run.timestamp)}
+                  <button
+                    onClick={() => onSelectRun(run.timestamp)}
+                    className="hover:underline hover:text-accent-hover cursor-pointer bg-transparent border-0 p-0 text-accent font-semibold text-xs outline-none transition-colors duration-150"
+                  >
+                    {formatTimestamp(run.timestamp)}
+                  </button>
                 </th>
               ))}
             </tr>
@@ -207,7 +212,13 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                       rowSpan={rowSpanVal}
                       className="sticky left-0 z-20 bg-[#080b11] font-sans font-semibold text-text-secondary px-4 py-2.5 border-r border-border w-[165px] min-w-[165px] max-w-[165px] align-middle overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)]"
                     >
-                      {file}
+                      <button
+                        onClick={() => onNavigateFile(file)}
+                        className="hover:underline hover:text-text-primary cursor-pointer bg-transparent border-0 p-0 text-text-secondary font-semibold text-left w-full outline-none block truncate transition-colors duration-150"
+                        title={file}
+                      >
+                        {file}
+                      </button>
                     </td>
                     <td className="sticky left-[165px] z-20 bg-[#0d1017] font-sans font-bold text-accent/80 px-4 py-2.5 border-r border-border w-[220px] min-w-[220px] max-w-[220px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
                       파일 합계
@@ -266,7 +277,13 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                     >
                       {/* Component Name Column */}
                       <td className="sticky left-[165px] z-20 bg-[#080b11] font-sans font-bold text-white px-4 py-2.5 border-r border-border w-[220px] min-w-[220px] max-w-[220px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
-                        {c.name}
+                        <button
+                          onClick={() => onNavigateFile(c.file)}
+                          className="hover:underline hover:text-accent cursor-pointer bg-transparent border-0 p-0 text-white font-bold text-left w-full outline-none block truncate transition-colors duration-150"
+                          title={c.name}
+                        >
+                          {c.name}
+                        </button>
                       </td>
 
                       {/* Date Cells */}

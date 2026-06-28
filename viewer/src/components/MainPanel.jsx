@@ -12,9 +12,15 @@ import EmptyState from './EmptyState';
  * @param {boolean}     props.loading
  * @param {string|null} props.error
  */
-export default function MainPanel({ selectedRun, loading, error }) {
-  const [activeTab, setActiveTab] = useState('overview');
-  const [navigatedFile, setNavigatedFile] = useState(null);
+export default function MainPanel({
+  selectedRun,
+  loading,
+  error,
+  activeTab,
+  setActiveTab,
+  navigatedFile,
+  setNavigatedFile,
+}) {
 
   /** Called from ComponentsTable when a component link is clicked. */
   const handleNavigateFile = (fileName) => {
