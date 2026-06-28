@@ -93,7 +93,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
   }
 
   return (
-    <div className="flex-1 p-10 flex flex-col gap-6 overflow-hidden">
+    <div className="flex-1 p-10 flex flex-col gap-6 overflow-y-auto" style={{ height: 'calc(100vh - 81px)' }}>
       <div className="flex items-center justify-between gap-4 border-b border-border pb-4">
         <div>
           <h2 className="text-xl font-bold text-white mb-2">{t('view_all_history')}</h2>
@@ -136,7 +136,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
         <HistoryTrendChart matrixData={matrixData} reportRuns={reportRuns} />
       )}
 
-      <div className="flex-1 border border-border bg-panel rounded-lg overflow-auto max-h-[calc(100vh-530px)]">
+      <div className="border border-border bg-panel rounded-lg overflow-x-auto w-full">
         <table className="w-max text-xs border-collapse font-mono relative">
           <thead>
             <MatrixHeader
