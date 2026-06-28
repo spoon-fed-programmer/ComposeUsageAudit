@@ -48,7 +48,8 @@ export default function FileDetailPanel({ fileData, loading, error }) {
       {/* Component cards */}
       <div className="flex flex-col gap-5">
         {comps.map((comp, idx) => {
-          const isUnused = comp.count === 0;
+          const compCount = typeof comp.count === 'number' && !isNaN(comp.count) ? comp.count : 0;
+          const isUnused = compCount === 0;
           return (
             <div
               key={`${comp.name}-${idx}`}
@@ -64,7 +65,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
 
               {/* Metrics row */}
               <div className="text-sm text-text-secondary">
-                {t('ref_count_label')}: <strong className="text-text-primary font-mono">{comp.count}</strong>{t('ref_count_suffix_times')}
+                {t('ref_count_label')}: <strong className="text-text-primary font-mono">{compCount}</strong>{t('ref_count_suffix_times')}
               </div>
 
               {/* Usage list */}
@@ -81,7 +82,8 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                     comp.classes.map((cls, i) => {
                       const isObj = cls && typeof cls === 'object';
                       const classNameStr = isObj ? cls.class_name : cls;
-                      const refCount = isObj ? cls.count : null;
+                      const rawRefCount = isObj ? cls.count : null;
+                      const refCount = (rawRefCount !== null && typeof rawRefCount === 'number' && !isNaN(rawRefCount)) ? rawRefCount : (rawRefCount !== null ? 0 : null);
                       const lineNumbers = isObj && Array.isArray(cls.lines) ? cls.lines : [];
 
                       return (
