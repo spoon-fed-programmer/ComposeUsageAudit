@@ -13,7 +13,7 @@ const DEFAULT_SOURCE = 'reports/compose_common_component/summary_daily/index.jso
  */
 export default function App() {
   const [sourcePath, setSourcePath] = useState(DEFAULT_SOURCE);
-  const [viewAllHistory, setViewAllHistory] = useState(false);
+  const [viewAllHistory, setViewAllHistory] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
   const [navigatedFile, setNavigatedFile] = useState(null);
   
@@ -34,7 +34,7 @@ export default function App() {
 
   const handleSourceChange = (value) => {
     setSourcePath(value);
-    setViewAllHistory(false);
+    setViewAllHistory(true);
     loadSourceIndex(value);
   };
 
