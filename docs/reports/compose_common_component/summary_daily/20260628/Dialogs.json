@@ -8,6 +8,7 @@
       "classes": [
         {
           "class_name": "com.domain.auth.RegisterActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             20
@@ -21,6 +22,7 @@
       "classes": [
         {
           "class_name": "com.domain.auth.LoginActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             14

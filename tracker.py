@@ -88,6 +88,15 @@ def extract_package(file_content: str) -> str:
         return match.group(1).strip()
     return ""
 
+def extract_source_set(file_path: str) -> str:
+    """
+    Extracts the source set / variant name from the file path.
+    Defaults to 'main' if not found.
+    """
+    abs_path = os.path.abspath(file_path)
+    match = re.search(r'[\\/]src[\\/]([^\\/]+)[\\/](?:java|kotlin)[\\/]', abs_path, re.IGNORECASE)
+    return match.group(1) if match else "main"
+
 def run_git_command(args: list, cwd: str) -> str:
     try:
         res = subprocess.run(args, cwd=cwd, capture_output=True, text=True, check=True)
@@ -214,33 +223,38 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         
         comps_data = []
         for comp in sorted_comps:
-            # Group and merge references by class name
+            # Group and merge references by class name and source_set
             merged = {}
             for ref in comp['ref_classes']:
                 if isinstance(ref, str):
                     cname = ref
                     rcount = 1
                     rlines = []
+                    sourceset = "main"
                 else:
                     cname = ref.get('class_name', '')
                     rcount = ref.get('count', 0)
                     rlines = ref.get('lines', [])
+                    sourceset = ref.get('source_set', 'main')
                     
-                if cname not in merged:
-                    merged[cname] = {
+                key = (cname, sourceset)
+                if key not in merged:
+                    merged[key] = {
                         'class_name': cname,
+                        'source_set': sourceset,
                         'count': 0,
                         'lines': set()
                     }
-                merged[cname]['count'] += rcount
-                merged[cname]['lines'].update(rlines)
+                merged[key]['count'] += rcount
+                merged[key]['lines'].update(rlines)
                 
             classes_list = []
-            for cname in sorted(merged.keys()):
+            for key in sorted(merged.keys()):
                 classes_list.append({
-                    'class_name': cname,
-                    'count': merged[cname]['count'],
-                    'lines': sorted(list(merged[cname]['lines']))
+                    'class_name': merged[key]['class_name'],
+                    'source_set': merged[key]['source_set'],
+                    'count': merged[key]['count'],
+                    'lines': sorted(list(merged[key]['lines']))
                 })
                 
             comps_data.append({
@@ -449,11 +463,14 @@ def main():
                         count = len(matches)
                         
                         if count > 0:
-                            # Extract this file's package and name
+                            # Extract this file's package name and resolve class identifier without sourceSet
                             pkg = extract_package(raw_content)
                             file_basename = os.path.basename(file_path)
                             name_without_ext, _ = os.path.splitext(file_basename)
                             class_ident = f"{pkg}.{name_without_ext}" if pkg else name_without_ext
+                            
+                            # Extract source set name
+                            sourceset = extract_source_set(abs_file_path)
                             
                             # Find all line numbers (1-based) where comp_name is referenced
                             lines_found = []
@@ -466,6 +483,7 @@ def main():
                             comp_info['ref_count'] += count
                             comp_info['ref_classes'].append({
                                 'class_name': class_ident,
+                                'source_set': sourceset,
                                 'count': count,
                                 'lines': lines_found
                             })

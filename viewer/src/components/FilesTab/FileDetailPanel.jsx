@@ -95,8 +95,13 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                                 className="inline-block w-1.5 h-1.5 rounded-full bg-accent shrink-0"
                                 style={{ boxShadow: '0 0 6px #6366f1' }}
                               />
-                              <span className="truncate text-text-secondary" title={classNameStr}>
-                                {classNameStr}
+                              <span className="truncate text-text-secondary flex items-center gap-1.5" title={classNameStr}>
+                                <span className="truncate">{classNameStr}</span>
+                                {isObj && cls.source_set && (
+                                  <span className="text-[10px] text-text-muted bg-white/[0.04] border border-border/40 px-1.5 py-0.5 rounded font-sans uppercase tracking-wider scale-90 shrink-0 select-none">
+                                    {cls.source_set}
+                                  </span>
+                                )}
                               </span>
                             </div>
                             {refCount !== null && (

@@ -8,6 +8,7 @@
       "classes": [
         {
           "class_name": "com.domain.auth.LoginActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             12
@@ -15,6 +16,7 @@
         },
         {
           "class_name": "com.domain.auth.RegisterActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             18
@@ -22,6 +24,7 @@
         },
         {
           "class_name": "com.domain.cart.CartFragment",
+          "source_set": "main",
           "count": 1,
           "lines": [
             19
@@ -29,6 +32,7 @@
         },
         {
           "class_name": "com.domain.home.HomeActivity",
+          "source_set": "main",
           "count": 2,
           "lines": [
             16,
@@ -37,6 +41,7 @@
         },
         {
           "class_name": "com.domain.product.ProductDetailActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             14
@@ -44,6 +49,7 @@
         },
         {
           "class_name": "com.domain.settings.SettingsActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             13
@@ -51,6 +57,7 @@
         },
         {
           "class_name": "com.domain.settings.SettingsFragment",
+          "source_set": "main",
           "count": 1,
           "lines": [
             7
@@ -64,6 +71,7 @@
       "classes": [
         {
           "class_name": "com.domain.product.ProductDetailActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             15
@@ -71,6 +79,7 @@
         },
         {
           "class_name": "com.domain.product.ProductListFragment",
+          "source_set": "main",
           "count": 1,
           "lines": [
             11
@@ -84,6 +93,7 @@
       "classes": [
         {
           "class_name": "com.domain.profile.ProfileActivity",
+          "source_set": "main",
           "count": 1,
           "lines": [
             14

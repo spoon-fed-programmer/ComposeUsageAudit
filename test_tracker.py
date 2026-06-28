@@ -143,8 +143,8 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(buttons["components"][0]["name"], "PrimaryButton")
                 self.assertEqual(buttons["components"][0]["count"], 3)
                 self.assertEqual(buttons["components"][0]["classes"], [
-                    {"class_name": "com.domain.home.HomeActivity", "count": 2, "lines": [10, 25]},
-                    {"class_name": "com.domain.settings.SettingsActivity", "count": 1, "lines": [40]}
+                    {"class_name": "com.domain.home.HomeActivity", "source_set": "main", "count": 2, "lines": [10, 25]},
+                    {"class_name": "com.domain.settings.SettingsActivity", "source_set": "main", "count": 1, "lines": [40]}
                 ])
 
             # Check root index.json in summary_daily
@@ -181,6 +181,23 @@ class TestTracker(unittest.TestCase):
 
         finally:
             shutil.rmtree(temp_dir)
+
+    def test_extract_source_set(self):
+        # 1. Standard path under main sourceSet
+        path_main = "C:\\Project\\app\\src\\main\\java\\com\\domain\\auth\\LoginActivity.kt"
+        self.assertEqual(tracker.extract_source_set(path_main), "main")
+
+        # 2. Variant path (kr)
+        path_kr = "/Users/username/Project/app/src/kr/kotlin/com/domain/auth/LoginActivity.kt"
+        self.assertEqual(tracker.extract_source_set(path_kr), "kr")
+
+        # 3. Path without package name
+        path_no_pkg = "C:\\Project\\app\\src\\us\\java\\MainActivity.kt"
+        self.assertEqual(tracker.extract_source_set(path_no_pkg), "us")
+
+        # 4. Standard path with no sourceSet structure
+        path_simple = "C:\\Project\\MainActivity.kt"
+        self.assertEqual(tracker.extract_source_set(path_simple), "main")
 
 if __name__ == '__main__':
     unittest.main()
