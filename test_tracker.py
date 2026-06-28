@@ -121,6 +121,7 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(report["summary"]["active_components"], 1)
                 self.assertEqual(report["summary"]["unused_components"], 1)
                 self.assertEqual(report["summary"]["total_references"], 3)
+                self.assertEqual(report["modules"], {"app": 3})
                 
             # Check index.json in summary_daily/20260627/
             index_path = os.path.join(temp_dir, "summary_daily", "20260627", "index.json")
@@ -158,6 +159,7 @@ class TestTracker(unittest.TestCase):
                 self.assertEqual(len(entries), 1)
                 self.assertEqual(entries[0]["timestamp"], "20260627")
                 self.assertEqual(entries[0]["summary"]["total_components"], 2)
+                self.assertEqual(entries[0]["modules"], {"app": 3})
 
             # Check weekly index and folder
             weekly_index = os.path.join(temp_dir, "summary_weekly", "index.json")

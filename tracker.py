@@ -215,6 +215,20 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
     unused_components = total_components - active_components
     total_references = sum(c['ref_count'] for c in components)
     
+    # Aggregate references by module
+    module_references = {}
+    for c in components:
+        for ref in c.get('ref_classes', []):
+            if isinstance(ref, dict):
+                mod = ref.get('module_name', '')
+                count = ref.get('count', 0)
+                module_references[mod] = module_references.get(mod, 0) + count
+            elif isinstance(ref, str):
+                module_references[""] = module_references.get("", 0) + 1
+                
+    # Sort modules alphabetically
+    sorted_modules = {k: module_references[k] for k in sorted(module_references.keys())}
+    
     # 1. Prepare report.json content
     report_content = {
         "timestamp": timestamp_dir,
@@ -226,7 +240,8 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
             "active_components": active_components,
             "unused_components": unused_components,
             "total_references": total_references
-        }
+        },
+        "modules": sorted_modules
     }
     
     # 2. Prepare index.json content (flat list of all components)
@@ -362,7 +377,8 @@ def write_reports(output_dir: str, project_name: str, timestamp_report: str, tim
         new_entry = {
             "timestamp": folder_name,
             "date": timestamp_report,
-            "summary": report_content["summary"]
+            "summary": report_content["summary"],
+            "modules": report_content["modules"]
         }
         
         # Remove existing entry with same folder_name (overwrite)

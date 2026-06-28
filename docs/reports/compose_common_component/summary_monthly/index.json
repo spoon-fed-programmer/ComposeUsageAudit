@@ -4,12 +4,18 @@
   "runs": [
     {
       "timestamp": "2026_06",
-      "date": "2026-06-28 17:15:53",
+      "date": "2026-06-28 17:25:11",
       "summary": {
         "total_components": 38,
         "active_components": 26,
         "unused_components": 12,
         "total_references": 56
+      },
+      "modules": {
+        "app": 50,
+        "features/login": 2,
+        "features/search": 2,
+        "vas/dpaper": 2
       }
     },
     {

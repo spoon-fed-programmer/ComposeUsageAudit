@@ -62,7 +62,7 @@
   * `summary_weekly/[YYYY_Www]/` (주별 스냅샷)
   * `summary_monthly/[YYYY_MM]/` (월별 스냅샷)
   * `summary_yearly/[YYYY]/` (년별 스냅샷)
-  * 각 주기별 디렉토리 루트(예: `summary_daily/index.json`)에는 실행되었던 스냅샷 히스토리 목록(`runs`)과 기본 프로젝트 메타데이터가 역순(최신순) 정렬로 누적 관리됩니다.
+  * 각 주기별 디렉토리 루트(예: `summary_daily/index.json`)에는 실행되었던 스냅샷 히스토리 목록(`runs`)과 기본 프로젝트 메타데이터가 역순(최신순) 정렬로 누적 관리됩니다. 개별 런(`run`) 기록에는 요약 통계(`summary`) 외에도 각 모듈별로 컴포넌트를 호출한 총 횟수를 집계한 **모듈별 사용 지표(`modules`)**가 추가 항목으로 포함됩니다.
 
 #### 3.4.1 파일별 JSON 상세 스펙
 
@@ -79,6 +79,11 @@
     "active_components": 180,
     "unused_components": 70,
     "total_references": 1450
+  },
+  "modules": {
+    "app": 1430,
+    "features/login": 15,
+    "vas/dpaper": 5
   }
 }
 ```
