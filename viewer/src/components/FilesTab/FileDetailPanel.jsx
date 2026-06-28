@@ -98,8 +98,8 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                               <span className="truncate text-text-secondary flex items-center gap-1.5" title={classNameStr}>
                                 <span className="truncate">{classNameStr}</span>
                                 {isObj && cls.source_set && (
-                                  <span className="text-[10px] text-text-muted bg-white/[0.04] border border-border/40 px-1.5 py-0.5 rounded font-sans uppercase tracking-wider scale-90 shrink-0 select-none">
-                                    {cls.source_set}
+                                  <span className="text-[11px] text-text-muted opacity-60 font-sans font-normal shrink-0 select-none ml-1">
+                                    ({cls.source_set})
                                   </span>
                                 )}
                               </span>

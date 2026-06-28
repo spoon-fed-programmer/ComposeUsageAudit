@@ -8,7 +8,7 @@ export function I18nProvider({ children }) {
 
   const t = (key, variables = {}) => {
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['ko'];
-    let text = dict[key] || TRANSLATIONS['ko'][key] || key;
+    let text = dict[key] !== undefined ? dict[key] : (TRANSLATIONS['ko'][key] !== undefined ? TRANSLATIONS['ko'][key] : key);
     
     // Replace variables (e.g. {count})
     Object.keys(variables).forEach((vKey) => {
