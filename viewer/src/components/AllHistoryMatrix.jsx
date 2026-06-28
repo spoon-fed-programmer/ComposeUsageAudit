@@ -138,7 +138,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                   onMouseLeave={() => setHoveredColIdx(null)}
                   className={[
                     'sticky top-0 z-30 px-2 py-3 font-semibold text-accent border-r border-border text-center text-xs w-[80px] min-w-[80px] max-w-[80px] overflow-hidden text-ellipsis transition-colors duration-150',
-                    hoveredColIdx === i ? 'bg-white/[0.04]' : 'bg-[#080b11]'
+                    hoveredColIdx === i ? 'bg-[#12151b]' : 'bg-[#080b11]'
                   ].join(' ')}
                 >
                   {formatTimestamp(run.timestamp)}
