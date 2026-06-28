@@ -22,9 +22,69 @@ export default function Sidebar({
   intervalLabel,
   isMatrixActive,
   onViewAllHistory,
+  sourcePath,
+  onSourceChange,
+  onLoadSource,
 }) {
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') onLoadSource(e.target.value);
+  };
+
   return (
     <aside className="w-80 border-r border-border px-6 py-6 flex flex-col gap-5 bg-[rgba(17,22,34,0.3)] overflow-y-auto shrink-0">
+      {/* 데이터 소스 선택 */}
+      <div className="flex flex-col gap-2 border-b border-border pb-4">
+        <label className="text-xs font-semibold text-text-secondary uppercase tracking-widest">
+          데이터 소스
+        </label>
+        <div className="grid grid-cols-5 gap-0.5 bg-black/40 p-1 rounded border border-border">
+          {[
+            { label: '일별', value: 'reports/compose_common_component/summary_daily/index.json' },
+            { label: '주간', value: 'reports/compose_common_component/summary_weekly/index.json' },
+            { label: '월간', value: 'reports/compose_common_component/summary_monthly/index.json' },
+            { label: '연간', value: 'reports/compose_common_component/summary_yearly/index.json' },
+            { label: '직접', value: 'custom' },
+          ].map((opt) => {
+            const isSelected = sourcePath === opt.value;
+            return (
+              <button
+                key={opt.label}
+                onClick={() => onSourceChange(opt.value)}
+                className={[
+                  'text-[11px] font-medium py-1.5 rounded transition-all cursor-pointer border-0',
+                  isSelected
+                    ? 'bg-accent text-white shadow-accent-sm'
+                    : 'bg-transparent text-text-secondary hover:text-text-primary hover:bg-white/[0.04]',
+                ].join(' ')}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {sourcePath === 'custom' && (
+          <div className="flex gap-1.5 mt-1.5">
+            <input
+              type="text"
+              id="json-source-input"
+              placeholder="경로 입력 (예: reports/custom.json)"
+              onKeyPress={handleKeyPress}
+              className="bg-black/30 text-text-primary border border-border px-2.5 py-1.5 rounded text-xs font-sans outline-none flex-1 transition-all focus:border-accent"
+            />
+            <button
+              onClick={() => {
+                const input = document.getElementById('json-source-input');
+                onLoadSource(input?.value?.trim());
+              }}
+              className="bg-accent hover:bg-accent-hover text-white px-3 py-1.5 rounded text-xs font-semibold cursor-pointer transition-all hover:shadow-accent-sm"
+            >
+              로드
+            </button>
+          </div>
+        )}
+      </div>
+
       <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
         <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
           리포트 이력 {intervalLabel ? `(${intervalLabel})` : ''}

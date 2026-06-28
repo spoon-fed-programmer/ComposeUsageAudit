@@ -76,9 +76,6 @@ export default function App() {
     <div className="flex flex-col h-full">
       <AppHeader
         onHome={handleHome}
-        sourcePath={sourcePath}
-        onSourceChange={handleSourceChange}
-        onLoadSource={handleLoadSource}
       />
 
       <div className="flex flex-1 overflow-hidden" style={{ height: 'calc(100vh - 81px)' }}>
@@ -91,6 +88,9 @@ export default function App() {
           intervalLabel={getIntervalLabel()}
           isMatrixActive={viewAllHistory}
           onViewAllHistory={() => setViewAllHistory(true)}
+          sourcePath={sourcePath}
+          onSourceChange={handleSourceChange}
+          onLoadSource={handleLoadSource}
         />
         
         {viewAllHistory ? (
