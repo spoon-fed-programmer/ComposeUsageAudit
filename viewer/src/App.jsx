@@ -26,6 +26,7 @@ export default function App() {
   const [viewAllHistory, setViewAllHistory] = useState(initialHashState.viewAllHistory);
   const [activeTab, setActiveTab] = useState(initialHashState.activeTab);
   const [navigatedFile, setNavigatedFile] = useState(initialHashState.navigatedFile);
+  const [selectedRunTimestamp, setSelectedRunTimestamp] = useState(initialHashState.selectedRunTimestamp);
   
   const {
     reportRuns,
@@ -52,6 +53,7 @@ export default function App() {
       setViewAllHistory(parsed.viewAllHistory);
       setActiveTab(parsed.activeTab);
       setNavigatedFile(parsed.navigatedFile);
+      setSelectedRunTimestamp(parsed.selectedRunTimestamp);
 
       let runTimestamp = parsed.selectedRunTimestamp;
       if (runTimestamp === 'latest') {
@@ -80,18 +82,24 @@ export default function App() {
 
   // Sync state changes back to hash
   useEffect(() => {
-    if (!selectedRun && !viewAllHistory) return;
+    if (!selectedRunTimestamp && !viewAllHistory) return;
+    
+    // Resolve timestamp safely to prevent temporary rollback race condition
+    const resolvedTimestamp = selectedRunTimestamp === 'latest'
+      ? (selectedRun?.timestamp || null)
+      : (selectedRunTimestamp || selectedRun?.timestamp || null);
+
     const currentHash = getHashFromState(
       sourcePath,
       viewAllHistory,
-      selectedRun?.timestamp,
+      resolvedTimestamp,
       activeTab,
       navigatedFile
     );
     if (window.location.hash !== currentHash) {
       window.location.hash = currentHash;
     }
-  }, [sourcePath, viewAllHistory, selectedRun, activeTab, navigatedFile]);
+  }, [sourcePath, viewAllHistory, selectedRunTimestamp, selectedRun?.timestamp, activeTab, navigatedFile]);
 
   const handleSourceChange = (value) => {
     const interval = getIntervalName(value);
