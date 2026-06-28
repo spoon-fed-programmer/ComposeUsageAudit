@@ -22,6 +22,9 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
   const [hoveredColIdx, setHoveredColIdx] = useState(null);
   const [viewMode, setViewMode] = useState('component'); // 'component' or 'module'
 
+  const leftHeaderWidth = viewMode === 'component' ? 385 : 220;
+  const tableWidth = leftHeaderWidth + reportRuns.length * 90;
+
   useEffect(() => {
     if (reportRuns.length === 0 || !categoryDir) return;
 
@@ -138,7 +141,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
           <HistoryTrendChart reportRuns={reportRuns} viewMode={viewMode} />
         )}
 
-        <table className="w-max text-xs border-collapse font-mono relative">
+        <table className="w-max text-xs border-collapse font-mono relative" style={{ width: `${tableWidth}px`, tableLayout: 'fixed' }}>
           <thead>
             <MatrixHeader
               viewMode={viewMode}
