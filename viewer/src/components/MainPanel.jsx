@@ -51,7 +51,7 @@ export default function MainPanel({
   }
 
   return (
-    <main className="flex-1 overflow-y-auto p-10 flex flex-col gap-8">
+    <main className="flex-1 overflow-y-auto pt-6 px-10 pb-10 flex flex-col gap-8">
       {/* Tabs */}
       <div className="flex flex-col gap-6">
         <TabSwitcher activeTab={activeTab} onSwitch={onTabSwitch} />

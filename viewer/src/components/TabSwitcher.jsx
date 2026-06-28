@@ -16,7 +16,7 @@ export default function TabSwitcher({ activeTab, onSwitch }) {
   ];
 
   return (
-    <div className="flex border-b border-border gap-6 mt-4">
+    <div className="flex border-b border-border gap-6">
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         return (
