@@ -20,7 +20,7 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
   const marginLeft = (viewMode === 'component' ? 385 : 220) + 45;
 
   return (
-    <div className="flex flex-col gap-3 relative select-none">
+    <div className="flex flex-col gap-3 relative select-none animate-slide-in-left">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider font-sans">
           {t('history_trend_chart_title', '이력 트렌드 추이')}
@@ -111,6 +111,7 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
               dot={{ r: 3.5, fill: '#6366f1', stroke: 'rgba(99,102,241,0.3)', strokeWidth: 3 }}
               activeDot={{ r: 5, fill: '#6366f1', stroke: 'rgba(99,102,241,0.5)', strokeWidth: 4 }}
               filter="url(#glowRefs)"
+              isAnimationActive={false}
             />
 
             <Line
@@ -122,6 +123,7 @@ export default function HistoryTrendChart({ reportRuns, viewMode }) {
               dot={{ r: 3.5, fill: '#10b981', stroke: 'rgba(16,185,129,0.3)', strokeWidth: 3 }}
               activeDot={{ r: 5, fill: '#10b981', stroke: 'rgba(16,185,129,0.5)', strokeWidth: 4 }}
               filter="url(#glowComps)"
+              isAnimationActive={false}
             />
           </ComposedChart>
         </div>
