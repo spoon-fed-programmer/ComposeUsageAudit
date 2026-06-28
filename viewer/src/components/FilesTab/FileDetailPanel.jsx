@@ -99,7 +99,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                                 <span className="truncate">{classNameStr}</span>
                                 {isObj && (cls.module_name || cls.source_set) && (
                                   <span className="text-[11px] text-text-muted opacity-60 font-sans font-normal shrink-0 select-none ml-1">
-                                    ({[cls.module_name, cls.source_set].filter(Boolean).join(' / ')})
+                                    ({[cls.module_name, cls.source_set].filter(Boolean).join('/')})
                                   </span>
                                 )}
                               </span>
