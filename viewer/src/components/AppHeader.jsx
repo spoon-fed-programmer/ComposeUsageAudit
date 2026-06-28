@@ -26,21 +26,21 @@ export default function AppHeader({ onHome, total, refs }) {
         </h1>
       </button>
 
-      {/* KPI Metrics */}
+      {/* KPI Metrics - Centered Card View */}
       {showMetrics && (
-        <div className="flex items-center gap-4">
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4">
           {/* Total Components */}
-          <div className="flex items-center gap-2.5 px-4 py-1.5 rounded border border-accent/25 bg-accent/5 shadow-[0_0_15px_rgba(99,102,241,0.12)]">
-            <span className="text-xs font-semibold text-text-secondary">전체 컴포넌트</span>
-            <span className="text-sm font-bold font-mono text-white" style={{ textShadow: '0 0 8px rgba(99,102,241,0.35)' }}>
+          <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+            <span className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">전체 컴포넌트</span>
+            <span className="text-lg font-bold font-mono text-white leading-none mt-0.5" style={{ textShadow: '0 0 10px rgba(99,102,241,0.45)' }}>
               {total}
             </span>
           </div>
 
           {/* Total Reference Count */}
-          <div className="flex items-center gap-2.5 px-4 py-1.5 rounded border border-success/25 bg-success/5 shadow-[0_0_15px_rgba(16,185,129,0.12)]">
-            <span className="text-xs font-semibold text-text-secondary">총 사용 참조 횟수</span>
-            <span className="text-sm font-bold font-mono text-white" style={{ textShadow: '0 0 8px rgba(16,185,129,0.35)' }}>
+          <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-success/30 bg-success/5 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+            <span className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">총 참조 횟수</span>
+            <span className="text-lg font-bold font-mono text-white leading-none mt-0.5" style={{ textShadow: '0 0 10px rgba(16,185,129,0.45)' }}>
               {refs}
             </span>
           </div>
