@@ -18,41 +18,40 @@ export default function HistoryTrendChart({ reportRuns }) {
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-panel border border-border rounded-lg p-5 flex flex-col gap-3 relative select-none">
+    <div className="flex flex-col gap-3 relative select-none">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider font-sans">
           {t('history_trend_chart_title', '이력 트렌드 추이')}
         </h3>
       </div>
 
-      {/* 가로 스크롤 컨테이너 */}
-      <div className="overflow-x-auto w-full custom-scrollbar pb-2">
-        <div style={{ width: `${chartWidth}px`, height: '220px' }}>
-          <ComposedChart
-            width={chartWidth}
-            height={220}
-            data={data}
-            margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
-          >
-            <defs>
-              {/* Glow Filters */}
-              <filter id="glowRefs" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#6366f1" floodOpacity="0.5" />
-              </filter>
-              <filter id="glowComps" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#10b981" floodOpacity="0.5" />
-              </filter>
-            </defs>
+      <div style={{ width: `${chartWidth}px`, height: '220px' }}>
+        <ComposedChart
+          width={chartWidth}
+          height={220}
+          data={data}
+          margin={{ top: 20, right: 45, left: 430, bottom: 5 }}
+        >
+          <defs>
+            {/* Glow Filters */}
+            <filter id="glowRefs" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#6366f1" floodOpacity="0.5" />
+            </filter>
+            <filter id="glowComps" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#10b981" floodOpacity="0.5" />
+            </filter>
+          </defs>
 
-            <CartesianGrid stroke="#1e293b" strokeDasharray="4 4" />
+          <CartesianGrid stroke="#1e293b" strokeDasharray="4 4" />
 
-            <XAxis
-              dataKey="name"
-              stroke="#475569"
-              tick={{ fill: '#94a3b8', fontSize: 10, fontFamily: 'sans-serif' }}
-              tickLine={false}
-              dy={5}
-            />
+          <XAxis
+            dataKey="name"
+            stroke="#475569"
+            tick={{ fill: '#94a3b8', fontSize: 10, fontFamily: 'sans-serif' }}
+            tickLine={false}
+            dy={5}
+            padding={{ left: 0, right: 0 }}
+          />
 
             {/* Y1 (References) - Left Axis */}
             <YAxis
@@ -125,6 +124,5 @@ export default function HistoryTrendChart({ reportRuns }) {
           </ComposedChart>
         </div>
       </div>
-    </div>
   );
 }

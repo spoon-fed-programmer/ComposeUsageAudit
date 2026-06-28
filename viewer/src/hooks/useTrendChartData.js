@@ -22,8 +22,8 @@ export function useTrendChartData(reportRuns) {
 
   const chartWidth = useMemo(() => {
     if (data.length === 0) return 800;
-    const minWidthPerRun = 110;
-    return Math.max(800, data.length * minWidthPerRun);
+    // 385px (table headers) + (runs count * 90px column width)
+    return 385 + data.length * 90;
   }, [data]);
 
   return { data, chartWidth };
