@@ -8,5 +8,8 @@
     "active_components": 1,
     "unused_components": 37,
     "total_references": 5
+  },
+  "modules": {
+    "app": 5
   }
 }

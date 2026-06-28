@@ -26,6 +26,9 @@
         "active_components": 11,
         "unused_components": 27,
         "total_references": 25
+      },
+      "modules": {
+        "app": 25
       }
     },
     {
@@ -36,6 +39,9 @@
         "active_components": 2,
         "unused_components": 36,
         "total_references": 7
+      },
+      "modules": {
+        "app": 7
       }
     },
     {
@@ -46,6 +52,9 @@
         "active_components": 1,
         "unused_components": 37,
         "total_references": 5
+      },
+      "modules": {
+        "app": 5
       }
     },
     {
@@ -56,6 +65,9 @@
         "active_components": 1,
         "unused_components": 37,
         "total_references": 3
+      },
+      "modules": {
+        "app": 3
       }
     },
     {
@@ -66,6 +78,9 @@
         "active_components": 0,
         "unused_components": 38,
         "total_references": 0
+      },
+      "modules": {
+        "app": 0
       }
     },
     {
@@ -76,6 +91,9 @@
         "active_components": 0,
         "unused_components": 38,
         "total_references": 0
+      },
+      "modules": {
+        "app": 0
       }
     },
     {
@@ -86,6 +104,9 @@
         "active_components": 0,
         "unused_components": 38,
         "total_references": 0
+      },
+      "modules": {
+        "app": 0
       }
     }
   ]
