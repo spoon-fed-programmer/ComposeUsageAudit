@@ -155,18 +155,29 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
               {matrixData.map((run, runIdx) => {
                 const totalRefs = run.components.reduce((sum, rc) => sum + rc.count, 0);
                 
-                let trendClass = 'text-white';
-                let diffText = '';
+                let trendSpan = <span className="text-white">{totalRefs}</span>;
                 
                 const nextRun = matrixData[runIdx + 1];
                 if (nextRun) {
                   const prevTotalRefs = nextRun.components.reduce((sum, rc) => sum + rc.count, 0);
                   if (totalRefs > prevTotalRefs) {
-                    trendClass = 'text-success';
-                    diffText = ` (+${totalRefs - prevTotalRefs})`;
+                    trendSpan = (
+                      <span className="text-white">
+                        {totalRefs}{' '}
+                        <span className="text-text-muted/40 font-normal">(</span>
+                        <span className="text-success">+{totalRefs - prevTotalRefs}</span>
+                        <span className="text-text-muted/40 font-normal">)</span>
+                      </span>
+                    );
                   } else if (totalRefs < prevTotalRefs) {
-                    trendClass = 'text-danger';
-                    diffText = ` (-${prevTotalRefs - totalRefs})`;
+                    trendSpan = (
+                      <span className="text-white">
+                        {totalRefs}{' '}
+                        <span className="text-text-muted/40 font-normal">(</span>
+                        <span className="text-danger">-{prevTotalRefs - totalRefs}</span>
+                        <span className="text-text-muted/40 font-normal">)</span>
+                      </span>
+                    );
                   }
                 }
                 
@@ -177,11 +188,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                     onMouseEnter={() => setHoveredColIdx(runIdx)}
                     onMouseLeave={() => setHoveredColIdx(null)}
                     className={[
-                      `px-2 py-3 border-r border-border text-center font-extrabold w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                      'px-2 py-3 border-r border-border text-center font-extrabold w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150',
                       isHovered ? 'bg-white/[0.02]' : ''
                     ].join(' ')}
                   >
-                    {totalRefs}{diffText}
+                    {trendSpan}
                   </td>
                 );
               })}
@@ -210,8 +221,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                         .filter((rc) => rc.file === file)
                         .reduce((sum, rc) => sum + rc.count, 0);
 
-                      let trendClass = 'text-accent/90';
-                      let diffText = '';
+                      let trendSpan = <span className="text-accent/90">{fileRefs}</span>;
 
                       const nextRun = matrixData[runIdx + 1];
                       if (nextRun) {
@@ -219,11 +229,23 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                           .filter((rc) => rc.file === file)
                           .reduce((sum, rc) => sum + rc.count, 0);
                         if (fileRefs > prevFileRefs) {
-                          trendClass = 'text-success';
-                          diffText = ` (+${fileRefs - prevFileRefs})`;
+                          trendSpan = (
+                            <span className="text-accent/90">
+                              {fileRefs}{' '}
+                              <span className="text-text-muted/40 font-normal">(</span>
+                              <span className="text-success">+{fileRefs - prevFileRefs}</span>
+                              <span className="text-text-muted/40 font-normal">)</span>
+                            </span>
+                          );
                         } else if (fileRefs < prevFileRefs) {
-                          trendClass = 'text-danger';
-                          diffText = ` (-${prevFileRefs - fileRefs})`;
+                          trendSpan = (
+                            <span className="text-accent/90">
+                              {fileRefs}{' '}
+                              <span className="text-text-muted/40 font-normal">(</span>
+                              <span className="text-danger">-{prevFileRefs - fileRefs}</span>
+                              <span className="text-text-muted/40 font-normal">)</span>
+                            </span>
+                          );
                         }
                       }
 
@@ -234,11 +256,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                           onMouseEnter={() => setHoveredColIdx(runIdx)}
                           onMouseLeave={() => setHoveredColIdx(null)}
                           className={[
-                            `px-2 py-2.5 border-r border-border text-center w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                            'px-2 py-2.5 border-r border-border text-center w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150',
                             isHovered ? 'bg-white/[0.02]' : ''
                           ].join(' ')}
                         >
-                          {fileRefs}{diffText}
+                          {trendSpan}
                         </td>
                       );
                     })}
@@ -266,33 +288,42 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                         const hasValue = count !== undefined;
                         const isUnused = count === 0;
 
-                        let trendClass = 'text-white';
-                        let diffText = '';
+                        let trendSpan = (
+                          <span className={hasValue ? (isUnused ? 'text-text-muted/60' : 'text-white') : 'text-text-muted/40 font-normal'}>
+                            {hasValue ? count : '-'}
+                          </span>
+                        );
 
-                        if (hasValue) {
-                          if (isUnused) {
-                            trendClass = 'text-text-muted/60';
-                          } else {
-                            const nextRun = matrixData[runIdx + 1];
-                            if (nextRun) {
-                              const prevCountMap = {};
-                              nextRun.components.forEach((nc) => {
-                                prevCountMap[`${nc.file}::${nc.name}`] = nc.count;
-                              });
-                              const prevCount = prevCountMap[`${c.file}::${c.name}`];
-                              if (prevCount !== undefined) {
-                                if (count > prevCount) {
-                                  trendClass = 'text-success';
-                                  diffText = ` (+${count - prevCount})`;
-                                } else if (count < prevCount) {
-                                  trendClass = 'text-danger';
-                                  diffText = ` (-${prevCount - count})`;
-                                }
+                        if (hasValue && !isUnused) {
+                          const nextRun = matrixData[runIdx + 1];
+                          if (nextRun) {
+                            const prevCountMap = {};
+                            nextRun.components.forEach((nc) => {
+                              prevCountMap[`${nc.file}::${nc.name}`] = nc.count;
+                            });
+                            const prevCount = prevCountMap[`${c.file}::${c.name}`];
+                            if (prevCount !== undefined) {
+                              if (count > prevCount) {
+                                trendSpan = (
+                                  <span className="text-white">
+                                    {count}{' '}
+                                    <span className="text-text-muted/40 font-normal">(</span>
+                                    <span className="text-success">+{count - prevCount}</span>
+                                    <span className="text-text-muted/40 font-normal">)</span>
+                                  </span>
+                                );
+                              } else if (count < prevCount) {
+                                trendSpan = (
+                                  <span className="text-white">
+                                    {count}{' '}
+                                    <span className="text-text-muted/40 font-normal">(</span>
+                                    <span className="text-danger">-{prevCount - count}</span>
+                                    <span className="text-text-muted/40 font-normal">)</span>
+                                  </span>
+                                );
                               }
                             }
                           }
-                        } else {
-                          trendClass = 'text-text-muted/40 font-normal';
                         }
 
                         const isHovered = hoveredColIdx === runIdx;
@@ -302,11 +333,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                             onMouseEnter={() => setHoveredColIdx(runIdx)}
                             onMouseLeave={() => setHoveredColIdx(null)}
                             className={[
-                              `px-2 py-2 border-r border-border text-center font-bold w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150 ${trendClass}`,
+                              'px-2 py-2 border-r border-border text-center font-bold w-[90px] min-w-[90px] max-w-[90px] overflow-hidden text-ellipsis transition-colors duration-150',
                               isHovered ? 'bg-white/[0.02]' : ''
                             ].join(' ')}
                           >
-                            {hasValue ? `${count}${diffText}` : '-'}
+                            {trendSpan}
                           </td>
                         );
                       })}
