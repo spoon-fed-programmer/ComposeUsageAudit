@@ -98,14 +98,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
   return (
     <div className="flex-1 p-10 flex flex-col gap-6 overflow-y-auto" style={{ height: 'calc(100vh - 81px)' }}>
       <div className="flex items-center justify-between gap-4 border-b border-border pb-4">
-        <div>
-          <h2 className="text-xl font-bold text-white mb-2">{t('view_all_history')}</h2>
-          <p className="text-xs text-text-secondary">
-            {lang === 'ko'
-              ? '모든 리포트 주기의 컴포넌트 및 모듈별 참조 횟수 변화를 가로 흐름(과거 → 현재)으로 추적합니다.'
-              : 'Track the reference count change of components or modules over all report cycles horizontally (Past → Present).'}
-          </p>
-        </div>
+        <div />
 
         {/* View Mode Switching Tabs */}
         <div className="flex bg-black/20 p-1 rounded-full border border-border/60 backdrop-blur-sm shadow-sm shrink-0">

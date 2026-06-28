@@ -13,7 +13,7 @@ export const TRANSLATIONS = {
     monthly: '월간',
     yearly: '연간',
     report_history: '리포트 이력',
-    view_all_history: '전체 이력 보기',
+    view_all_history: '대시보드',
     no_reports_found: '조회된 리포트 내역이 없습니다.',
 
     // RunCard
@@ -94,7 +94,7 @@ export const TRANSLATIONS = {
     monthly: 'Monthly',
     yearly: 'Yearly',
     report_history: 'Report History',
-    view_all_history: 'View All History',
+    view_all_history: 'Dashboard',
     no_reports_found: 'No reports found.',
 
     // RunCard
