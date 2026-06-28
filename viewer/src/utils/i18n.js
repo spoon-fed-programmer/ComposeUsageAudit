@@ -64,6 +64,7 @@ export const TRANSLATIONS = {
     refs_suffix: '회 참조',
 
     // AllHistoryMatrix
+    history_trend_chart_title: '이력 트렌드 추이',
     file_name: '파일명',
     component_name: '컴포넌트명',
     subtotal: '합계',
@@ -144,6 +145,7 @@ export const TRANSLATIONS = {
     refs_suffix: ' ref(s)',
 
     // AllHistoryMatrix
+    history_trend_chart_title: 'History Trend Chart',
     file_name: 'File Name',
     component_name: 'Component Name',
     subtotal: 'Total',

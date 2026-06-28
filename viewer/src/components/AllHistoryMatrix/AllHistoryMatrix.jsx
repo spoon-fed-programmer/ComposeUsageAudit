@@ -12,6 +12,7 @@ import MatrixHeader from './MatrixHeader';
 import MatrixSubtotalRow from './MatrixSubtotalRow';
 import ComponentMatrixRows from './ComponentMatrixRows';
 import ModuleMatrixRows from './ModuleMatrixRows';
+import HistoryTrendChart from './HistoryTrendChart';
 
 export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun, onNavigateFile }) {
   const { lang, t } = useI18n();
@@ -130,7 +131,12 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
         </div>
       </div>
 
-      <div className="flex-1 border border-border bg-panel rounded-lg overflow-auto max-h-[calc(100vh-230px)]">
+      {/* Trend Chart */}
+      {!loading && matrixData.length > 0 && (
+        <HistoryTrendChart matrixData={matrixData} reportRuns={reportRuns} />
+      )}
+
+      <div className="flex-1 border border-border bg-panel rounded-lg overflow-auto max-h-[calc(100vh-530px)]">
         <table className="w-max text-xs border-collapse font-mono relative">
           <thead>
             <MatrixHeader
