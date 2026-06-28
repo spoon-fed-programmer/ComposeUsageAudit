@@ -25,24 +25,7 @@ export default function Sidebar({
   return (
     <aside className="w-80 border-r border-border px-6 py-6 flex flex-col gap-5 bg-[rgba(17,22,34,0.3)] overflow-y-auto shrink-0">
 
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
-          <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
-            {t('report_history')}
-          </h2>
-          {!loading && !error && reportRuns.length > 0 && (
-            <button
-              onClick={onViewAllHistory}
-              className={[
-                'text-xs font-semibold hover:underline cursor-pointer bg-transparent border-0 p-0 transition-colors',
-                isMatrixActive ? 'text-accent hover:text-accent' : 'text-text-secondary hover:text-accent',
-              ].join(' ')}
-            >
-              {t('view_all_history')}
-            </button>
-          )}
-        </div>
-
+      <div className="flex flex-col gap-4">
         {/* Interval filter tabs */}
         <div className="flex bg-black/20 p-1 rounded-md border border-border/60 backdrop-blur-sm shadow-sm w-full">
           {intervals.map((item) => {
@@ -62,6 +45,23 @@ export default function Sidebar({
               </button>
             );
           })}
+        </div>
+
+        <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
+          <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
+            {t('report_history')}
+          </h2>
+          {!loading && !error && reportRuns.length > 0 && (
+            <button
+              onClick={onViewAllHistory}
+              className={[
+                'text-xs font-semibold hover:underline cursor-pointer bg-transparent border-0 p-0 transition-colors',
+                isMatrixActive ? 'text-accent hover:text-accent' : 'text-text-secondary hover:text-accent',
+              ].join(' ')}
+            >
+              {t('view_all_history')}
+            </button>
+          )}
         </div>
       </div>
 
