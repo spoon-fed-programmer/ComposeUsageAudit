@@ -13,7 +13,7 @@ export default function ModulesTab({ selectedRun }) {
   const modulesList = modulesData ? Object.keys(modulesData).sort((a, b) => {
     if (a === '') return -1;
     if (b === '') return 1;
-    return a.localeCompare(b);
+    return (a || '').localeCompare(b || '');
   }) : [];
 
   // Default select first module when data is loaded

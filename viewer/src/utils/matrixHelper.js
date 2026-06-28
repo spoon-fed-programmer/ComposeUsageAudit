@@ -16,8 +16,10 @@ export const getUniqueComponents = (matrixData) => {
   });
 
   return Object.values(compMap).sort((a, b) => {
-    if (a.file !== b.file) return a.file.localeCompare(b.file);
-    return a.name.localeCompare(b.name);
+    const fileA = a.file || '';
+    const fileB = b.file || '';
+    if (fileA !== fileB) return fileA.localeCompare(fileB);
+    return (a.name || '').localeCompare(b.name || '');
   });
 };
 
@@ -49,7 +51,7 @@ export const getUniqueModules = (reportRuns) => {
   return [...modulesSet].sort((a, b) => {
     if (a === '') return -1;
     if (b === '') return 1;
-    return a.localeCompare(b);
+    return (a || '').localeCompare(b || '');
   });
 };
 
@@ -98,11 +100,15 @@ export const transformModulesData = (detailFilesData) => {
   Object.keys(modulesMap).forEach((mod) => {
     const compsList = Object.values(modulesMap[mod]).sort((a, b) => {
       if (b.total_count !== a.total_count) return b.total_count - a.total_count;
-      return a.name.localeCompare(b.name);
+      return (a.name || '').localeCompare(b.name || '');
     });
 
     compsList.forEach((c) => {
-      c.classes.sort((a, b) => a.class_name.localeCompare(b.class_name));
+      c.classes.sort((a, b) => {
+        const nameA = a.class_name || '';
+        const nameB = b.class_name || '';
+        return nameA.localeCompare(nameB);
+      });
     });
 
     result[mod] = compsList;
