@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, Fragment } from 'react';
 import { formatTimestamp } from './RunCard';
+import { useI18n } from '../contexts/I18nContext';
 
 /**
  * AllHistoryMatrix - Renders a transposed pivot table of components (rows)
