@@ -47,10 +47,7 @@ export default function Sidebar({
           })}
         </div>
 
-        <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
-          <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
-            {t('report_history')}
-          </h2>
+        <div className="flex items-center justify-end gap-2 border-b border-border pb-3">
           {!loading && !error && reportRuns.length > 0 && (
             <button
               onClick={onViewAllHistory}
