@@ -65,10 +65,7 @@ export default function RunCard({ run, isActive, onSelect }) {
           : 'border-border hover:border-accent hover:bg-panel/80 hover:-translate-y-0.5',
       ].join(' ')}
     >
-      {/* Active left-bar indicator */}
-      {isActive && (
-        <span className="absolute left-0 top-0 h-full w-1 bg-accent rounded-l-md" />
-      )}
+
 
       <div className="text-[15px] font-semibold mb-3">{title}</div>
       <div className="flex justify-between text-xs text-text-muted">
