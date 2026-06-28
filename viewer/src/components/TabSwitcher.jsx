@@ -5,10 +5,13 @@
  * @param {'overview'|'files'} props.activeTab
  * @param {Function} props.onSwitch  - Called with tab name string
  */
+import { useI18n } from '../contexts/I18nContext';
+
 export default function TabSwitcher({ activeTab, onSwitch }) {
+  const { t } = useI18n();
   const tabs = [
-    { id: 'overview', label: '전체 컴포넌트 목록' },
-    { id: 'files',    label: '파일별 세부 사용처' },
+    { id: 'overview', label: t('tab_overview') },
+    { id: 'files',    label: t('tab_files') },
   ];
 
   return (

@@ -10,7 +10,10 @@ import FileDetailPanel from './FileDetailPanel';
  * @param {object}   props.selectedRun      - Current run object
  * @param {string|null} props.initialFile   - Pre-selected file (from overview navigation)
  */
+import { useI18n } from '../../contexts/I18nContext';
+
 export default function FilesTab({ selectedRun, initialFile }) {
+  const { t } = useI18n();
   const files = selectedRun?.files ?? [];
   const [selectedFile, setSelectedFile] = useState(initialFile ?? files[0] ?? null);
   const { fileData, fileLoading, fileError, loadFileDetail } = useFileCsv(selectedRun);
@@ -32,7 +35,7 @@ export default function FilesTab({ selectedRun, initialFile }) {
   if (files.length === 0) {
     return (
       <div className="flex items-center justify-center h-40 text-text-muted">
-        조회 가능한 세부 파일 정보가 없습니다.
+        {t('no_file_details')}
       </div>
     );
   }

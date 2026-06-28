@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react';
+import { useI18n } from '../contexts/I18nContext';
 
 /**
  * Custom hook that manages loading the report index JSON and
  * fetching the report details JSON for the selected run.
  */
 export function useReportData() {
+  const { t } = useI18n();
   const [reportRuns, setReportRuns] = useState([]);
   const [selectedRun, setSelectedRun] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,14 +20,14 @@ export function useReportData() {
     // 1. Fetch report.json (for metadata/summary)
     const reportRes = await fetch(`${categoryDir}/${run.timestamp}/report.json?t=${Date.now()}`);
     if (!reportRes.ok) {
-      throw new Error(`report.json 로드에 실패했습니다.`);
+      throw new Error(t('fetch_failed') + ' (report.json)');
     }
     const reportData = await reportRes.json();
 
     // 2. Fetch index.json (for flat component list)
     const indexRes = await fetch(`${categoryDir}/${run.timestamp}/index.json?t=${Date.now()}`);
     if (!indexRes.ok) {
-      throw new Error(`index.json 로드에 실패했습니다.`);
+      throw new Error(t('fetch_failed') + ' (index.json)');
     }
     const components = await indexRes.json();
 
@@ -53,7 +54,7 @@ export function useReportData() {
     try {
       const res = await fetch(`${jsonPath}?t=${Date.now()}`);
       if (!res.ok) {
-        throw new Error(`파일을 불러오는데 실패했습니다 (HTTP ${res.status})`);
+        throw new Error(`${t('fetch_failed')} (HTTP ${res.status})`);
       }
       const data = await res.json();
       
@@ -63,11 +64,11 @@ export function useReportData() {
       } else if (data && Array.isArray(data.runs)) {
         runs = data.runs;
       } else {
-        throw new Error('조회된 리포트 내역이 없습니다.');
+        throw new Error(t('no_reports_found'));
       }
       
       if (runs.length === 0) {
-        throw new Error('조회된 리포트 내역이 없습니다.');
+        throw new Error(t('no_reports_found'));
       }
       setReportRuns(runs);
 
@@ -77,11 +78,11 @@ export function useReportData() {
         : runs[0];
       await _fetchRunDetail(runToSelect, jsonPath);
     } catch (err) {
-      setError(_friendlyError(err));
+      setError(_friendlyError(err, t));
     } finally {
       setLoading(false);
     }
-  }, [_fetchRunDetail]);
+  }, [_fetchRunDetail, t]);
 
   /** Select a run by timestamp */
   const selectRun = useCallback(
@@ -93,12 +94,12 @@ export function useReportData() {
       try {
         await _fetchRunDetail(run, activeJsonPath);
       } catch (err) {
-        setError(_friendlyError(err));
+        setError(_friendlyError(err, t));
       } finally {
         setLoading(false);
       }
     },
-    [reportRuns, activeJsonPath, _fetchRunDetail]
+    [reportRuns, activeJsonPath, _fetchRunDetail, t]
   );
 
   const clearSelectedRun = useCallback(() => setSelectedRun(null), []);
@@ -106,12 +107,9 @@ export function useReportData() {
   return { reportRuns, selectedRun, loading, error, loadSourceIndex, selectRun, clearSelectedRun };
 }
 
-function _friendlyError(err) {
+function _friendlyError(err, t) {
   if (window.location.protocol === 'file:') {
-    return (
-      '로컬 파일 프로토콜(file://) 환경에서는 CORS 제한으로 데이터를 불러올 수 없습니다.\n' +
-      '터미널에서 python -m http.server 8000 실행 후 http://localhost:8000 에 접속하세요.'
-    );
+    return t('cors_warning');
   }
   return err.message;
 }

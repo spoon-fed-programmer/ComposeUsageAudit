@@ -1,18 +1,6 @@
+import { useI18n } from '../contexts/I18nContext';
 import RunCard from './RunCard';
 
-/**
- * Sidebar - Report history list with View All History button.
- *
- * @param {object}   props
- * @param {object[]} props.reportRuns      - All loaded report run objects
- * @param {object|null} props.selectedRun   - Currently active run
- * @param {boolean}  props.loading         - True while index is loading
- * @param {string|null} props.error        - Error message if load failed
- * @param {Function} props.onSelectRun     - Called with a timestamp when a card is clicked
- * @param {string}   props.intervalLabel   - The active interval type (e.g. '일별', '주간별')
- * @param {boolean}  props.isMatrixActive  - Whether the matrix view is currently active
- * @param {Function} props.onViewAllHistory - Called when clicking "전체 이력 보기"
- */
 export default function Sidebar({
   reportRuns,
   selectedRun,
@@ -25,20 +13,24 @@ export default function Sidebar({
   sourcePath,
   onSourceChange,
 }) {
+  const { t } = useI18n();
+
+  const options = [
+    { label: t('daily'), value: 'reports/compose_common_component/summary_daily/index.json' },
+    { label: t('weekly'), value: 'reports/compose_common_component/summary_weekly/index.json' },
+    { label: t('monthly'), value: 'reports/compose_common_component/summary_monthly/index.json' },
+    { label: t('yearly'), value: 'reports/compose_common_component/summary_yearly/index.json' },
+  ];
+
   return (
     <aside className="w-80 border-r border-border px-6 py-6 flex flex-col gap-5 bg-[rgba(17,22,34,0.3)] overflow-y-auto shrink-0">
       {/* 데이터 소스 선택 */}
       <div className="flex flex-col gap-2 border-b border-border pb-4">
         <label className="text-xs font-semibold text-text-secondary uppercase tracking-widest">
-          데이터 소스
+          {t('data_source')}
         </label>
         <div className="grid grid-cols-4 gap-0.5 bg-black/40 p-1 rounded border border-border">
-          {[
-            { label: '일별', value: 'reports/compose_common_component/summary_daily/index.json' },
-            { label: '주간', value: 'reports/compose_common_component/summary_weekly/index.json' },
-            { label: '월간', value: 'reports/compose_common_component/summary_monthly/index.json' },
-            { label: '연간', value: 'reports/compose_common_component/summary_yearly/index.json' },
-          ].map((opt) => {
+          {options.map((opt) => {
             const isSelected = sourcePath === opt.value;
             return (
               <button
@@ -60,7 +52,7 @@ export default function Sidebar({
 
       <div className="flex items-center justify-between gap-2 border-b border-border pb-3">
         <h2 className="text-sm font-semibold text-text-secondary uppercase tracking-widest">
-          리포트 이력 {intervalLabel ? `(${intervalLabel})` : ''}
+          {t('report_history')} {intervalLabel ? `(${intervalLabel})` : ''}
         </h2>
         {!loading && !error && reportRuns.length > 0 && (
           <button
@@ -70,7 +62,7 @@ export default function Sidebar({
               isMatrixActive ? 'text-accent hover:text-accent' : 'text-text-secondary hover:text-accent',
             ].join(' ')}
           >
-            전체 이력 보기
+            {t('view_all_history')}
           </button>
         )}
       </div>
@@ -83,7 +75,7 @@ export default function Sidebar({
         )}
 
         {!loading && !error && reportRuns.length === 0 && (
-          <p className="text-sm text-text-muted">조회된 리포트 내역이 없습니다.</p>
+          <p className="text-sm text-text-muted">{t('no_reports_found')}</p>
         )}
 
         {!loading &&

@@ -1,3 +1,5 @@
+import { useI18n } from '../../contexts/I18nContext';
+
 /**
  * FileDetailPanel - Right-side detail view showing components and usage in a file.
  *
@@ -6,6 +8,8 @@
  * @param {string|null} props.error
  */
 export default function FileDetailPanel({ fileData, loading, error }) {
+  const { t } = useI18n();
+
   if (loading) {
     return (
       <div className="bg-panel border border-border rounded-lg p-8 flex items-center justify-center min-h-[400px]">
@@ -17,7 +21,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
   if (error) {
     return (
       <div className="bg-panel border border-border rounded-lg p-8 min-h-[400px]">
-        <p className="text-danger font-semibold mb-3">파일 정보 로드 실패</p>
+        <p className="text-danger font-semibold mb-3">{t('load_file_error')}</p>
         <p className="text-sm text-text-secondary leading-relaxed">{error}</p>
       </div>
     );
@@ -26,7 +30,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
   if (!fileData) {
     return (
       <div className="bg-panel border border-border rounded-lg p-8 min-h-[400px] flex items-center justify-center text-text-muted">
-        파일을 선택하세요.
+        {t('select_file_placeholder')}
       </div>
     );
   }
@@ -37,7 +41,7 @@ export default function FileDetailPanel({ fileData, loading, error }) {
     <div className="bg-panel border border-border rounded-lg px-8 py-8 flex flex-col gap-6 min-h-[400px]">
       {/* File header */}
       <div className="border-b border-border pb-5">
-        <div className="text-sm text-text-secondary font-mono mb-1">패키지: {pkgName || 'N/A'}</div>
+        <div className="text-sm text-text-secondary font-mono mb-1">{t('package_label')}: {pkgName || 'N/A'}</div>
         <div className="text-2xl font-bold font-mono">{fileName}</div>
       </div>
 
@@ -60,18 +64,18 @@ export default function FileDetailPanel({ fileData, loading, error }) {
 
               {/* Metrics row */}
               <div className="text-sm text-text-secondary">
-                참조 횟수: <strong className="text-text-primary font-mono">{comp.count}</strong>회
+                {t('ref_count_label')}: <strong className="text-text-primary font-mono">{comp.count}</strong>{t('ref_count_suffix_times')}
               </div>
 
               {/* Usage list */}
               <div>
                 <div className="text-[11px] font-semibold uppercase tracking-wider text-text-muted mb-2">
-                  호출 클래스 / 파일 위치
+                  {t('called_classes_label')}
                 </div>
                 <div className="flex flex-col gap-1.5">
                   {isUnused ? (
                     <div className="text-sm text-text-muted italic py-1">
-                      이 공통 컴포넌트는 프로젝트 내에서 호출된 이력이 없습니다.
+                      {t('unused_component_msg')}
                     </div>
                   ) : (
                     comp.classes.map((cls, i) => {
@@ -97,13 +101,13 @@ export default function FileDetailPanel({ fileData, loading, error }) {
                             </div>
                             {refCount !== null && (
                               <span className="text-[10px] font-semibold text-text-muted bg-white/[0.05] border border-border px-1.5 py-0.5 rounded-sm shrink-0">
-                                {refCount}회 참조
+                                {refCount}{t('refs_suffix')}
                               </span>
                             )}
                           </div>
                           {lineNumbers.length > 0 && (
                             <div className="flex items-center gap-1.5 text-xs text-text-muted px-3.5 mt-0.5">
-                              <span>라인:</span>
+                              <span>{t('line_label')}:</span>
                               <div className="flex flex-wrap gap-1">
                                 {lineNumbers.map((ln) => (
                                   <span key={ln} className="text-accent bg-accent/10 border border-accent/20 px-1 rounded-sm text-[10px] font-bold">

@@ -6,11 +6,15 @@
  * @param {string}   props.selectedFile  - Currently active file name
  * @param {Function} props.onSelect      - Called with a file name string
  */
+import { useI18n } from '../../contexts/I18nContext';
+
 export default function FileMenuList({ files, selectedFile, onSelect }) {
+  const { t } = useI18n();
+
   return (
     <div className="flex flex-col gap-1.5 bg-[rgba(17,22,34,0.4)] border border-border p-3 rounded-md">
       <div className="text-[11px] font-semibold uppercase text-text-muted tracking-wider px-2.5 pb-2.5">
-        컴포넌트 소스 파일
+        {t('component_source_files')}
       </div>
 
       {files.map((file) => {

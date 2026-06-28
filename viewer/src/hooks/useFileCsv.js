@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
+import { useI18n } from '../contexts/I18nContext';
 
 /**
  * Custom hook that fetches and parses component-specific details JSON.
  */
 export function useFileCsv(selectedRun) {
+  const { t } = useI18n();
   const [fileData, setFileData] = useState(null);
   const [fileLoading, setFileLoading] = useState(false);
   const [fileError, setFileError] = useState(null);
@@ -15,7 +17,7 @@ export function useFileCsv(selectedRun) {
 
     try {
       if (!selectedRun || !selectedRun.categoryDir) {
-        throw new Error('선택된 리포트 정보가 없습니다.');
+        throw new Error(t('no_file_details'));
       }
 
       // Convert Buttons.kt to Buttons.json
@@ -24,7 +26,7 @@ export function useFileCsv(selectedRun) {
 
       const url = `${selectedRun.categoryDir}/${timestamp}/${jsonFileName}?t=${Date.now()}`;
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`${jsonFileName} 데이터를 가져오지 못했습니다.`);
+      if (!res.ok) throw new Error(t('fetch_failed') + ` (${jsonFileName})`);
 
       const data = await res.json();
 
@@ -38,7 +40,7 @@ export function useFileCsv(selectedRun) {
     } finally {
       setFileLoading(false);
     }
-  }, [selectedRun]);
+  }, [selectedRun, t]);
 
   return { fileData, fileLoading, fileError, loadFileDetail };
 }

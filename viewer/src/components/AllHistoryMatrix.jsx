@@ -10,6 +10,7 @@ import { formatTimestamp } from './RunCard';
  * @param {string}   props.categoryDir - Root path of the current report category
  */
 export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun, onNavigateFile }) {
+  const { lang, t } = useI18n();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [matrixData, setMatrixData] = useState([]);
@@ -25,7 +26,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
         const fetchPromises = reportRuns.map(async (run) => {
           const res = await fetch(`${categoryDir}/${run.timestamp}/index.json`);
           if (!res.ok) {
-            throw new Error(`${run.timestamp} 데이터를 로드하지 못했습니다.`);
+            throw new Error(t('matrix_error'));
           }
           const compsList = await res.json();
           return {
@@ -94,7 +95,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
   if (error) {
     return (
       <div className="flex-1 p-10 bg-panel border border-border rounded-lg m-10 text-danger leading-relaxed">
-        <p className="font-semibold mb-3">전체 이력 로드 실패</p>
+        <p className="font-semibold mb-3">{t('matrix_error')}</p>
         <p className="text-sm">{error}</p>
       </div>
     );
@@ -103,7 +104,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
   if (matrixData.length === 0) {
     return (
       <div className="flex-1 flex items-center justify-center min-h-[400px] text-text-muted">
-        조회된 전체 이력 데이터가 없습니다.
+        {t('no_reports_found')}
       </div>
     );
   }
@@ -111,9 +112,11 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
   return (
     <div className="flex-1 p-10 flex flex-col gap-6 overflow-hidden">
       <div>
-        <h2 className="text-xl font-bold text-white mb-2">전체 이력 매트릭스</h2>
+        <h2 className="text-xl font-bold text-white mb-2">{t('view_all_history')}</h2>
         <p className="text-xs text-text-secondary">
-          모든 리포트 주기의 컴포넌트별 참조 횟수 변화를 가로 흐름(과거 → 현재)으로 추적합니다.
+          {lang === 'ko'
+            ? '모든 리포트 주기의 컴포넌트별 참조 횟수 변화를 가로 흐름(과거 → 현재)으로 추적합니다.'
+            : 'Track the reference count change of components over all report cycles horizontally (Past → Present).'}
         </p>
       </div>
 
@@ -123,10 +126,10 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
             {/* Header Row: Components Meta Columns + Run Dates */}
             <tr className="bg-[#080b11] border-b border-border">
               <th className="sticky top-0 left-0 z-40 bg-[#080b11] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[165px] min-w-[165px] max-w-[165px]">
-                파일명
+                {t('file_name')}
               </th>
               <th className="sticky top-0 left-[165px] z-40 bg-[#080b11] px-4 py-3 font-semibold text-text-secondary border-r border-border w-[220px] min-w-[220px] max-w-[220px]">
-                컴포넌트명
+                {t('component_name')}
               </th>
               {matrixData.map((run, i) => (
                 <th
@@ -142,7 +145,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
                     onClick={() => onSelectRun(run.timestamp)}
                     className="hover:underline hover:text-accent-hover cursor-pointer bg-transparent border-0 p-0 text-accent font-semibold text-xs outline-none transition-colors duration-150"
                   >
-                    {formatTimestamp(run.timestamp)}
+                    {formatTimestamp(run.timestamp, t)}
                   </button>
                 </th>
               ))}
@@ -152,10 +155,10 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
             {/* Total References Summary Row */}
             <tr className="border-b border-border bg-white/[0.01] hover:bg-white/[0.025] font-bold">
               <td className="sticky left-0 z-20 bg-[#080b11] font-sans font-bold text-accent px-4 py-3 border-r border-border w-[165px] min-w-[165px] max-w-[165px] shadow-[4px_0_10px_rgba(0,0,0,0.15)]">
-                합계
+                {t('subtotal')}
               </td>
               <td className="sticky left-[165px] z-20 bg-[#080b11] font-sans font-bold text-accent px-4 py-3 border-r border-border w-[220px] min-w-[220px] max-w-[220px] shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
-                총 사용 참조 횟수
+                {t('total_use_ref_count')}
               </td>
               {matrixData.map((run, runIdx) => {
                 const totalRefs = run.components.reduce((sum, rc) => sum + rc.count, 0);
@@ -221,7 +224,7 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir, onSelectRun,
                       </button>
                     </td>
                     <td className="sticky left-[165px] z-20 bg-[#0d1017] font-sans font-bold text-accent/80 px-4 py-2.5 border-r border-border w-[220px] min-w-[220px] max-w-[220px] overflow-hidden text-ellipsis shadow-[4px_0_10px_rgba(0,0,0,0.15)] border-l">
-                      파일 합계
+                      {t('file_subtotal')}
                     </td>
                     {matrixData.map((run, runIdx) => {
                       const fileRefs = run.components

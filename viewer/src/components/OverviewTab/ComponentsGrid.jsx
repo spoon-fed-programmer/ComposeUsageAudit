@@ -5,7 +5,11 @@
  * @param {object[]} props.components - Array of { file, name, count }
  * @param {Function} props.onNavigate  - Called with file name when header is clicked
  */
+import { useI18n } from '../../contexts/I18nContext';
+
 export default function ComponentsGrid({ components, onNavigate }) {
+  const { t } = useI18n();
+
   // Group components while preserving the sorted order from the parent
   const grouped = {};
   const fileOrder = [];
@@ -21,7 +25,7 @@ export default function ComponentsGrid({ components, onNavigate }) {
   if (components.length === 0) {
     return (
       <div className="text-center text-text-muted py-12 bg-panel border border-border rounded-lg">
-        조건에 맞는 컴포넌트가 없습니다.
+        {t('no_components_matched')}
       </div>
     );
   }
@@ -45,10 +49,10 @@ export default function ComponentsGrid({ components, onNavigate }) {
                 {fileName}
               </button>
               <span className="text-[11px] text-text-secondary bg-white/5 border border-border px-2.5 py-0.5 rounded-full font-sans">
-                컴포넌트 {fileComps.length}개
+                {t('component_count', { count: fileComps.length })}
               </span>
               <span className="text-[11px] text-text-secondary bg-white/5 border border-border px-2.5 py-0.5 rounded-full font-sans">
-                총 참조 {totalRefs}회
+                {t('total_refs_count', { count: totalRefs })}
               </span>
             </div>
 
@@ -73,14 +77,14 @@ export default function ComponentsGrid({ components, onNavigate }) {
 
                     {/* Footer metrics */}
                     <div className="flex justify-between items-center border-t border-border/40 pt-3">
-                      <span className="text-xs text-text-secondary">참조 수</span>
+                      <span className="text-xs text-text-secondary">{t('refs_count_label')}</span>
                       <span className={[
                         'text-xs font-bold font-mono px-2.5 py-0.5 rounded-full border',
                         isUnused
                           ? 'bg-white/4 text-text-muted border-border'
                           : 'bg-success-glow text-success border-success/20',
                       ].join(' ')}>
-                        {c.count}회
+                        {c.count}{t('refs_count_suffix')}
                       </span>
                     </div>
                   </div>

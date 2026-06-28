@@ -1,11 +1,15 @@
+import { useI18n } from '../contexts/I18nContext';
+
 /**
  * Helper to format a report timestamp based on its folder name structure.
  * 
  * @param {string} timestamp - Folder name (e.g., '20260628', '2026_W25', '2026_06', '2026')
+ * @param {Function} t - Translation function
  * @returns {string} Formatted display label
  */
-export function formatTimestamp(timestamp) {
+export function formatTimestamp(timestamp, t) {
   if (!timestamp) return '';
+  if (!t) t = (k) => k; // fallback
   
   // Weekly: e.g., '2026_W25' -> '26년 25주'
   if (timestamp.includes('_W')) {
@@ -13,7 +17,7 @@ export function formatTimestamp(timestamp) {
     if (parts.length >= 2) {
       const year = parts[0].substring(2);
       const week = parts[1].replace('W', '');
-      return `${year}년 ${parseInt(week, 10)}주`;
+      return `${year}${t('year_suffix')} ${parseInt(week, 10)}${t('week_suffix')}`;
     }
   }
   
@@ -23,7 +27,7 @@ export function formatTimestamp(timestamp) {
     if (parts.length >= 2) {
       const year = parts[0].substring(2);
       const month = parts[1];
-      return `${year}년 ${parseInt(month, 10)}월`;
+      return `${year}${t('year_suffix')} ${parseInt(month, 10)}${t('month_suffix')}`;
     }
   }
   
@@ -37,7 +41,7 @@ export function formatTimestamp(timestamp) {
   
   // Yearly: e.g., '2026' -> '26년'
   if (timestamp.length === 4 && /^\d+$/.test(timestamp)) {
-    return `${timestamp.substring(2)}년`;
+    return `${timestamp.substring(2)}${t('year_suffix')}`;
   }
   
   return timestamp;
@@ -47,7 +51,8 @@ export function formatTimestamp(timestamp) {
  * RunCard - A single report history item in the sidebar.
  */
 export default function RunCard({ run, isActive, onSelect }) {
-  const title = formatTimestamp(run.timestamp);
+  const { t } = useI18n();
+  const title = formatTimestamp(run.timestamp, t);
 
   return (
     <button
@@ -68,11 +73,11 @@ export default function RunCard({ run, isActive, onSelect }) {
       <div className="text-[15px] font-semibold mb-3">{title}</div>
       <div className="flex justify-between text-xs text-text-muted">
         <span>
-          컴포넌트:{' '}
+          {t('components_label')}:{' '}
           <strong className="text-text-primary">{run.summary?.total_components ?? '-'}</strong>
         </span>
         <span>
-          참조수:{' '}
+          {t('references_label')}:{' '}
           <strong className="text-text-primary">{run.summary?.total_references ?? '-'}</strong>
         </span>
       </div>
