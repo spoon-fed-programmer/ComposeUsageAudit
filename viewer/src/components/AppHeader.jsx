@@ -1,69 +1,5 @@
 import { useI18n } from '../contexts/I18nContext';
-
-const USFlag = () => (
-  <svg width="22" height="15" viewBox="0 0 24 16" className="rounded-sm shadow-sm">
-    <rect width="24" height="16" fill="#3c3b6e"/>
-    <g>
-      {Array.from({ length: 13 }).map((_, i) => (
-        <rect
-          key={i}
-          y={(i * 16) / 13}
-          width="24"
-          height={16 / 13}
-          fill={i % 2 === 0 ? "#b22234" : "#ffffff"}
-        />
-      ))}
-    </g>
-    <rect width="10.8" height="8.6" fill="#3c3b6e"/>
-    <circle cx="2" cy="2" r="0.4" fill="#ffffff"/>
-    <circle cx="4" cy="2" r="0.4" fill="#ffffff"/>
-    <circle cx="6" cy="2" r="0.4" fill="#ffffff"/>
-    <circle cx="8" cy="2" r="0.4" fill="#ffffff"/>
-    <circle cx="3" cy="4" r="0.4" fill="#ffffff"/>
-    <circle cx="5" cy="4" r="0.4" fill="#ffffff"/>
-    <circle cx="7" cy="4" r="0.4" fill="#ffffff"/>
-    <circle cx="2" cy="6" r="0.4" fill="#ffffff"/>
-    <circle cx="4" cy="6" r="0.4" fill="#ffffff"/>
-    <circle cx="6" cy="6" r="0.4" fill="#ffffff"/>
-    <circle cx="8" cy="6" r="0.4" fill="#ffffff"/>
-  </svg>
-);
-
-const KRFlag = () => (
-  <svg width="22" height="15" viewBox="0 0 24 16" className="rounded-sm shadow-sm bg-white border border-white">
-    <rect width="24" height="16" fill="#ffffff" rx="1"/>
-    <g transform="translate(12, 8)">
-      <path d="M -4 0 A 4 4 0 0 1 4 0 A 2 2 0 0 1 0 0 A 2 2 0 0 0 -4 0" fill="#cd2e3a"/>
-      <path d="M -4 0 A 4 4 0 0 0 4 0 A 2 2 0 0 0 0 0 A 2 2 0 0 1 -4 0" fill="#0047a0"/>
-    </g>
-    <g transform="translate(6, 4) rotate(33)">
-      <line x1="-1.5" y1="-0.8" x2="1.5" y2="-0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0" x2="1.5" y2="0" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0.8" x2="1.5" y2="0.8" stroke="#000000" strokeWidth="0.4"/>
-    </g>
-    <g transform="translate(18, 12) rotate(33)">
-      <line x1="-1.5" y1="-0.8" x2="-0.2" y2="-0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="0.2" y1="-0.8" x2="1.5" y2="-0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0" x2="-0.2" y2="0" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="0.2" y1="0" x2="1.5" y2="0" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0.8" x2="-0.2" y2="0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="0.2" y1="0.8" x2="1.5" y2="0.8" stroke="#000000" strokeWidth="0.4"/>
-    </g>
-    <g transform="translate(18, 4) rotate(-33)">
-      <line x1="-1.5" y1="-0.8" x2="-0.2" y2="-0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="0.2" y1="-0.8" x2="1.5" y2="-0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0" x2="1.5" y2="0" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0.8" x2="-0.2" y2="0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="0.2" y1="0.8" x2="1.5" y2="0.8" stroke="#000000" strokeWidth="0.4"/>
-    </g>
-    <g transform="translate(6, 12) rotate(-33)">
-      <line x1="-1.5" y1="-0.8" x2="1.5" y2="-0.8" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0" x2="-0.2" y2="0" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="0.2" y1="0" x2="1.5" y2="0" stroke="#000000" strokeWidth="0.4"/>
-      <line x1="-1.5" y1="0.8" x2="1.5" y2="0.8" stroke="#000000" strokeWidth="0.4"/>
-    </g>
-  </svg>
-);
+import { KRFlagIcon, USFlagIcon } from './icons';
 
 /**
  * AppHeader - Sticky top navigation bar.
@@ -114,31 +50,33 @@ export default function AppHeader({ onHome, total, refs }) {
         </div>
       )}
 
-      {/* Language Switcher */}
-      <div className="flex items-center gap-2 z-10">
+      {/* Language Switcher - Premium Capsule Style */}
+      <div className="flex items-center gap-1 bg-black/20 p-1 rounded-full border border-border/60 backdrop-blur-sm z-10 shadow-sm">
         <button
           onClick={() => changeLang('ko')}
           className={[
-            'p-1 rounded border transition-all cursor-pointer bg-transparent outline-none flex items-center justify-center',
+            'px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border-0 outline-none select-none',
             lang === 'ko'
-              ? 'border-accent bg-accent/10 scale-105 shadow-[0_0_8px_rgba(99,102,241,0.3)]'
-              : 'border-border opacity-40 hover:opacity-100 hover:bg-white/[0.04]',
+              ? 'bg-accent text-white shadow-accent-sm scale-100 font-bold'
+              : 'bg-transparent text-text-secondary hover:text-text-primary',
           ].join(' ')}
           title="한국어"
         >
-          <KRFlag />
+          <KRFlagIcon className="w-[18px] h-[12px] rounded-[1px] shadow-sm shrink-0" />
+          <span>KO</span>
         </button>
         <button
           onClick={() => changeLang('en')}
           className={[
-            'p-1 rounded border transition-all cursor-pointer bg-transparent outline-none flex items-center justify-center',
+            'px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border-0 outline-none select-none',
             lang === 'en'
-              ? 'border-accent bg-accent/10 scale-105 shadow-[0_0_8px_rgba(99,102,241,0.3)]'
-              : 'border-border opacity-40 hover:opacity-100 hover:bg-white/[0.04]',
+              ? 'bg-accent text-white shadow-accent-sm scale-100 font-bold'
+              : 'bg-transparent text-text-secondary hover:text-text-primary',
           ].join(' ')}
           title="English"
         >
-          <USFlag />
+          <USFlagIcon className="w-[18px] h-[12px] rounded-[1px] shadow-sm shrink-0" />
+          <span>EN</span>
         </button>
       </div>
     </header>
