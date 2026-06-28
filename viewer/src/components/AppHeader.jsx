@@ -30,7 +30,7 @@ export default function AppHeader({ onHome, total, refs }) {
       {showMetrics && (
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-4">
           {/* Total Components */}
-          <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+          <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-accent/45 bg-accent/5 backdrop-blur-sm shadow-[0_0_22px_rgba(99,102,241,0.35),_0_0_8px_rgba(99,102,241,0.2)]">
             <span className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">{t('total_components')}</span>
             <span className="text-lg font-bold font-mono text-white leading-none mt-0.5" style={{ textShadow: '0 0 10px rgba(99,102,241,0.45)' }}>
               {total.toLocaleString()}
@@ -38,7 +38,7 @@ export default function AppHeader({ onHome, total, refs }) {
           </div>
 
           {/* Total Reference Count */}
-          <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-success/30 bg-success/5 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+          <div className="flex flex-col items-center min-w-[110px] px-4 py-1.5 rounded-md border border-success/45 bg-success/5 backdrop-blur-sm shadow-[0_0_22px_rgba(16,185,129,0.35),_0_0_8px_rgba(16,185,129,0.2)]">
             <span className="text-[10px] font-semibold text-text-secondary uppercase tracking-wider">{t('total_references')}</span>
             <span className="text-lg font-bold font-mono text-white leading-none mt-0.5" style={{ textShadow: '0 0 10px rgba(16,185,129,0.45)' }}>
               {refs.toLocaleString()}
