@@ -9,8 +9,11 @@ export default function ModulesTab({ selectedRun }) {
   const { modulesData, loading, error } = useModulesData(selectedRun);
   const [selectedModule, setSelectedModule] = useState(null);
 
-  // Extract list of modules from data keys
-  const modulesList = modulesData ? Object.keys(modulesData).sort((a, b) => {
+  // Extract list of modules from data keys, only including those with >= 1 reference count components
+  const modulesList = modulesData ? Object.keys(modulesData).filter((mod) => {
+    const comps = modulesData[mod] || [];
+    return comps.some((c) => c.total_count >= 1);
+  }).sort((a, b) => {
     if (a === '') return -1;
     if (b === '') return 1;
     return (a || '').localeCompare(b || '');
@@ -50,7 +53,9 @@ export default function ModulesTab({ selectedRun }) {
     );
   }
 
-  const selectedData = selectedModule !== null ? (modulesData[selectedModule] || []) : [];
+  const selectedData = selectedModule !== null
+    ? (modulesData[selectedModule] || []).filter((c) => c.total_count >= 1)
+    : [];
 
   return (
     <div className="grid gap-7" style={{ gridTemplateColumns: '240px 1fr', alignItems: 'flex-start' }}>
