@@ -23,9 +23,6 @@ export default function AppHeader({ onHome, total, refs }) {
       >
         <h1 className="text-2xl font-bold tracking-tight bg-gradient-to-br from-white to-accent bg-clip-text text-transparent flex items-center gap-2">
           {t('title')}
-          <span className="text-xs font-semibold text-accent bg-accent/15 border border-accent/30 px-2 py-1 rounded-sm normal-case tracking-normal">
-            {t('viewer')}
-          </span>
         </h1>
       </button>
 
