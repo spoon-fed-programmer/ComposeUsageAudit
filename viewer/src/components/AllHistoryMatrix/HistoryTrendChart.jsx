@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import {
   ComposedChart,
   Line,
@@ -8,56 +7,15 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { formatTimestamp } from '../RunCard';
 import { useI18n } from '../../contexts/I18nContext';
+import { useTrendChartData } from '../../hooks/useTrendChartData';
+import CustomTooltip from './CustomTooltip';
 
-export default function HistoryTrendChart({ matrixData, reportRuns }) {
+export default function HistoryTrendChart({ reportRuns }) {
   const { t } = useI18n();
-
-  // 최신 데이터가 좌측으로 나오도록 reportRuns 순서(최신순)를 그대로 활용
-  const data = useMemo(() => {
-    return reportRuns.map((run) => {
-      const refs = run.summary ? run.summary.total_references : 0;
-      const comps = run.summary ? run.summary.total_components : 0;
-      return {
-        name: formatTimestamp(run.timestamp, t),
-        refs,
-        comps,
-      };
-    });
-  }, [reportRuns, t]);
+  const { data, chartWidth } = useTrendChartData(reportRuns);
 
   if (data.length === 0) return null;
-
-  // X축 데이터가 많을 경우 촘촘하지 않도록 최소 110px의 가로 너비 보장
-  const minWidthPerRun = 110;
-  const chartWidth = Math.max(800, data.length * minWidthPerRun);
-
-  // Custom tooltips matching our premium dark theme
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-card/95 border border-border/80 rounded px-3.5 py-2.5 text-xs font-sans shadow-lg flex flex-col gap-1.5 backdrop-blur-md">
-          <div className="font-semibold text-white border-b border-border/60 pb-1.5 mb-1">
-            {label}
-          </div>
-          <div className="flex justify-between gap-5">
-            <span className="text-text-muted">{t('total_references')}</span>
-            <span className="font-mono text-accent font-bold">
-              {payload[0].value.toLocaleString()}
-            </span>
-          </div>
-          <div className="flex justify-between gap-5">
-            <span className="text-text-muted">{t('total_components')}</span>
-            <span className="font-mono text-success font-bold">
-              {payload[1].value.toLocaleString()}
-            </span>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="bg-panel border border-border rounded-lg p-5 flex flex-col gap-3 relative select-none">
