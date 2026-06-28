@@ -50,7 +50,7 @@ export default function ClassUsageList({
         return (
           <div
             key={i}
-            className="flex items-center justify-between gap-4 bg-white/[0.02] border border-border/80 px-3.5 py-1.5 rounded-sm font-mono text-xs text-text-secondary hover:bg-white/[0.04] transition-colors"
+            className="flex items-center justify-between gap-4 bg-white/[0.02] border border-border/30 px-3.5 py-1.5 rounded-sm font-mono text-xs text-text-secondary hover:bg-white/[0.04] transition-colors"
           >
             {/* Left: bullet, class name, and module source info */}
             <div className="flex items-center gap-2 truncate">
