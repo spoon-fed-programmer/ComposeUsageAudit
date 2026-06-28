@@ -164,18 +164,14 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                     trendSpan = (
                       <span className="text-white">
                         {totalRefs}{' '}
-                        <span className="text-text-muted/40 font-normal">(</span>
-                        <span className="text-success">+{totalRefs - prevTotalRefs}</span>
-                        <span className="text-text-muted/40 font-normal">)</span>
+                        <span className="text-success">(+{totalRefs - prevTotalRefs})</span>
                       </span>
                     );
                   } else if (totalRefs < prevTotalRefs) {
                     trendSpan = (
                       <span className="text-white">
                         {totalRefs}{' '}
-                        <span className="text-text-muted/40 font-normal">(</span>
-                        <span className="text-danger">-{prevTotalRefs - totalRefs}</span>
-                        <span className="text-text-muted/40 font-normal">)</span>
+                        <span className="text-danger">(-{prevTotalRefs - totalRefs})</span>
                       </span>
                     );
                   }
@@ -232,18 +228,14 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                           trendSpan = (
                             <span className="text-accent/90">
                               {fileRefs}{' '}
-                              <span className="text-text-muted/40 font-normal">(</span>
-                              <span className="text-success">+{fileRefs - prevFileRefs}</span>
-                              <span className="text-text-muted/40 font-normal">)</span>
+                              <span className="text-success">(+{fileRefs - prevFileRefs})</span>
                             </span>
                           );
                         } else if (fileRefs < prevFileRefs) {
                           trendSpan = (
                             <span className="text-accent/90">
                               {fileRefs}{' '}
-                              <span className="text-text-muted/40 font-normal">(</span>
-                              <span className="text-danger">-{prevFileRefs - fileRefs}</span>
-                              <span className="text-text-muted/40 font-normal">)</span>
+                              <span className="text-danger">(-{prevFileRefs - fileRefs})</span>
                             </span>
                           );
                         }
@@ -307,18 +299,14 @@ export default function AllHistoryMatrix({ reportRuns, categoryDir }) {
                                 trendSpan = (
                                   <span className="text-white">
                                     {count}{' '}
-                                    <span className="text-text-muted/40 font-normal">(</span>
-                                    <span className="text-success">+{count - prevCount}</span>
-                                    <span className="text-text-muted/40 font-normal">)</span>
+                                    <span className="text-success">(+{count - prevCount})</span>
                                   </span>
                                 );
                               } else if (count < prevCount) {
                                 trendSpan = (
                                   <span className="text-white">
                                     {count}{' '}
-                                    <span className="text-text-muted/40 font-normal">(</span>
-                                    <span className="text-danger">-{prevCount - count}</span>
-                                    <span className="text-text-muted/40 font-normal">)</span>
+                                    <span className="text-danger">(-{prevCount - count})</span>
                                   </span>
                                 );
                               }
