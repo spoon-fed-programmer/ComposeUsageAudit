@@ -1,9 +1,12 @@
 package com.common.compose.button
 
 import androidx.compose.runtime.Composable
+import androidx.compose.desktop.ui.tooling.preview.Preview
 
 /**
  * Primary action button used for main call-to-actions.
+ *
+ * ![PrimaryButton Preview](images/PrimaryButton.png)
  *
  * This button represents the primary action on a screen and should be used sparingly
  * (typically once per screen).
@@ -15,6 +18,8 @@ fun PrimaryButton() {
 
 /**
  * Secondary action button for alternative choices.
+ *
+ * ![SecondaryButton Preview](images/SecondaryButton.png)
  *
  * Use this button for secondary actions that are not the primary focus of the page.
  */
@@ -72,4 +77,17 @@ fun OutlinedButton() {
 fun LoadingButton() {
     // Button with a loading indicator
 }
+
+@Preview
+@Composable
+fun PrimaryButtonPreview() {
+    PrimaryButton()
+}
+
+@Preview
+@Composable
+fun SecondaryButtonPreview() {
+    SecondaryButton()
+}
+
 

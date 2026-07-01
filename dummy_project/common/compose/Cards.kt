@@ -1,9 +1,12 @@
 package com.common.compose.card
 
 import androidx.compose.runtime.Composable
+import androidx.compose.desktop.ui.tooling.preview.Preview
 
 /**
  * Card component for displaying product details.
+ *
+ * ![ProductCard Preview](images/ProductCard.png)
  *
  * Typically includes an image, title, price, and CTA to add the product to a cart.
  */
@@ -14,6 +17,8 @@ fun ProductCard() {
 
 /**
  * User profile summary card.
+ *
+ * ![UserCard Preview](images/UserCard.png)
  *
  * Displays user avatar, name, bio, and quick actions (e.g., follow, message).
  */
@@ -61,4 +66,17 @@ fun ImageCard() {
 fun StandardCard() {
     // General purpose card
 }
+
+@Preview
+@Composable
+fun ProductCardPreview() {
+    ProductCard()
+}
+
+@Preview
+@Composable
+fun UserCardPreview() {
+    UserCard()
+}
+
 
