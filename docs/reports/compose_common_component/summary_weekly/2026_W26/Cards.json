@@ -1,0 +1,102 @@
+{
+  "package": "com.common.compose.card",
+  "file": "Cards.kt",
+  "components": [
+    {
+      "name": "ProductCard",
+      "count": 4,
+      "classes": [
+        {
+          "class_name": "com.domain.product.ProductListFragment",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 4,
+          "lines": [
+            14,
+            15,
+            16,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NotificationCard",
+      "count": 3,
+      "classes": [
+        {
+          "class_name": "com.domain.notification.NotificationActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 3,
+          "lines": [
+            11,
+            12,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "StandardCard",
+      "count": 2,
+      "classes": [
+        {
+          "class_name": "com.domain.cart.CartFragment",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 2,
+          "lines": [
+            13,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ImageCard",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SettingsCard",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.settings.SettingsActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "UserCard",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
+      ]
+    }
+  ]
+}

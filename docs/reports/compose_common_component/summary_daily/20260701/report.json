@@ -1,0 +1,18 @@
+{
+  "timestamp": "20260701",
+  "date": "2026-07-01 23:15:40",
+  "project_name": "DummyAndroidProject",
+  "branch": null,
+  "summary": {
+    "total_components": 40,
+    "active_components": 26,
+    "unused_components": 14,
+    "total_references": 56
+  },
+  "modules": {
+    "app": 50,
+    "features/login": 2,
+    "features/search": 2,
+    "vas/dpaper": 2
+  }
+}

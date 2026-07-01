@@ -1,0 +1,112 @@
+{
+  "package": "com.common.compose.input",
+  "file": "Inputs.kt",
+  "components": [
+    {
+      "name": "TextInput",
+      "count": 5,
+      "classes": [
+        {
+          "class_name": "com.domain.auth.LoginActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            10
+          ]
+        },
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 2,
+          "lines": [
+            11,
+            12
+          ]
+        },
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 2,
+          "lines": [
+            12,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PasswordInput",
+      "count": 3,
+      "classes": [
+        {
+          "class_name": "com.domain.auth.LoginActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        },
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 2,
+          "lines": [
+            13,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SwitchInput",
+      "count": 2,
+      "classes": [
+        {
+          "class_name": "com.domain.settings.SettingsActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 2,
+          "lines": [
+            10,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CheckboxInput",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.auth.RegisterActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NumberInput",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "RadioButtonInput",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "SearchInput",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

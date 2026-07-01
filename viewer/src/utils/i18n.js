@@ -5,6 +5,8 @@ export const TRANSLATIONS = {
     viewer: '뷰어',
     total_components: '전체 컴포넌트',
     total_references: '총 참조 횟수',
+    api_docs: 'API 문서',
+
 
     // Sidebar
     data_source: '데이터 소스',
@@ -86,6 +88,8 @@ export const TRANSLATIONS = {
     viewer: 'Viewer',
     total_components: 'Total Components',
     total_references: 'Total References',
+    api_docs: 'API Docs',
+
 
     // Sidebar
     data_source: 'Data Source',

@@ -1,0 +1,95 @@
+{
+  "package": "com.common.compose.layout",
+  "file": "Layouts.kt",
+  "components": [
+    {
+      "name": "ScrollableColumn",
+      "count": 2,
+      "classes": [
+        {
+          "class_name": "com.domain.cart.CartFragment",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        },
+        {
+          "class_name": "com.domain.notification.NotificationActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FooterLayout",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GridList",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.product.ProductListFragment",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "HeaderLayout",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.home.HomeActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ResponsiveRow",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.domain.product.ProductDetailActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SidebarLayout",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

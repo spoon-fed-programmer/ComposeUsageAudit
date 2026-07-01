@@ -1,0 +1,16 @@
+{
+  "package": "com.common.compose.indicator",
+  "file": "Indicators.kt",
+  "components": [
+    {
+      "name": "CircularProgressIndicator",
+      "count": 0,
+      "classes": []
+    },
+    {
+      "name": "LinearProgressIndicator",
+      "count": 0,
+      "classes": []
+    }
+  ]
+}

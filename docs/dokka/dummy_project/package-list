@@ -1,0 +1,57 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.common.compose.button////PointingToDeclaration/dummy_project/com.common.compose.button/index.html
+$dokka.location:com.common.compose.button//FloatingActionButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-floating-action-button.html
+$dokka.location:com.common.compose.button//IconButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-icon-button.html
+$dokka.location:com.common.compose.button//LoadingButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-loading-button.html
+$dokka.location:com.common.compose.button//OutlinedButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-outlined-button.html
+$dokka.location:com.common.compose.button//PrimaryButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-primary-button.html
+$dokka.location:com.common.compose.button//SecondaryButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-secondary-button.html
+$dokka.location:com.common.compose.button//TextButton/#/PointingToDeclaration/dummy_project/com.common.compose.button/-text-button.html
+$dokka.location:com.common.compose.card////PointingToDeclaration/dummy_project/com.common.compose.card/index.html
+$dokka.location:com.common.compose.card//ImageCard/#/PointingToDeclaration/dummy_project/com.common.compose.card/-image-card.html
+$dokka.location:com.common.compose.card//NotificationCard/#/PointingToDeclaration/dummy_project/com.common.compose.card/-notification-card.html
+$dokka.location:com.common.compose.card//ProductCard/#/PointingToDeclaration/dummy_project/com.common.compose.card/-product-card.html
+$dokka.location:com.common.compose.card//SettingsCard/#/PointingToDeclaration/dummy_project/com.common.compose.card/-settings-card.html
+$dokka.location:com.common.compose.card//StandardCard/#/PointingToDeclaration/dummy_project/com.common.compose.card/-standard-card.html
+$dokka.location:com.common.compose.card//UserCard/#/PointingToDeclaration/dummy_project/com.common.compose.card/-user-card.html
+$dokka.location:com.common.compose.dialog////PointingToDeclaration/dummy_project/com.common.compose.dialog/index.html
+$dokka.location:com.common.compose.dialog//AlertDialog/#/PointingToDeclaration/dummy_project/com.common.compose.dialog/-alert-dialog.html
+$dokka.location:com.common.compose.dialog//BottomSheetDialog/#/PointingToDeclaration/dummy_project/com.common.compose.dialog/-bottom-sheet-dialog.html
+$dokka.location:com.common.compose.dialog//ConfirmDialog/#/PointingToDeclaration/dummy_project/com.common.compose.dialog/-confirm-dialog.html
+$dokka.location:com.common.compose.dialog//CustomDialog/#/PointingToDeclaration/dummy_project/com.common.compose.dialog/-custom-dialog.html
+$dokka.location:com.common.compose.dialog//ProgressDialog/#/PointingToDeclaration/dummy_project/com.common.compose.dialog/-progress-dialog.html
+$dokka.location:com.common.compose.icon////PointingToDeclaration/dummy_project/com.common.compose.icon/index.html
+$dokka.location:com.common.compose.icon//ArrowBackIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-arrow-back-icon.html
+$dokka.location:com.common.compose.icon//CheckIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-check-icon.html
+$dokka.location:com.common.compose.icon//CloseIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-close-icon.html
+$dokka.location:com.common.compose.icon//MenuIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-menu-icon.html
+$dokka.location:com.common.compose.icon//ProfileIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-profile-icon.html
+$dokka.location:com.common.compose.icon//SearchIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-search-icon.html
+$dokka.location:com.common.compose.icon//SettingsIcon/#/PointingToDeclaration/dummy_project/com.common.compose.icon/-settings-icon.html
+$dokka.location:com.common.compose.indicator////PointingToDeclaration/dummy_project/com.common.compose.indicator/index.html
+$dokka.location:com.common.compose.indicator//CircularProgressIndicator/#kotlin.Int#kotlin.Int/PointingToDeclaration/dummy_project/com.common.compose.indicator/-circular-progress-indicator.html
+$dokka.location:com.common.compose.indicator//LinearProgressIndicator/#kotlin.Float/PointingToDeclaration/dummy_project/com.common.compose.indicator/-linear-progress-indicator.html
+$dokka.location:com.common.compose.input////PointingToDeclaration/dummy_project/com.common.compose.input/index.html
+$dokka.location:com.common.compose.input//CheckboxInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-checkbox-input.html
+$dokka.location:com.common.compose.input//NumberInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-number-input.html
+$dokka.location:com.common.compose.input//PasswordInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-password-input.html
+$dokka.location:com.common.compose.input//RadioButtonInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-radio-button-input.html
+$dokka.location:com.common.compose.input//SearchInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-search-input.html
+$dokka.location:com.common.compose.input//SwitchInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-switch-input.html
+$dokka.location:com.common.compose.input//TextInput/#/PointingToDeclaration/dummy_project/com.common.compose.input/-text-input.html
+$dokka.location:com.common.compose.layout////PointingToDeclaration/dummy_project/com.common.compose.layout/index.html
+$dokka.location:com.common.compose.layout//FooterLayout/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-footer-layout.html
+$dokka.location:com.common.compose.layout//GridList/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-grid-list.html
+$dokka.location:com.common.compose.layout//HeaderLayout/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-header-layout.html
+$dokka.location:com.common.compose.layout//ResponsiveRow/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-responsive-row.html
+$dokka.location:com.common.compose.layout//ScrollableColumn/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-scrollable-column.html
+$dokka.location:com.common.compose.layout//SidebarLayout/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-sidebar-layout.html
+com.common.compose.button
+com.common.compose.card
+com.common.compose.dialog
+com.common.compose.icon
+com.common.compose.indicator
+com.common.compose.input
+com.common.compose.layout
+

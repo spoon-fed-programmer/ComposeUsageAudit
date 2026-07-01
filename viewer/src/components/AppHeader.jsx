@@ -47,35 +47,53 @@ export default function AppHeader({ onHome, total, refs }) {
         </div>
       )}
 
-      {/* Language Switcher - Premium Capsule Style */}
-      <div className="flex items-center gap-1 bg-black/20 p-1 rounded-full border border-border/60 backdrop-blur-sm z-10 shadow-sm">
-        <button
-          onClick={() => changeLang('ko')}
-          className={[
-            'px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border-0 outline-none select-none',
-            lang === 'ko'
-              ? 'bg-accent text-white shadow-accent-sm scale-100 font-bold'
-              : 'bg-transparent text-text-secondary hover:text-text-primary',
-          ].join(' ')}
-          title="한국어"
+      {/* Right Area: API Docs & Language Switcher */}
+      <div className="flex items-center gap-4">
+        {/* API Docs Link */}
+        <a
+          href="./dokka/index.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-1.5 rounded-full text-xs font-semibold bg-accent/15 hover:bg-accent/25 text-accent-light hover:text-white border border-accent/40 hover:border-accent/80 transition-all flex items-center gap-1.5 no-underline shadow-[0_0_12px_rgba(99,102,241,0.2)] hover:shadow-[0_0_18px_rgba(99,102,241,0.45)] hover:scale-[1.02] active:scale-95 cursor-pointer select-none"
+          id="api-docs-btn"
         >
-          <KRFlagIcon className="w-[18px] h-[12px] rounded-[1px] shadow-sm shrink-0" />
-          <span>KO</span>
-        </button>
-        <button
-          onClick={() => changeLang('en')}
-          className={[
-            'px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border-0 outline-none select-none',
-            lang === 'en'
-              ? 'bg-accent text-white shadow-accent-sm scale-100 font-bold'
-              : 'bg-transparent text-text-secondary hover:text-text-primary',
-          ].join(' ')}
-          title="English"
-        >
-          <USFlagIcon className="w-[18px] h-[12px] rounded-[1px] shadow-sm shrink-0" />
-          <span>EN</span>
-        </button>
+          <svg className="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.2 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+          </svg>
+          <span>{t('api_docs')}</span>
+        </a>
+
+        {/* Language Switcher - Premium Capsule Style */}
+        <div className="flex items-center gap-1 bg-black/20 p-1 rounded-full border border-border/60 backdrop-blur-sm z-10 shadow-sm">
+          <button
+            onClick={() => changeLang('ko')}
+            className={[
+              'px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border-0 outline-none select-none',
+              lang === 'ko'
+                ? 'bg-accent text-white shadow-accent-sm scale-100 font-bold'
+                : 'bg-transparent text-text-secondary hover:text-text-primary',
+            ].join(' ')}
+            title="한국어"
+          >
+            <KRFlagIcon className="w-[18px] h-[12px] rounded-[1px] shadow-sm shrink-0" />
+            <span>KO</span>
+          </button>
+          <button
+            onClick={() => changeLang('en')}
+            className={[
+              'px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border-0 outline-none select-none',
+              lang === 'en'
+                ? 'bg-accent text-white shadow-accent-sm scale-100 font-bold'
+                : 'bg-transparent text-text-secondary hover:text-text-primary',
+            ].join(' ')}
+            title="English"
+          >
+            <USFlagIcon className="w-[18px] h-[12px] rounded-[1px] shadow-sm shrink-0" />
+            <span>EN</span>
+          </button>
+        </div>
       </div>
+
     </header>
   );
 }
