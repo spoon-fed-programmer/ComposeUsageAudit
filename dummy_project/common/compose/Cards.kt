@@ -87,17 +87,20 @@ fun StandardCard() {
     // General purpose card
 }
 
+/** @suppress */
 @Preview
 @Composable
 fun ProductCardPreview() {
     ProductCard()
 }
 
+/** @suppress */
 @Preview
 @Composable
 fun UserCardPreview() {
     UserCard()
 }
+
 
 
 

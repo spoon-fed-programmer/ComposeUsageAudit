@@ -101,17 +101,20 @@ fun LoadingButton() {
     // Button with a loading indicator
 }
 
+/** @suppress */
 @Preview
 @Composable
 fun PrimaryButtonPreview() {
     PrimaryButton()
 }
 
+/** @suppress */
 @Preview
 @Composable
 fun SecondaryButtonPreview() {
     SecondaryButton()
 }
+
 
 
 

@@ -74,17 +74,20 @@ fun LinearProgressIndicator(progress: Float) {
     }
 }
 
+/** @suppress */
 @Preview
 @Composable
 fun CircularProgressIndicatorPreview() {
     CircularProgressIndicator()
 }
 
+/** @suppress */
 @Preview
 @Composable
 fun LinearProgressIndicatorPreview() {
     LinearProgressIndicator(0.5f)
 }
+
 
 
 
