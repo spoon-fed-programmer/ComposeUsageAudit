@@ -4,8 +4,17 @@
   "components": [
     {
       "name": "ProductCard",
-      "count": 4,
+      "count": 5,
       "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            19
+          ]
+        },
         {
           "class_name": "com.domain.product.ProductListFragment",
           "source_set": "main",
@@ -54,6 +63,30 @@
       ]
     },
     {
+      "name": "UserCard",
+      "count": 2,
+      "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            20
+          ]
+        },
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            11
+          ]
+        }
+      ]
+    },
+    {
       "name": "ImageCard",
       "count": 1,
       "classes": [
@@ -64,6 +97,21 @@
           "count": 1,
           "lines": [
             12
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ProductCardPreview",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            19
           ]
         }
       ]
@@ -84,16 +132,16 @@
       ]
     },
     {
-      "name": "UserCard",
+      "name": "UserCardPreview",
       "count": 1,
       "classes": [
         {
-          "class_name": "com.domain.profile.ProfileActivity",
+          "class_name": "com.common.compose.CapturePreviews",
           "source_set": "main",
-          "module_name": "app",
+          "module_name": "common",
           "count": 1,
           "lines": [
-            11
+            20
           ]
         }
       ]

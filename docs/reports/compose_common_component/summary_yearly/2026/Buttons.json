@@ -4,8 +4,17 @@
   "components": [
     {
       "name": "PrimaryButton",
-      "count": 10,
+      "count": 11,
       "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            17
+          ]
+        },
         {
           "class_name": "com.domain.auth.LoginActivity",
           "source_set": "main",
@@ -91,6 +100,48 @@
       ]
     },
     {
+      "name": "SecondaryButton",
+      "count": 4,
+      "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            18
+          ]
+        },
+        {
+          "class_name": "com.domain.features.search.SearchActivity",
+          "source_set": "main",
+          "module_name": "features/search",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        },
+        {
+          "class_name": "com.domain.profile.ProfileActivity",
+          "source_set": "main",
+          "module_name": "app",
+          "count": 1,
+          "lines": [
+            14
+          ]
+        },
+        {
+          "class_name": "com.domain.vas.dpaper.DpaperActivity",
+          "source_set": "main",
+          "module_name": "vas/dpaper",
+          "count": 1,
+          "lines": [
+            9
+          ]
+        }
+      ]
+    },
+    {
       "name": "IconButton",
       "count": 3,
       "classes": [
@@ -124,39 +175,6 @@
       ]
     },
     {
-      "name": "SecondaryButton",
-      "count": 3,
-      "classes": [
-        {
-          "class_name": "com.domain.features.search.SearchActivity",
-          "source_set": "main",
-          "module_name": "features/search",
-          "count": 1,
-          "lines": [
-            9
-          ]
-        },
-        {
-          "class_name": "com.domain.profile.ProfileActivity",
-          "source_set": "main",
-          "module_name": "app",
-          "count": 1,
-          "lines": [
-            14
-          ]
-        },
-        {
-          "class_name": "com.domain.vas.dpaper.DpaperActivity",
-          "source_set": "main",
-          "module_name": "vas/dpaper",
-          "count": 1,
-          "lines": [
-            9
-          ]
-        }
-      ]
-    },
-    {
       "name": "LoadingButton",
       "count": 1,
       "classes": [
@@ -167,6 +185,36 @@
           "count": 1,
           "lines": [
             9
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PrimaryButtonPreview",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SecondaryButtonPreview",
+      "count": 1,
+      "classes": [
+        {
+          "class_name": "com.common.compose.CapturePreviews",
+          "source_set": "main",
+          "module_name": "common",
+          "count": 1,
+          "lines": [
+            18
           ]
         }
       ]

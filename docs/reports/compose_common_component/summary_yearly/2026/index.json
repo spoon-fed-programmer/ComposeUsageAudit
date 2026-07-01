@@ -22,12 +22,22 @@
   {
     "file": "Buttons.kt",
     "name": "PrimaryButton",
-    "count": 10
+    "count": 11
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "PrimaryButtonPreview",
+    "count": 1
   },
   {
     "file": "Buttons.kt",
     "name": "SecondaryButton",
-    "count": 3
+    "count": 4
+  },
+  {
+    "file": "Buttons.kt",
+    "name": "SecondaryButtonPreview",
+    "count": 1
   },
   {
     "file": "Buttons.kt",
@@ -47,7 +57,12 @@
   {
     "file": "Cards.kt",
     "name": "ProductCard",
-    "count": 4
+    "count": 5
+  },
+  {
+    "file": "Cards.kt",
+    "name": "ProductCardPreview",
+    "count": 1
   },
   {
     "file": "Cards.kt",
@@ -62,6 +77,11 @@
   {
     "file": "Cards.kt",
     "name": "UserCard",
+    "count": 2
+  },
+  {
+    "file": "Cards.kt",
+    "name": "UserCardPreview",
     "count": 1
   },
   {
@@ -127,12 +147,22 @@
   {
     "file": "Indicators.kt",
     "name": "CircularProgressIndicator",
-    "count": 0
+    "count": 1
+  },
+  {
+    "file": "Indicators.kt",
+    "name": "CircularProgressIndicatorPreview",
+    "count": 1
   },
   {
     "file": "Indicators.kt",
     "name": "LinearProgressIndicator",
-    "count": 0
+    "count": 1
+  },
+  {
+    "file": "Indicators.kt",
+    "name": "LinearProgressIndicatorPreview",
+    "count": 1
   },
   {
     "file": "Inputs.kt",
