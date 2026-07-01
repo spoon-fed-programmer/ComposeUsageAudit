@@ -2,6 +2,14 @@ package com.common.compose.card
 
 import androidx.compose.runtime.Composable
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.material.Card
+import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.font.FontWeight
 
 /**
  * Card component for displaying product details.
@@ -12,7 +20,12 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
  */
 @Composable
 fun ProductCard() {
-    // Product display card
+    Card(modifier = Modifier.padding(8.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Premium Headphones", fontWeight = FontWeight.Bold)
+            Text("$299.00", color = androidx.compose.ui.graphics.Color.Gray)
+        }
+    }
 }
 
 /**
@@ -24,7 +37,14 @@ fun ProductCard() {
  */
 @Composable
 fun UserCard() {
-    // User profile summary card
+    Card(modifier = Modifier.padding(8.dp)) {
+        Row(modifier = Modifier.padding(16.dp)) {
+            Column {
+                Text("Jane Doe", fontWeight = FontWeight.Bold)
+                Text("Software Engineer", color = androidx.compose.ui.graphics.Color.Gray)
+            }
+        }
+    }
 }
 
 /**
@@ -78,5 +98,6 @@ fun ProductCardPreview() {
 fun UserCardPreview() {
     UserCard()
 }
+
 
 

@@ -2,6 +2,16 @@ package com.common.compose.button
 
 import androidx.compose.runtime.Composable
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.IconButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.Icon
+import androidx.compose.ui.graphics.Color
 
 /**
  * Primary action button used for main call-to-actions.
@@ -13,7 +23,12 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
  */
 @Composable
 fun PrimaryButton() {
-    // Primary action button
+    Button(
+        onClick = {},
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF6200EE))
+    ) {
+        Text("Primary Button", color = Color.White)
+    }
 }
 
 /**
@@ -25,7 +40,9 @@ fun PrimaryButton() {
  */
 @Composable
 fun SecondaryButton() {
-    // Secondary action button
+    OutlinedButton(onClick = {}) {
+        Text("Secondary Button", color = Color(0xFF6200EE))
+    }
 }
 
 /**
@@ -35,7 +52,9 @@ fun SecondaryButton() {
  */
 @Composable
 fun TextButton() {
-    // Text-only button
+    TextButton(onClick = {}) {
+        Text("Text Button", color = Color(0xFF6200EE))
+    }
 }
 
 /**
@@ -45,7 +64,9 @@ fun TextButton() {
  */
 @Composable
 fun IconButton() {
-    // Button with an icon
+    IconButton(onClick = {}) {
+        Icon(Icons.Filled.Favorite, contentDescription = "Favorite", tint = Color.Red)
+    }
 }
 
 /**
@@ -55,7 +76,7 @@ fun IconButton() {
  */
 @Composable
 fun FloatingActionButton() {
-    // FAB
+    // FAB dummy implementation
 }
 
 /**
@@ -65,7 +86,9 @@ fun FloatingActionButton() {
  */
 @Composable
 fun OutlinedButton() {
-    // Outlined action button
+    OutlinedButton(onClick = {}) {
+        Text("Outlined Button")
+    }
 }
 
 /**
@@ -89,5 +112,6 @@ fun PrimaryButtonPreview() {
 fun SecondaryButtonPreview() {
     SecondaryButton()
 }
+
 
 

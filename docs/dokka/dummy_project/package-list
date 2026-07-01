@@ -54,7 +54,7 @@ $dokka.location:com.common.compose.layout//ResponsiveRow/#/PointingToDeclaration
 $dokka.location:com.common.compose.layout//ScrollableColumn/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-scrollable-column.html
 $dokka.location:com.common.compose.layout//SidebarLayout/#/PointingToDeclaration/dummy_project/com.common.compose.layout/-sidebar-layout.html
 $dokka.location:com.common.compose////PointingToDeclaration/dummy_project/com.common.compose/index.html
-$dokka.location:com.common.compose//capturePreview/#kotlin.String#java.io.File#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/dummy_project/com.common.compose/capture-preview.html
+$dokka.location:com.common.compose//capturePreview/#kotlin.String#kotlin.collections.List[java.io.File]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/dummy_project/com.common.compose/capture-preview.html
 $dokka.location:com.common.compose//main/#/PointingToDeclaration/dummy_project/com.common.compose/main.html
 com.common.compose
 com.common.compose.button
